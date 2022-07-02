@@ -1,16 +1,22 @@
 import './App.css';
 
-import { v4 as uuidv4 } from 'uuid';
+// Context
+import { ContextFunction } from './context/context-config';
+// Components
+import LoginPage from './components/LoginPage';
+import RegistrationPage from './components/RegistrationPage';
+import { Routes, Route } from 'react-router-dom';
 
 function App() {
-	const generate = () => {
-		console.log(uuidv4());
-	};
-
 	return (
-		<div className="App">
-			<button onClick={() => generate()}>Generate</button>
-		</div>
+		<ContextFunction>
+			<div className="App">
+				<Routes>
+					<Route path="/" element={<LoginPage />} />
+					<Route path="/register" element={<RegistrationPage />} />
+				</Routes>
+			</div>
+		</ContextFunction>
 	);
 }
 
