@@ -2,12 +2,14 @@ import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ContextVariable } from '../context/context-config';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 const RegistrationPage = () => {
 	const { register } = useContext(ContextVariable);
 
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const [retryPassword, setRetryPassword] = useState('');
 	const [error, setError] = useState('');
 
 	let navigate = useNavigate();
@@ -18,13 +20,18 @@ const RegistrationPage = () => {
 		console.log(password);
 		setError('');
 
-		try {
-			await register(email, password);
-			navigate('/');
-		} catch (error) {
-			setError(error.message);
+		if (password !== retryPassword) {
+			toast.error('Passwords are mismatched');
+		} else {
+			try {
+				await register(email, password);
+				toast.success('Account created! Please log in');
+				navigate('/');
+			} catch (error) {
+				setError(error.message);
 
-			console.log(error);
+				console.log(error);
+			}
 		}
 	};
 
@@ -45,9 +52,9 @@ const RegistrationPage = () => {
 						</div>
 					)}
 					<div className="mb-3">
-						<label htmlFor="exampleInputEmail1" className="form-label">
+						<small htmlFor="exampleInputEmail1" className="form-label">
 							Email address
-						</label>
+						</small>
 						<input
 							type="email"
 							className="form-control"
@@ -60,14 +67,23 @@ const RegistrationPage = () => {
 						</div>
 					</div>
 					<div className="mb-3">
-						<label htmlFor="exampleInputPassword1" className="form-label">
+						<small htmlFor="exampleInputPassword1" className="form-label">
 							Password
-						</label>
+						</small>
 						<input
 							type="text"
-							className="form-control"
+							className="form-control mb-3"
 							id="exampleInputPassword1"
 							onChange={(e) => setPassword(e.target.value)}
+						/>
+						<small htmlFor="exampleInputPassword1" className="form-label">
+							Confirm password
+						</small>
+						<input
+							type="text"
+							className="form-control "
+							id="exampleInputPassword1"
+							onChange={(e) => setRetryPassword(e.target.value)}
 						/>
 					</div>
 
