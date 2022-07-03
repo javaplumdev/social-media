@@ -56,13 +56,14 @@ const HomePage = () => {
 							<b>What's happening today?</b>
 
 							{isLoading ? (
-								<Spinner
-									animation="border"
-									role="status"
-									style={{ height: '100vh' }}
+								<div
+									style={{ height: '20vh' }}
+									className="d-flex align-items-center justify-content-center"
 								>
-									<span className="visually-hidden">Loading...</span>
-								</Spinner>
+									<Spinner animation="border" role="status">
+										<span className="visually-hidden">Loading...</span>
+									</Spinner>
+								</div>
 							) : (
 								feedData?.map &&
 								feedData.map((item) => {

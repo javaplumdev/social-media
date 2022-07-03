@@ -91,7 +91,7 @@ export const ContextFunction = ({ children }) => {
 		onSnapshot(collection(db, 'posts'), (snapshot) => {
 			setFeedData(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
 		});
-		// setIsLoading(false);
+		setIsLoading(false);
 	}, []);
 
 	return (
