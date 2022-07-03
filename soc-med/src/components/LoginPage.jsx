@@ -78,7 +78,11 @@ const LoginPage = () => {
 						Log in
 					</button>
 					<hr></hr>
-					<GoogleButton className="w-100" onClick={handleGoogleSignIn} />
+					<GoogleButton
+						type="light"
+						className="w-100"
+						onClick={handleGoogleSignIn}
+					/>
 
 					<div className="text-center mt-3">
 						<p>

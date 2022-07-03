@@ -18,7 +18,9 @@ const NavbarComponent = () => {
 	return (
 		<Navbar bg="white" variant="light">
 			<Container>
-				<Navbar.Brand href="/home">Navbar</Navbar.Brand>
+				<Navbar.Brand href="/home" style={{ color: '#fb8500' }}>
+					Di q alam
+				</Navbar.Brand>
 				<Nav className="mx-auto">
 					<Nav.Link href="/home">Home</Nav.Link>
 					<Nav.Link href="#features">Features</Nav.Link>

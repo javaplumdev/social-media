@@ -1,3 +1,9 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
 .form,
 .grey {
 	background-color: rgb(240, 240, 240);
@@ -6,7 +12,7 @@
 .buttons {
 	background-color: #fb8500;
 	border: none;
-	padding: 0.8em;
+	padding: 10px;
 	border-radius: 10px;
 	color: white;
 }

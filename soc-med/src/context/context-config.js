@@ -16,6 +16,7 @@ export const ContextVariable = createContext();
 export const ContextFunction = ({ children }) => {
 	const [user, setUser] = useState({});
 	const [feedData, setFeedData] = useState({});
+	const [isLoading, setIsLoading] = useState(true);
 
 	const register = (email, password, firstName, lastName) => {
 		onAuthStateChanged(firebaseAuth, (currentUser) => {
@@ -90,6 +91,7 @@ export const ContextFunction = ({ children }) => {
 		onSnapshot(collection(db, 'posts'), (snapshot) => {
 			setFeedData(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
 		});
+		// setIsLoading(false);
 	}, []);
 
 	return (
@@ -102,6 +104,7 @@ export const ContextFunction = ({ children }) => {
 				googleSignIn,
 				postContent,
 				feedData,
+				isLoading,
 			}}
 		>
 			{children}
