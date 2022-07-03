@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { ContextVariable } from '../context/context-config';
 import { useNavigate } from 'react-router-dom';
+import NavbarComponent from './NavbarComponent';
 
 const HomePage = () => {
 	const { user, logOut } = useContext(ContextVariable);
@@ -17,6 +18,7 @@ const HomePage = () => {
 
 	return (
 		<div>
+			<NavbarComponent />
 			{user.email} <button onClick={handleLogOut}>Logout</button>
 		</div>
 	);

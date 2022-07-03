@@ -39,7 +39,7 @@ const LoginPage = () => {
 	return (
 		<div
 			style={{ height: '100vh' }}
-			className="container d-flex justify-content-center align-items-center"
+			className="form d-flex justify-content-center align-items-center p-2"
 		>
 			<div
 				className="bg-white shadow d-flex justify-content-center p-3 rounded"
