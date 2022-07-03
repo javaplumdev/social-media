@@ -3,8 +3,10 @@ import { ContextFunction } from './context/context-config';
 import LoginPage from './components/LoginPage';
 import RegistrationPage from './components/RegistrationPage';
 import { Routes, Route } from 'react-router-dom';
+import NavbarComponent from './components/NavbarComponent';
 import HomePage from './components/HomePage';
 import ProtectedRoute from './components/ProtectedRoute';
+import ProfilePage from './components/ProfilePage';
 import { Toaster } from 'react-hot-toast';
 
 function App() {
@@ -20,7 +22,17 @@ function App() {
 						element={
 							<ProtectedRoute>
 								{' '}
+								<NavbarComponent />
 								<HomePage />
+							</ProtectedRoute>
+						}
+					/>
+					<Route
+						path="/profile"
+						element={
+							<ProtectedRoute>
+								<NavbarComponent />
+								<ProfilePage />
 							</ProtectedRoute>
 						}
 					/>

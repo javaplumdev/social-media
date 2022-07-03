@@ -5,6 +5,7 @@
     "react-bootstrap": "^2.4.0",
     "react-google-button": "^0.7.2",
     "react-hot-toast": "^2.2.0",
+    "react-icons": "^4.4.0",
     "react-router-dom": "^6.3.0",
     "uuid": "^8.3.2"
   }

@@ -1,3 +1,12 @@
-.form {
-	background-color: rgb(229, 229, 229);
+.form,
+.grey {
+	background-color: rgb(240, 240, 240);
+}
+
+.buttons {
+	background-color: #fb8500;
+	border: none;
+	padding: 0.8em;
+	border-radius: 10px;
+	color: white;
 }

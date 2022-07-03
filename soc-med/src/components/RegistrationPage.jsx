@@ -9,6 +9,10 @@ const RegistrationPage = () => {
 
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+
+	const [firstName, setFirstName] = useState('');
+	const [lastName, setLastName] = useState('');
+
 	const [retryPassword, setRetryPassword] = useState('');
 	const [error, setError] = useState('');
 
@@ -16,15 +20,13 @@ const RegistrationPage = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log(email);
-		console.log(password);
 		setError('');
 
 		if (password !== retryPassword) {
 			toast.error('Passwords are mismatched');
 		} else {
 			try {
-				await register(email, password);
+				await register(email, password, firstName, lastName);
 				toast.success('Account created! Please log in');
 				navigate('/');
 			} catch (error) {
@@ -52,13 +54,10 @@ const RegistrationPage = () => {
 						</div>
 					)}
 					<div className="mb-3">
-						<small htmlFor="exampleInputEmail1" className="form-label">
-							Email address
-						</small>
+						<small className="form-label">Email address</small>
 						<input
 							type="email"
 							className="form-control"
-							id="exampleInputEmail1"
 							aria-describedby="emailHelp"
 							onChange={(e) => setEmail(e.target.value)}
 						/>
@@ -67,22 +66,33 @@ const RegistrationPage = () => {
 						</div>
 					</div>
 					<div className="mb-3">
-						<small htmlFor="exampleInputPassword1" className="form-label">
-							Password
-						</small>
+						<small className="form-label">First name</small>
 						<input
 							type="text"
-							className="form-control mb-3"
-							id="exampleInputPassword1"
+							className="form-control"
+							aria-describedby="emailHelp"
+							onChange={(e) => setFirstName(e.target.value)}
+						/>
+						<small className="form-label">Last name</small>
+						<input
+							type="text"
+							className="form-control"
+							aria-describedby="emailHelp"
+							onChange={(e) => setLastName(e.target.value)}
+						/>
+					</div>
+					<hr></hr>
+					<div className="mb-3">
+						<small className="form-label">Password</small>
+						<input
+							type="text"
+							className="form-control"
 							onChange={(e) => setPassword(e.target.value)}
 						/>
-						<small htmlFor="exampleInputPassword1" className="form-label">
-							Confirm password
-						</small>
+						<small className="form-label">Confirm password</small>
 						<input
 							type="text"
-							className="form-control "
-							id="exampleInputPassword1"
+							className="form-control"
 							onChange={(e) => setRetryPassword(e.target.value)}
 						/>
 					</div>
