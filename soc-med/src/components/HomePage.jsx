@@ -2,18 +2,26 @@ import React, { useContext, useState } from 'react';
 import { Row, Container, Col, FloatingLabel, Form } from 'react-bootstrap';
 import { ContextVariable } from '../context/context-config';
 import { v4 as uuidv4 } from 'uuid';
-import { BsFillChatLeftFill, BsFillHeartFill } from 'react-icons/bs';
+import {
+	BsFillChatLeftFill,
+	BsFillHeartFill,
+	BsFillPersonPlusFill,
+} from 'react-icons/bs';
 import Spinner from 'react-bootstrap/Spinner';
 
 const HomePage = () => {
-	const { postContent, feedData, user, isLoading } =
-		useContext(ContextVariable);
+	const {
+		postContent,
+		feedData,
+		user,
+		isLoading,
+		users,
+		currentUserData,
+		logInType,
+	} = useContext(ContextVariable);
 
 	const [content, setContent] = useState('');
-
 	const postID = uuidv4();
-
-	console.log(user);
 
 	const RightCol = () => {
 		return (
@@ -114,7 +122,61 @@ const HomePage = () => {
 							)}
 						</div>
 					</Col>
-					<Col>3 of 3</Col>
+					<Col>
+						<div className="bg-white rounded p-3">
+							<h6 className="mb-3">Suggested friends</h6>
+							{users?.map &&
+								users.map((item) => {
+									if (logInType === 'google') {
+										currentUserData.map((item) => {
+											return (
+												<div key={item.userID} className="mb-3">
+													<div className="d-flex">
+														<img
+															src={item.profilePicture}
+															className="me-3"
+															style={{
+																width: '50px',
+																height: '50px',
+																borderRadius: '50%',
+															}}
+														/>
+														<div>
+															{item.name}
+															<br></br>
+															<BsFillPersonPlusFill size="20" />
+														</div>
+													</div>
+												</div>
+											);
+										});
+									} else if (logInType === 'email') {
+										currentUserData.map((item) => {
+											return (
+												<div key={item.userID} className="mb-3">
+													<div className="d-flex">
+														<img
+															src={item.profilePicture}
+															className="me-3"
+															style={{
+																width: '50px',
+																height: '50px',
+																borderRadius: '50%',
+															}}
+														/>
+														<div>
+															{item.name}
+															<br></br>
+															<BsFillPersonPlusFill size="20" />
+														</div>
+													</div>
+												</div>
+											);
+										});
+									}
+								})}
+						</div>
+					</Col>
 				</Row>
 			</Container>
 		</div>

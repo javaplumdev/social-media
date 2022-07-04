@@ -1,7 +1,12 @@
 import { async } from '@firebase/util';
 import React, { useContext } from 'react';
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
-import { BsFillPersonFill, BsGearFill, BsBoxArrowLeft } from 'react-icons/bs';
+import {
+	BsFillPersonFill,
+	BsGearFill,
+	BsBoxArrowLeft,
+	BsFillHouseFill,
+} from 'react-icons/bs';
 import { ContextVariable } from '../context/context-config';
 
 const NavbarComponent = () => {
@@ -22,9 +27,11 @@ const NavbarComponent = () => {
 					Di q alam
 				</Navbar.Brand>
 				<Nav className="mx-auto">
-					<Nav.Link href="/home">Home</Nav.Link>
-					<Nav.Link href="#features">Features</Nav.Link>
-					<Nav.Link href="#pricing">Pricing</Nav.Link>
+					<Nav.Link href="/home">
+						<BsFillHouseFill /> Home
+					</Nav.Link>
+					<Nav.Link href="#features">Messages</Nav.Link>
+					<Nav.Link href="#pricing">Friend requests</Nav.Link>
 				</Nav>
 				<Nav>
 					<NavDropdown title="Profile" id="basic-nav-dropdown">

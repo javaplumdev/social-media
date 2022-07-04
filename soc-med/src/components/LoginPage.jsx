@@ -74,7 +74,7 @@ const LoginPage = () => {
 						/>
 					</div>
 
-					<button type="Submit" className="btn btn-primary w-100">
+					<button type="Submit" className="buttons w-100">
 						Log in
 					</button>
 					<hr></hr>
