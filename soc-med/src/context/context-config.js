@@ -45,15 +45,10 @@ export const ContextFunction = ({ children }) => {
 	}, []);
 
 	if (user) {
-		console.log(users);
-
 		currentUserData =
 			users?.filter && users.filter((item) => item.userID === user.uid);
 
 		logInType = currentUserData.map((item) => item.loginType)[0];
-
-		console.log(currentUserData);
-		console.log(logInType);
 	}
 
 	const register = (email, password, firstName, lastName) => {
@@ -115,15 +110,19 @@ export const ContextFunction = ({ children }) => {
 					content: content,
 					userID: user.uid,
 				});
+
+				toast.success('Posted!');
 			} else if (logInType === 'email') {
 				currentUserData.map((item) => {
 					setDoc(doc(db, 'posts', postID), {
 						postID: postID,
-						name: item.firstName + item.lastName,
+						name: item.firstName + ' ' + item.lastName,
 						content: content,
 						userID: user.uid,
 					});
 				});
+
+				toast.success('Posted!');
 			}
 		}
 	};
