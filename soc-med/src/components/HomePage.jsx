@@ -2,23 +2,13 @@ import React, { useContext, useState } from 'react';
 import { Row, Container, Col, FloatingLabel, Form } from 'react-bootstrap';
 import { ContextVariable } from '../context/context-config';
 import { v4 as uuidv4 } from 'uuid';
-import {
-	BsFillChatLeftFill,
-	BsFillHeartFill,
-	BsFillPersonPlusFill,
-} from 'react-icons/bs';
-import Spinner from 'react-bootstrap/Spinner';
+
+import SuggestedFriendsComponent from './SuggestedFriendsComponent';
+import PostsComponent from './PostsComponent';
 
 const HomePage = () => {
-	const {
-		postContent,
-		feedData,
-		user,
-		isLoading,
-		users,
-		currentUserData,
-		logInType,
-	} = useContext(ContextVariable);
+	const { postContent, feedData, isLoading, suggestedFriends } =
+		useContext(ContextVariable);
 
 	const [content, setContent] = useState('');
 	const postID = uuidv4();
@@ -62,118 +52,25 @@ const HomePage = () => {
 						</div>
 						<div className="mt-2">
 							<b>What's happening today?</b>
-
-							{isLoading ? (
-								<div
-									style={{ height: '20vh' }}
-									className="d-flex align-items-center justify-content-center"
-								>
-									<Spinner animation="border" role="status">
-										<span className="visually-hidden">Loading...</span>
-									</Spinner>
-								</div>
-							) : (
-								feedData?.map &&
+							{feedData?.map &&
 								feedData.map((item) => {
 									return (
-										<div
-											key={item.postID}
-											className="bg-white rounded p-3 mt-3 "
-										>
-											<div className="d-flex">
-												<img
-													src={user.photoURL}
-													className="me-3"
-													style={{
-														width: '50px',
-														height: '50px',
-														borderRadius: '50%',
-													}}
-												/>
-												<div>
-													<div>
-														<b>{item.name}</b>
-														<p className="text-secondary">{item.content}</p>
-													</div>
-													<div>
-														{' '}
-														<small>
-															{' '}
-															<BsFillHeartFill
-																size="20"
-																className="mx-2 text-secondary"
-															/>{' '}
-															0 Likes
-														</small>
-														<small>
-															{' '}
-															<BsFillChatLeftFill
-																size="20"
-																className="mx-2 text-secondary"
-															/>{' '}
-															0 Comments
-														</small>
-													</div>
-												</div>
-											</div>
-										</div>
+										<PostsComponent key={item.postID} content={item.content} />
 									);
-								})
-							)}
+								})}
 						</div>
 					</Col>
 					<Col>
 						<div className="bg-white rounded p-3">
 							<h6 className="mb-3">Suggested friends</h6>
-							{users?.map &&
-								users.map((item) => {
-									if (logInType === 'google') {
-										currentUserData.map((item) => {
-											return (
-												<div key={item.userID} className="mb-3">
-													<div className="d-flex">
-														<img
-															src={item.profilePicture}
-															className="me-3"
-															style={{
-																width: '50px',
-																height: '50px',
-																borderRadius: '50%',
-															}}
-														/>
-														<div>
-															{item.name}
-															<br></br>
-															<BsFillPersonPlusFill size="20" />
-														</div>
-													</div>
-												</div>
-											);
-										});
-									} else if (logInType === 'email') {
-										currentUserData.map((item) => {
-											return (
-												<div key={item.userID} className="mb-3">
-													<div className="d-flex">
-														<img
-															src={item.profilePicture}
-															className="me-3"
-															style={{
-																width: '50px',
-																height: '50px',
-																borderRadius: '50%',
-															}}
-														/>
-														<div>
-															{item.name}
-															<br></br>
-															<BsFillPersonPlusFill size="20" />
-														</div>
-													</div>
-												</div>
-											);
-										});
-									}
+							{suggestedFriends?.map &&
+								suggestedFriends.map((item) => {
+									return (
+										<SuggestedFriendsComponent
+											key={item.userID}
+											loginType={item.loginType}
+										/>
+									);
 								})}
 						</div>
 					</Col>
