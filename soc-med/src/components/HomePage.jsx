@@ -55,7 +55,15 @@ const HomePage = () => {
 							{feedData?.map &&
 								feedData.map((item) => {
 									return (
-										<PostsComponent key={item.postID} content={item.content} />
+										<PostsComponent
+											key={item.postID}
+											userID={item.userID}
+											name={item.name}
+											content={item.content}
+											timestamp={item.timestamp}
+											dateAndTime={item.dateAndTime}
+											profilePicture={item.profilePicture}
+										/>
 									);
 								})}
 						</div>

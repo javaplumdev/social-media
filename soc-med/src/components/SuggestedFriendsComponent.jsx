@@ -3,11 +3,7 @@ import { BsFillPersonPlusFill } from 'react-icons/bs';
 import { ContextVariable } from '../context/context-config';
 
 const SuggestedFriendsComponent = ({ loginType }) => {
-	console.log(loginType);
-
 	const { suggestedFriends } = useContext(ContextVariable);
-
-	console.log(suggestedFriends);
 
 	return (
 		<>

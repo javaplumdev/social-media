@@ -11,9 +11,10 @@ import {
 	doc,
 	onSnapshot,
 	collection,
-	serverTimestamp,
 	query,
+	serverTimestamp,
 	orderBy,
+	Timestamp,
 } from 'firebase/firestore';
 import { firebaseAuth, db } from '../firebase/firebase-config';
 import { createContext, useEffect, useState } from 'react';
@@ -30,6 +31,22 @@ export const ContextFunction = ({ children }) => {
 	let currentUserData;
 	let logInType;
 	let suggestedFriends;
+
+	let dateToday = new Date().toLocaleDateString();
+
+	var date = new Date();
+	var hours = date.getHours();
+	var minutes = date.getMinutes();
+
+	// Check whether AM or PM
+	var newformat = hours >= 12 ? 'PM' : 'AM';
+
+	// Find current hour in AM-PM Format
+	hours = hours % 12;
+
+	// To display "0" as "12"
+	hours = hours ? hours : 12;
+	minutes = minutes < 10 ? '0' + minutes : minutes;
 
 	useEffect(() => {
 		const queryData = query(
@@ -69,8 +86,6 @@ export const ContextFunction = ({ children }) => {
 
 		suggestedFriends =
 			users?.filter && users.filter((item) => item.userID !== user.uid);
-
-		console.log(currentUserData);
 	}
 
 	const register = (email, password, firstName, lastName) => {
@@ -131,6 +146,8 @@ export const ContextFunction = ({ children }) => {
 					name: user.displayName,
 					content: content,
 					userID: user.uid,
+					profilePicture: user.photoURL,
+					dateAndTime: `${dateToday} ${hours}:${minutes}${newformat}`,
 					timestamp: serverTimestamp(),
 				});
 
@@ -141,7 +158,9 @@ export const ContextFunction = ({ children }) => {
 						postID: postID,
 						name: item.firstName + ' ' + item.lastName,
 						content: content,
+						profilePicture: item.profilePicture,
 						userID: user.uid,
+						dateAndTime: `${dateToday} ${hours}:${minutes}${newformat}`,
 						timestamp: serverTimestamp(),
 					});
 				});

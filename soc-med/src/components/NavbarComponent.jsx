@@ -28,7 +28,7 @@ const NavbarComponent = () => {
 				</Navbar.Brand>
 				<Nav className="mx-auto">
 					<Nav.Link href="/home">
-						<BsFillHouseFill /> Home
+						<BsFillHouseFill color="#fb8500" /> Home
 					</Nav.Link>
 					<Nav.Link href="#features">Messages</Nav.Link>
 					<Nav.Link href="#pricing">Friend requests</Nav.Link>
