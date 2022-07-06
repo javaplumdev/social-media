@@ -5,49 +5,31 @@ import { ContextVariable } from '../context/context-config';
 const SuggestedFriendsComponent = ({ loginType }) => {
 	const { suggestedFriends } = useContext(ContextVariable);
 
+	console.log(suggestedFriends);
+
 	return (
 		<>
 			{suggestedFriends.map((item) => {
 				// for email users
-				if (loginType === 'email') {
-					return (
-						<div key={item.userID} className="d-flex">
-							<img
-								src={item.profilePicture}
-								className="me-3"
-								style={{
-									width: '50px',
-									height: '50px',
-									borderRadius: '50%',
-								}}
-							/>
-							<div>
-								{item.firstName + ' ' + item.lastName}
-								<br></br>
-								<BsFillPersonPlusFill size="20" />
-							</div>
+
+				return (
+					<div key={item.userID} className="d-flex">
+						<img
+							src={item.profilePicture}
+							className="me-3"
+							style={{
+								width: '50px',
+								height: '50px',
+								borderRadius: '50%',
+							}}
+						/>
+						<div>
+							{item.firstName + ' ' + item.lastName}
+							<br></br>
+							<BsFillPersonPlusFill size="20" />
 						</div>
-					);
-				} else if (loginType === 'google') {
-					return (
-						<div key={item.userID} className="d-flex">
-							<img
-								src={item.profilePicture}
-								className="me-3"
-								style={{
-									width: '50px',
-									height: '50px',
-									borderRadius: '50%',
-								}}
-							/>
-							<div>
-								{item.name}
-								<br></br>
-								<BsFillPersonPlusFill size="20" />
-							</div>
-						</div>
-					);
-				}
+					</div>
+				);
 			})}
 		</>
 	);
