@@ -15,6 +15,9 @@ import {
 	serverTimestamp,
 	orderBy,
 	Timestamp,
+	arrayUnion,
+	updateDoc,
+	arrayRemove,
 } from 'firebase/firestore';
 import { firebaseAuth, db } from '../firebase/firebase-config';
 import { createContext, useEffect, useState } from 'react';
@@ -30,6 +33,8 @@ export const ContextFunction = ({ children }) => {
 	const [content, setContent] = useState('');
 	const [show, setShow] = useState(false);
 	const [feedPostID, setFeedPostID] = useState('');
+	const [commentData, setCommentData] = useState({});
+	const [commentValue, setCommentValue] = useState('');
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
@@ -59,6 +64,17 @@ export const ContextFunction = ({ children }) => {
 
 		onSnapshot(queryData, (querySnapshot) => {
 			setFeedData(
+				querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+			);
+		});
+
+		const queryComments = query(
+			collection(db, 'comments'),
+			orderBy('timestamp', 'asc')
+		);
+
+		onSnapshot(queryComments, (querySnapshot) => {
+			setCommentData(
 				querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
 			);
 		});
@@ -151,38 +167,77 @@ export const ContextFunction = ({ children }) => {
 					profilePicture: user.photoURL,
 					dateAndTime: `${dateToday} ${hours}:${minutes}${newformat}`,
 					timestamp: serverTimestamp(),
+					likes: [],
 				});
 
+				setContent('');
 				toast.success('Posted!');
 			} else if (logInType === 'email') {
 				currentUserData.map((item) => {
 					setDoc(doc(db, 'posts', postID), {
 						postID: postID,
-						name: item.firstName + ' ' + item.lastName,
+						name: item.name,
 						content: content,
 						profilePicture: item.profilePicture,
 						userID: user.uid,
 						dateAndTime: `${dateToday} ${hours}:${minutes}${newformat}`,
 						timestamp: serverTimestamp(),
+						likes: [],
 					});
 				});
 
+				setContent('');
 				toast.success('Posted!');
 			}
 		}
-
-		setContent('');
 	};
 
 	const openComment = (postID) => {
 		handleShow();
 		setFeedPostID(postID);
-		console.log(feedPostID);
+	};
+
+	const comment = (commentID, feedPostID) => {
+		currentUserData.map((item) => {
+			setDoc(doc(db, 'comments', commentID), {
+				commentID: commentID,
+				postID: feedPostID,
+				name: item.name,
+				comment: commentValue,
+				profilePicture: item.profilePicture,
+				userID: user.uid,
+				dateAndTime: `${dateToday} ${hours}:${minutes}${newformat}`,
+				timestamp: serverTimestamp(),
+			});
+		});
+
+		setCommentValue('');
+	};
+
+	const like = (postID) => {
+		const checkFeedData = feedData.map((item) => item.likes)[0];
+
+		const isLike = checkFeedData.find((item) => item.user === user.uid);
+
+		if (isLike) {
+			updateDoc(doc(db, 'posts', postID), {
+				likes: arrayRemove({ user: user.uid }),
+			});
+		} else {
+			updateDoc(doc(db, 'posts', postID), {
+				likes: arrayUnion({ user: user.uid }),
+			});
+		}
 	};
 
 	return (
 		<ContextVariable.Provider
 			value={{
+				like,
+				commentData,
+				commentValue,
+				setCommentValue,
+				comment,
 				feedPostID,
 				openComment,
 				show,

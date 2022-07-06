@@ -7,8 +7,14 @@ import SuggestedFriendsComponent from './SuggestedFriendsComponent';
 import PostsComponent from './PostsComponent';
 
 const HomePage = () => {
-	const { postContent, feedData, suggestedFriends, setContent, content } =
-		useContext(ContextVariable);
+	const {
+		postContent,
+		feedData,
+		suggestedFriends,
+		setContent,
+		content,
+		commentData,
+	} = useContext(ContextVariable);
 
 	const postID = uuidv4();
 
@@ -29,18 +35,15 @@ const HomePage = () => {
 					</Col>
 					<Col xs={6}>
 						<div>
-							<FloatingLabel
-								controlId="floatingTextarea2"
-								label="What's on your mind?"
+							<Form.Control
+								placeholder="What's on your mind?"
+								aria-label="Recipient's username"
+								aria-describedby="basic-addon2"
+								style={{ height: '75px' }}
 								value={content}
 								onChange={(e) => setContent(e.target.value)}
-							>
-								<Form.Control
-									as="textarea"
-									placeholder="Leave a comment here"
-									style={{ height: '100px', resize: 'none' }}
-								/>
-							</FloatingLabel>
+							/>
+
 							<div className="d-flex justify-content-end">
 								<button
 									className="buttons mt-3"
@@ -52,6 +55,7 @@ const HomePage = () => {
 						</div>
 						<div className="mt-2">
 							<b>What's happening today?</b>
+
 							{feedData?.map &&
 								feedData.map((item) => {
 									return (
@@ -64,9 +68,16 @@ const HomePage = () => {
 											dateAndTime={item.dateAndTime}
 											profilePicture={item.profilePicture}
 											postID={item.postID}
+											likes={item.likes}
 										/>
 									);
 								})}
+							<p
+								className="mt-3 text-center pt-3"
+								style={{ borderTop: '1px solid #bcb8b1' }}
+							>
+								End of feed
+							</p>
 						</div>
 					</Col>
 					<Col>

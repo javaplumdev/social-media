@@ -1,9 +1,5 @@
 import React, { useContext, useState } from 'react';
-import {
-	BsFillChatLeftFill,
-	BsFillHeartFill,
-	BsFillPersonPlusFill,
-} from 'react-icons/bs';
+import { BsFillChatLeftFill, BsFillHeartFill } from 'react-icons/bs';
 import Spinner from 'react-bootstrap/Spinner';
 import { ContextVariable } from '../context/context-config';
 import { NavItem } from 'react-bootstrap';
@@ -12,13 +8,21 @@ import CommentModal from './CommentModal';
 const PostsComponent = ({
 	name,
 	content,
-	userID,
-	timestamp,
 	dateAndTime,
 	profilePicture,
 	postID,
+	likes,
 }) => {
-	const { openComment } = useContext(ContextVariable);
+	const { openComment, commentData, user, like } = useContext(ContextVariable);
+
+	const filteredComments =
+		commentData?.filter && commentData.filter((item) => item.postID === postID);
+
+	console.log(likes);
+
+	const isLike = likes?.find && likes.find((item) => item.user === user.uid);
+
+	console.log(isLike);
 
 	return (
 		<div className="bg-white p-3 rounded d-flex my-3">
@@ -37,13 +41,20 @@ const PostsComponent = ({
 				<small className="text-secondary">{dateAndTime}</small>
 				<p>{content}</p>
 				<div>
-					<BsFillHeartFill size="20" color="#bcb8b1" /> 0{' '}
+					<BsFillHeartFill
+						size="20"
+						color={isLike ? '#fb8500' : '#bcb8b1'}
+						className="icons me-2"
+						onClick={() => like(postID)}
+					/>{' '}
+					{likes.length}{' '}
 					<BsFillChatLeftFill
 						size="20"
 						color="#bcb8b1"
+						className="icons mx-2"
 						onClick={() => openComment(postID)}
 					/>{' '}
-					0
+					{filteredComments.length}
 					<CommentModal />
 				</div>
 			</div>
