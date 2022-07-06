@@ -27,6 +27,12 @@ export const ContextFunction = ({ children }) => {
 	const [feedData, setFeedData] = useState({});
 	const [users, setUsers] = useState({});
 	const [isLoading, setIsLoading] = useState(true);
+	const [content, setContent] = useState('');
+	const [show, setShow] = useState(false);
+	const [feedPostID, setFeedPostID] = useState('');
+
+	const handleClose = () => setShow(false);
+	const handleShow = () => setShow(true);
 
 	let currentUserData;
 	let logInType;
@@ -37,13 +43,10 @@ export const ContextFunction = ({ children }) => {
 	var date = new Date();
 	var hours = date.getHours();
 	var minutes = date.getMinutes();
-
 	// Check whether AM or PM
 	var newformat = hours >= 12 ? 'PM' : 'AM';
-
 	// Find current hour in AM-PM Format
 	hours = hours % 12;
-
 	// To display "0" as "12"
 	hours = hours ? hours : 12;
 	minutes = minutes < 10 ? '0' + minutes : minutes;
@@ -135,7 +138,7 @@ export const ContextFunction = ({ children }) => {
 		);
 	};
 
-	const postContent = async (content, postID) => {
+	const postContent = async (postID) => {
 		if (!content.trim() || content === '') {
 			toast.error('Please enter a content!');
 		} else {
@@ -167,11 +170,27 @@ export const ContextFunction = ({ children }) => {
 				toast.success('Posted!');
 			}
 		}
+
+		setContent('');
+	};
+
+	const openComment = (postID) => {
+		handleShow();
+		setFeedPostID(postID);
+		console.log(feedPostID);
 	};
 
 	return (
 		<ContextVariable.Provider
 			value={{
+				feedPostID,
+				openComment,
+				show,
+				setShow,
+				handleClose,
+				handleShow,
+				content,
+				setContent,
 				suggestedFriends,
 				logInType,
 				currentUserData,

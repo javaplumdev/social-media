@@ -7,6 +7,7 @@ import {
 import Spinner from 'react-bootstrap/Spinner';
 import { ContextVariable } from '../context/context-config';
 import { NavItem } from 'react-bootstrap';
+import CommentModal from './CommentModal';
 
 const PostsComponent = ({
 	name,
@@ -15,10 +16,9 @@ const PostsComponent = ({
 	timestamp,
 	dateAndTime,
 	profilePicture,
+	postID,
 }) => {
-	const { users, currentUserData } = useContext(ContextVariable);
-
-	console.log(currentUserData);
+	const { openComment } = useContext(ContextVariable);
 
 	return (
 		<div className="bg-white p-3 rounded d-flex my-3">
@@ -37,7 +37,14 @@ const PostsComponent = ({
 				<small className="text-secondary">{dateAndTime}</small>
 				<p>{content}</p>
 				<div>
-					<BsFillHeartFill /> 0 <BsFillChatLeftFill /> 0
+					<BsFillHeartFill size="20" color="#bcb8b1" /> 0{' '}
+					<BsFillChatLeftFill
+						size="20"
+						color="#bcb8b1"
+						onClick={() => openComment(postID)}
+					/>{' '}
+					0
+					<CommentModal />
 				</div>
 			</div>
 		</div>

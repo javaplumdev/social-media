@@ -7,10 +7,9 @@ import SuggestedFriendsComponent from './SuggestedFriendsComponent';
 import PostsComponent from './PostsComponent';
 
 const HomePage = () => {
-	const { postContent, feedData, isLoading, suggestedFriends } =
+	const { postContent, feedData, suggestedFriends, setContent, content } =
 		useContext(ContextVariable);
 
-	const [content, setContent] = useState('');
 	const postID = uuidv4();
 
 	const RightCol = () => {
@@ -33,6 +32,7 @@ const HomePage = () => {
 							<FloatingLabel
 								controlId="floatingTextarea2"
 								label="What's on your mind?"
+								value={content}
 								onChange={(e) => setContent(e.target.value)}
 							>
 								<Form.Control
@@ -44,7 +44,7 @@ const HomePage = () => {
 							<div className="d-flex justify-content-end">
 								<button
 									className="buttons mt-3"
-									onClick={() => postContent(content, postID)}
+									onClick={() => postContent(postID)}
 								>
 									Post
 								</button>
@@ -63,6 +63,7 @@ const HomePage = () => {
 											timestamp={item.timestamp}
 											dateAndTime={item.dateAndTime}
 											profilePicture={item.profilePicture}
+											postID={item.postID}
 										/>
 									);
 								})}
@@ -76,7 +77,8 @@ const HomePage = () => {
 									return (
 										<SuggestedFriendsComponent
 											key={item.userID}
-											loginType={item.loginType}
+											name={item.name}
+											profilePicture={item.profilePicture}
 										/>
 									);
 								})}

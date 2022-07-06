@@ -16,3 +16,8 @@
 	border-radius: 10px;
 	color: white;
 }
+
+.modal-backdrop {
+	background-color: rgba(0, 0, 0, 0.2) !important;
+	border: none;
+}

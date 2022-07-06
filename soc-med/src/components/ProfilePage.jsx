@@ -7,8 +7,6 @@ import { BsFillChatLeftFill, BsFillHeartFill } from 'react-icons/bs';
 const ProfilePage = () => {
 	const { user, feedData } = useContext(ContextVariable);
 
-	console.log(feedData);
-
 	const userData = Array.isArray(feedData)
 		? feedData.filter((item) => item.userID === user.uid)
 		: [];
@@ -17,14 +15,24 @@ const ProfilePage = () => {
 		<div className="grey pt-3 ">
 			<Container>
 				<div className="d-flex mt-5 bg-white p-3 rounded justify-content-center">
-					<img src={user.photoURL} className="rounded-circle" />
+					<img
+						src={user.photoURL}
+						className="me-3"
+						style={{
+							width: '100px',
+							height: '100px',
+							borderRadius: '50%',
+						}}
+					/>
 					<div className="mx-3">
 						<h3>{user.displayName}</h3>
-						<BsPersonFill size="20" /> 0 Friends
+						<BsPersonFill size="20" className="my-1" /> 0 Friends
+						<p>{userData.length} Posts found</p>
 					</div>
 				</div>
 				<div className="mt-2">
 					<b>Your posts</b>
+
 					{userData.map((item) => {
 						return (
 							<div key={item.postID} className="bg-white rounded p-3 mt-3 ">
