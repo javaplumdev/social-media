@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react';
-import { BsFillPersonPlusFill } from 'react-icons/bs';
+import { BsPlus } from 'react-icons/bs';
 import { ContextVariable } from '../context/context-config';
 
-const SuggestedFriendsComponent = ({ name, profilePicture }) => {
-	const { suggestedFriends } = useContext(ContextVariable);
+const SuggestedFriendsComponent = ({ name, profilePicture, userID }) => {
+	const { suggestedFriends, follow } = useContext(ContextVariable);
 
 	return (
 		<>
@@ -18,9 +18,15 @@ const SuggestedFriendsComponent = ({ name, profilePicture }) => {
 					}}
 				/>
 				<div>
-					{name}
+					<small>{name}</small>
 					<br></br>
-					<BsFillPersonPlusFill size="20" />
+					<div className=" rounded my-2">
+						<BsPlus
+							className="icons"
+							onClick={() => follow(userID, name, profilePicture)}
+						/>{' '}
+						Follow
+					</div>
 				</div>
 			</div>
 		</>

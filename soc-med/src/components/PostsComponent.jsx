@@ -1,8 +1,15 @@
 import React, { useContext, useState } from 'react';
-import { BsFillChatLeftFill, BsFillHeartFill, BsUpload } from 'react-icons/bs';
+import {
+	BsFillChatLeftFill,
+	BsFillHeartFill,
+	BsUpload,
+	BsThreeDots,
+	BsTrashFill,
+	BsExclamationCircleFill,
+} from 'react-icons/bs';
 import Spinner from 'react-bootstrap/Spinner';
 import { ContextVariable } from '../context/context-config';
-import { NavItem } from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
 import CommentModal from './CommentModal';
 
 const PostsComponent = ({
@@ -13,13 +20,28 @@ const PostsComponent = ({
 	postID,
 	likes,
 	image,
+	userID,
 }) => {
-	const { openComment, commentData, user, like } = useContext(ContextVariable);
+	const { openComment, commentData, user, like, deletePost, reportPost } =
+		useContext(ContextVariable);
 
 	const filteredComments =
 		commentData?.filter && commentData.filter((item) => item.postID === postID);
 
 	const isLike = likes?.find && likes.find((item) => item.user === user.uid);
+
+	const CustomToggle = React.forwardRef(({ onClick }, ref) => (
+		<a
+			href=""
+			ref={ref}
+			onClick={(e) => {
+				e.preventDefault();
+				onClick(e);
+			}}
+		>
+			{<BsThreeDots className="icons" id="dropdown" />}
+		</a>
+	));
 
 	return (
 		<>
@@ -34,10 +56,31 @@ const PostsComponent = ({
 							borderRadius: '50%',
 						}}
 					/>
-					<div>
-						<b>{name}</b>
-						<br></br>
-						<small className="text-secondary">{dateAndTime}</small>
+					<div className="w-100">
+						<div className="d-flex justify-content-between">
+							<div>
+								<small>
+									<b>{name}</b>
+								</small>
+								<br></br>
+								<small className="text-secondary">{dateAndTime}</small>
+							</div>
+							<Dropdown>
+								<Dropdown.Toggle as={CustomToggle} variant="success">
+									Open Menu
+								</Dropdown.Toggle>
+								<Dropdown.Menu>
+									<Dropdown.Item onClick={() => reportPost(postID)}>
+										<BsExclamationCircleFill /> Report
+									</Dropdown.Item>
+									{userID === user.uid && (
+										<Dropdown.Item onClick={() => deletePost(postID)}>
+											<BsTrashFill /> Delete
+										</Dropdown.Item>
+									)}
+								</Dropdown.Menu>
+							</Dropdown>
+						</div>
 						<p>{content}</p>
 						<div>
 							<BsFillHeartFill
@@ -58,7 +101,7 @@ const PostsComponent = ({
 					</div>
 				</div>
 			) : (
-				<div className="bg-white p-3 rounded  my-3">
+				<div className="bg-white p-3 rounded  my-3 w-100">
 					<div className="d-flex">
 						<img
 							src={profilePicture}
@@ -69,10 +112,31 @@ const PostsComponent = ({
 								borderRadius: '50%',
 							}}
 						/>
-						<div>
-							<b>{name}</b>
-							<br></br>
-							<small className="text-secondary">{dateAndTime}</small>
+						<div className="w-100">
+							<div className="d-flex justify-content-between">
+								<div>
+									<small>
+										<b>{name}</b>
+									</small>
+									<br></br>
+									<small className="text-secondary">{dateAndTime}</small>
+								</div>
+								<Dropdown>
+									<Dropdown.Toggle as={CustomToggle} variant="success">
+										Open Menu
+									</Dropdown.Toggle>
+									<Dropdown.Menu>
+										<Dropdown.Item onClick={() => reportPost()}>
+											<BsExclamationCircleFill /> Report
+										</Dropdown.Item>
+										{userID === user.uid && (
+											<Dropdown.Item onClick={() => deletePost(postID)}>
+												<BsTrashFill /> Delete
+											</Dropdown.Item>
+										)}
+									</Dropdown.Menu>
+								</Dropdown>
+							</div>
 							<p>{content}</p>
 						</div>
 					</div>

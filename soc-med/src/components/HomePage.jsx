@@ -10,6 +10,7 @@ const HomePage = () => {
 	const {
 		postContent,
 		feedData,
+
 		suggestedFriends,
 		setContent,
 		content,
@@ -69,7 +70,8 @@ const HomePage = () => {
 						</div>
 						<div className="mt-2">
 							<b>What's happening today?</b>
-
+							<br></br>
+							<small>All posts are public.</small>
 							{feedData?.map &&
 								feedData.map((item) => {
 									return (
@@ -104,6 +106,7 @@ const HomePage = () => {
 										<SuggestedFriendsComponent
 											key={item.userID}
 											name={item.name}
+											userID={item.userID}
 											profilePicture={item.profilePicture}
 										/>
 									);

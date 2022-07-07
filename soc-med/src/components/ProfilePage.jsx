@@ -22,7 +22,7 @@ const ProfilePage = () => {
 						return (
 							<div
 								key={item.userID}
-								className="d-flex mt-5 bg-white p-3 rounded justify-content-center"
+								className="d-flex mt-5 bg-white p-3 rounded "
 							>
 								<img
 									src={item.profilePicture}
@@ -35,8 +35,14 @@ const ProfilePage = () => {
 								/>
 								<div className="mx-3">
 									<h3>{item.name}</h3>
-									<BsPersonFill size="20" className="my-1" /> 0 Friends
-									<p>{userData.length} Posts found</p>
+									{item.followers.length} followers {item.following.length}{' '}
+									following
+									<p className="mt-2">
+										{userData.length}
+										{userData.length === 1 || userData.length === 0
+											? ' post found'
+											: ' posts found'}{' '}
+									</p>
 								</div>
 							</div>
 						);

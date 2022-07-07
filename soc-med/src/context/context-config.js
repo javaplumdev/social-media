@@ -18,6 +18,7 @@ import {
 	arrayUnion,
 	updateDoc,
 	arrayRemove,
+	deleteDoc,
 } from 'firebase/firestore';
 import { firebaseAuth, db, storage } from '../firebase/firebase-config';
 import { ref, uploadBytes, listAll, getDownloadURL } from 'firebase/storage';
@@ -45,6 +46,7 @@ export const ContextFunction = ({ children }) => {
 	let currentUserData;
 	let logInType;
 	let suggestedFriends;
+	let newSuggestedFriends;
 
 	let dateToday = new Date().toLocaleDateString();
 
@@ -108,6 +110,20 @@ export const ContextFunction = ({ children }) => {
 
 		suggestedFriends =
 			users?.filter && users.filter((item) => item.userID !== user.uid);
+
+		const userFollowing =
+			currentUserData?.map && currentUserData.map((item) => item.following)[0];
+
+		userFollowing?.map &&
+			userFollowing.map((data) => {
+				const index = suggestedFriends.findIndex(
+					(x) => x.userID === data.userID
+				);
+
+				if (index > -1) {
+					suggestedFriends.splice(index, 1);
+				}
+			});
 	}
 
 	const register = (email, password, firstName, lastName) => {
@@ -121,6 +137,8 @@ export const ContextFunction = ({ children }) => {
 					name: firstName + ' ' + lastName,
 					profilePicture:
 						'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxQHBhIRBxIOExAQEREVFxYVDRcVExIVGBIWFhUSFRUYHSggGh0lGxcVLTEhJSkrLi4uFx8zODMsNygtLisBCgoKDQ0NFQ4PEjEZFRkrKysrLTctLSsrKzctNysrLSsrNy0tKysrKy0rLSsrKysrKysrKystLSsrKysrKysrK//AABEIAOEA4QMBIgACEQEDEQH/xAAbAAEAAwEBAQEAAAAAAAAAAAAAAwQFBgIBB//EADUQAQABAgMDCQcEAwEAAAAAAAABAgMEBRESITETQVFhcYGhscEUIjI0kdHwQlKS4SRy8SP/xAAWAQEBAQAAAAAAAAAAAAAAAAAAAQL/xAAWEQEBAQAAAAAAAAAAAAAAAAAAARH/2gAMAwEAAhEDEQA/AP0wBpAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHqiiblWlETMg8vsRrOkcV2jLKqvjmmPGWjh8NTh6fcjf088mjMtZdXX8WlPbx+kJ4yr91U/xaQmqzpyqOaqf4o68rqj4KontjRqhowbuErtfHTOnTG+EDpVTE4Gm9GtO6rp6e2DUxij3dtTZr0uRv/N8PCgAAAAAAAAAAAAAAAAAA3MDh+Qsxr8U75+zHw9O3iKY6aodClABFAAAAAAQYzDxiLWnPHCWFMaTpPGHSMjNbWxfiqP1ecfkLBRAVAAAAAAAAAAAAAAAAFnL41xlPf5S3GHlvzlPf5S3EpABFAAAAAAFLNaNrC6/tmPt6rqtmM/4dWvV5wDDAaQAAAAAAAAAAAAAAABZy75ynv8pbjCwE6Yynt9JbqVQBAAAAAAAYmZVTOLmJmdI07t0Ntg46dcZV2+iwQAKgAAAAAAAAAAAAAAACfBRPtNMxE7qo5m8hwdGxhqYp6In6pkqgCAAAAAAAwMXExiatqJjWqebrb6pmdG1hJmeMaTH1WDFAVAAAAAAAAAAAAAAAAG5l9e3hKerd9Flm5Pc3VUz2+k+jSZqgAAAAAAAClm1ezhtP3THhv+y6yc2ubV6KY/THjKwUAFQAAAAAAAAAAAAAAABJh702LsVU/wDYbeFv+0WdqI047tWA08nubqqZ7fSfQo0gGVAAAAAAQYvEez2tdNd+nFh3bk3LkzVxmWhnFe+mmOufSPVmtRAAAAAAAAAAAAAAAAAABNhL3IYiJnhwnsQgOlidY3CllVya7GlX6Z0hdZUAAAABWzGuaMJOzz6R9QZWMu8tiZmOHCOyEANIAAAAAAAAAAAAAAAAAAAA2MpjTDT11T5RC6rZfTsYOnr1n6zqssqAAAAK2YxtYOru84WUeIp27FURz0zHgDngGkAAAAAAAAAAAAAAAAAAHqinbriKeMzoUUzXVpREzLVwGC5Gdq78XkC7TGzTERzQ+gyoAAAAADn8Vb5LEVR1+E8ETbx2E9op1p3VRw6+qWPctzaq0uRMS1EeAAAAAAAAAAAAAAB9iNqdKd8r2Hy2a997dHRz/wBAo007c6URMz1L+Hyyat9+dI6I4tGzZps06W4iPOe9ImmI7VmmzTpbiISAigAAAAAAADzctxcp0riJh6AZmIyznsT3T6Sz7lubdWlyJiXRvFy3F2nS5ETC6mOdGjiMs034ee6fSVCuiaKtK4mJ61HkAAAAAAH2N87gfFvC4Gq9vq92nxnshbwWA2I2r++ejmj+19NENjD02I/847+ee9MCKAAAAAAAAAAAAAAAAI71mm9TpciJ/OlIAyMVl8299r3o8Y+6i6VTxmBi/GtG6rwntXUYw9VUzRVMVRpMPKgAA0sqw2vv1933Z1MbVURHGZ0dFbo5O3EU8IjQo9AMqAAAAAAAAAAAAAAAAAAAAAAo5nh9u3t08aePXDIdLMaxvc9ft8leqp6J8OZYiMBRLhfmaP8AanzdACUgAigAAAAAAAAAAAAAAAAAAAAADEzL5yru8oBYKoCsv//Z',
+					followers: [],
+					following: [],
 				});
 			} catch (error) {
 				console.warn(error.message);
@@ -150,6 +168,8 @@ export const ContextFunction = ({ children }) => {
 						userID: userCredentials.user.uid,
 						email: userCredentials.user.email,
 						profilePicture: userCredentials.user.photoURL,
+						followers: [],
+						following: [],
 					},
 					{ merge: true }
 				);
@@ -172,6 +192,7 @@ export const ContextFunction = ({ children }) => {
 						dateAndTime: `${dateToday} ${hours}:${minutes}${newformat}`,
 						timestamp: serverTimestamp(),
 						likes: [],
+						reports: [],
 					});
 				});
 
@@ -183,6 +204,7 @@ export const ContextFunction = ({ children }) => {
 
 			uploadBytes(imageRef, imageData).then(() => {
 				setImageData(null);
+				setContent('');
 				toast.success('Posted!');
 
 				getDownloadURL(imageRef).then((url) => {
@@ -197,6 +219,7 @@ export const ContextFunction = ({ children }) => {
 							image: url,
 							timestamp: serverTimestamp(),
 							likes: [],
+							reports: [],
 						});
 					});
 				});
@@ -210,27 +233,29 @@ export const ContextFunction = ({ children }) => {
 	};
 
 	const comment = (commentID, feedPostID) => {
-		currentUserData.map((item) => {
-			setDoc(doc(db, 'comments', commentID), {
-				commentID: commentID,
-				postID: feedPostID,
-				name: item.name,
-				comment: commentValue,
-				profilePicture: item.profilePicture,
-				userID: user.uid,
-				dateAndTime: `${dateToday} ${hours}:${minutes}${newformat}`,
-				timestamp: serverTimestamp(),
+		if (!commentValue.trim() || commentValue === '') {
+			toast.error('Please enter a comment!');
+		} else {
+			currentUserData.map((item) => {
+				setDoc(doc(db, 'comments', commentID), {
+					commentID: commentID,
+					postID: feedPostID,
+					name: item.name,
+					comment: commentValue,
+					profilePicture: item.profilePicture,
+					userID: user.uid,
+					dateAndTime: `${dateToday} ${hours}:${minutes}${newformat}`,
+					timestamp: serverTimestamp(),
+				});
 			});
-		});
 
-		setCommentValue('');
+			setCommentValue('');
+		}
 	};
 
 	const like = (postID) => {
 		const filteredPosts = feedData.filter((item) => item.postID === postID);
-
 		const checkFeedData = filteredPosts.map((item) => item.likes)[0];
-
 		const isLike = checkFeedData.find((item) => item.user === user.uid);
 
 		if (isLike) {
@@ -244,9 +269,57 @@ export const ContextFunction = ({ children }) => {
 		}
 	};
 
+	const deletePost = async (postID) => {
+		await deleteDoc(doc(db, 'posts', postID));
+		toast.success('Post deleted');
+	};
+
+	const reportPost = async (postID) => {
+		const filteredPosts = feedData.filter((item) => item.postID === postID);
+		const checkReportData = filteredPosts.map((item) => item.reports)[0];
+		const isReported = checkReportData.find((item) => item.user === user.uid);
+
+		if (isReported) {
+			toast.error('Post already been reported. Please wait.');
+		} else if (isReported === undefined) {
+			updateDoc(doc(db, 'posts', postID), {
+				reports: arrayUnion({ user: user.uid }),
+			});
+
+			if (checkReportData.length === 5) {
+				await deleteDoc(doc(db, 'posts', postID));
+			}
+
+			toast.success('Post has been reported. Please wait.');
+		}
+	};
+
+	const follow = (userID, name, profilePicture) => {
+		updateDoc(doc(db, 'users', userID), {
+			followers: arrayUnion({
+				userID: user.uid,
+				userName: name,
+				profilePicture: profilePicture,
+			}),
+		});
+
+		updateDoc(doc(db, 'users', user.uid), {
+			following: arrayUnion({
+				userID: userID,
+				userName: name,
+				profilePicture: profilePicture,
+			}),
+		});
+
+		toast.success('Followed!');
+	};
+
 	return (
 		<ContextVariable.Provider
 			value={{
+				follow,
+				reportPost,
+				deletePost,
 				imageData,
 				setImageData,
 				like,
