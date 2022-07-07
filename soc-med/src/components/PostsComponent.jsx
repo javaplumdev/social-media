@@ -18,11 +18,7 @@ const PostsComponent = ({
 	const filteredComments =
 		commentData?.filter && commentData.filter((item) => item.postID === postID);
 
-	console.log(likes);
-
 	const isLike = likes?.find && likes.find((item) => item.user === user.uid);
-
-	console.log(isLike);
 
 	return (
 		<div className="bg-white p-3 rounded d-flex my-3">

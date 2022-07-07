@@ -215,7 +215,9 @@ export const ContextFunction = ({ children }) => {
 	};
 
 	const like = (postID) => {
-		const checkFeedData = feedData.map((item) => item.likes)[0];
+		const filteredPosts = feedData.filter((item) => item.postID === postID);
+
+		const checkFeedData = filteredPosts.map((item) => item.likes)[0];
 
 		const isLike = checkFeedData.find((item) => item.user === user.uid);
 
@@ -223,7 +225,7 @@ export const ContextFunction = ({ children }) => {
 			updateDoc(doc(db, 'posts', postID), {
 				likes: arrayRemove({ user: user.uid }),
 			});
-		} else {
+		} else if (isLike === undefined) {
 			updateDoc(doc(db, 'posts', postID), {
 				likes: arrayUnion({ user: user.uid }),
 			});
