@@ -115,12 +115,12 @@ const CommentModal = () => {
 								<Button variant="secondary" onClick={handleClose}>
 									Close
 								</Button>
-								<Button
-									variant="primary"
+								<button
+									className="buttons"
 									onClick={() => comment(commentID, feedPostID)}
 								>
 									Comment
-								</Button>
+								</button>
 							</Modal.Footer>
 						</Modal>
 					);

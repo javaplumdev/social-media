@@ -19,9 +19,11 @@ import {
 	updateDoc,
 	arrayRemove,
 } from 'firebase/firestore';
-import { firebaseAuth, db } from '../firebase/firebase-config';
+import { firebaseAuth, db, storage } from '../firebase/firebase-config';
+import { ref, uploadBytes, listAll, getDownloadURL } from 'firebase/storage';
 import { createContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { uuidv4 } from '@firebase/util';
 
 export const ContextVariable = createContext();
 
@@ -35,6 +37,7 @@ export const ContextFunction = ({ children }) => {
 	const [feedPostID, setFeedPostID] = useState('');
 	const [commentData, setCommentData] = useState({});
 	const [commentValue, setCommentValue] = useState('');
+	const [imageData, setImageData] = useState(null);
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
@@ -155,24 +158,10 @@ export const ContextFunction = ({ children }) => {
 	};
 
 	const postContent = async (postID) => {
-		if (!content.trim() || content === '') {
-			toast.error('Please enter a content!');
-		} else {
-			if (logInType === 'google') {
-				await setDoc(doc(db, 'posts', postID), {
-					postID: postID,
-					name: user.displayName,
-					content: content,
-					userID: user.uid,
-					profilePicture: user.photoURL,
-					dateAndTime: `${dateToday} ${hours}:${minutes}${newformat}`,
-					timestamp: serverTimestamp(),
-					likes: [],
-				});
-
-				setContent('');
-				toast.success('Posted!');
-			} else if (logInType === 'email') {
+		if (imageData === null) {
+			if (!content.trim() || content === '') {
+				toast.error('Please enter a content!');
+			} else {
 				currentUserData.map((item) => {
 					setDoc(doc(db, 'posts', postID), {
 						postID: postID,
@@ -189,6 +178,29 @@ export const ContextFunction = ({ children }) => {
 				setContent('');
 				toast.success('Posted!');
 			}
+		} else {
+			const imageRef = ref(storage, `images/${imageData.name + uuidv4()}`);
+
+			uploadBytes(imageRef, imageData).then(() => {
+				setImageData(null);
+				toast.success('Posted!');
+
+				getDownloadURL(imageRef).then((url) => {
+					currentUserData.map((item) => {
+						setDoc(doc(db, 'posts', postID), {
+							postID: postID,
+							name: item.name,
+							content: content,
+							profilePicture: item.profilePicture,
+							userID: user.uid,
+							dateAndTime: `${dateToday} ${hours}:${minutes}${newformat}`,
+							image: url,
+							timestamp: serverTimestamp(),
+							likes: [],
+						});
+					});
+				});
+			});
 		}
 	};
 
@@ -235,6 +247,8 @@ export const ContextFunction = ({ children }) => {
 	return (
 		<ContextVariable.Provider
 			value={{
+				imageData,
+				setImageData,
 				like,
 				commentData,
 				commentValue,

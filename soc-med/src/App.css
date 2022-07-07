@@ -17,11 +17,20 @@
 	color: white;
 }
 
+.buttons:hover {
+	background-color: #d47100;
+}
+
 .modal-backdrop {
 	background-color: rgba(0, 0, 0, 0.2) !important;
 	border: none;
 }
 
+.icons {
+	color: #bcb8b1;
+}
+
 .icons:hover {
+	color: #e79200;
 	cursor: pointer;
 }

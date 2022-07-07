@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Row, Container, Col, FloatingLabel, Form } from 'react-bootstrap';
 import { ContextVariable } from '../context/context-config';
 import { v4 as uuidv4 } from 'uuid';
-
+import { BsUpload, BsImage } from 'react-icons/bs';
 import SuggestedFriendsComponent from './SuggestedFriendsComponent';
 import PostsComponent from './PostsComponent';
 
@@ -14,6 +14,8 @@ const HomePage = () => {
 		setContent,
 		content,
 		commentData,
+		imageData,
+		setImageData,
 	} = useContext(ContextVariable);
 
 	const postID = uuidv4();
@@ -44,7 +46,19 @@ const HomePage = () => {
 								onChange={(e) => setContent(e.target.value)}
 							/>
 
-							<div className="d-flex justify-content-end">
+							<div className="d-flex justify-content-between align-items-center">
+								<label htmlFor="file-input" className="my-3">
+									<BsImage size="20" className="icons me-2" />
+									{imageData && imageData.name}
+								</label>
+
+								<input
+									id="file-input"
+									type="file"
+									className="d-none"
+									onChange={(e) => setImageData(e.target.files[0])}
+								/>
+
 								<button
 									className="buttons mt-3"
 									onClick={() => postContent(postID)}
@@ -69,6 +83,7 @@ const HomePage = () => {
 											profilePicture={item.profilePicture}
 											postID={item.postID}
 											likes={item.likes}
+											image={item.image}
 										/>
 									);
 								})}
