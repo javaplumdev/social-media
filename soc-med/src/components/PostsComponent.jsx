@@ -85,7 +85,7 @@ const PostsComponent = ({
 						<div>
 							<BsFillHeartFill
 								size="20"
-								color={isLike ? '#fb8500' : '#bcb8b1'}
+								color={isLike ? '#02c39a' : '#bcb8b1'}
 								className="icons me-2"
 								onClick={() => like(postID)}
 							/>{' '}
@@ -144,7 +144,7 @@ const PostsComponent = ({
 					<div>
 						<BsFillHeartFill
 							size="20"
-							color={isLike ? '#fb8500' : '#bcb8b1'}
+							color={isLike ? '#02c39a' : '#bcb8b1'}
 							className="icons me-2"
 							onClick={() => like(postID)}
 						/>{' '}

@@ -89,12 +89,8 @@ const HomePage = () => {
 										/>
 									);
 								})}
-							<p
-								className="mt-3 text-center pt-3"
-								style={{ borderTop: '1px solid #bcb8b1' }}
-							>
-								End of feed
-							</p>
+							<hr></hr>
+							<p className="text-center">End of feed</p>
 						</div>
 					</Col>
 					<Col>

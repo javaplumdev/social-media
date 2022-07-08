@@ -23,12 +23,12 @@ const NavbarComponent = () => {
 	return (
 		<Navbar bg="white" variant="light">
 			<Container>
-				<Navbar.Brand href="/home" style={{ color: '#fb8500' }}>
-					Di q alam
+				<Navbar.Brand href="/home" style={{ color: '#00a896' }}>
+					nativefrog
 				</Navbar.Brand>
 				<Nav className="mx-auto">
 					<Nav.Link href="/home">
-						<BsFillHouseFill color="#fb8500" /> Home
+						<BsFillHouseFill className="icon" /> Home
 					</Nav.Link>
 					<Nav.Link href="#features">Messages</Nav.Link>
 					<Nav.Link href="#pricing">Friend requests</Nav.Link>

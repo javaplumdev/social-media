@@ -4,15 +4,16 @@ import { Container } from 'react-bootstrap';
 import { BsPersonFill } from 'react-icons/bs';
 import { BsFillChatLeftFill, BsFillHeartFill } from 'react-icons/bs';
 import PostsComponent from './PostsComponent';
+import FollowingModal from './FollowingModal';
+import FollowersModal from './FollowersModal';
 
 const ProfilePage = () => {
-	const { user, feedData, currentUserData } = useContext(ContextVariable);
+	const { user, feedData, currentUserData, checkFollowing, checkFollowers } =
+		useContext(ContextVariable);
 
 	const userData = Array.isArray(feedData)
 		? feedData.filter((item) => item.userID === user.uid)
 		: [];
-
-	console.log(currentUserData);
 
 	return (
 		<div className="grey pt-3 ">
@@ -28,16 +29,32 @@ const ProfilePage = () => {
 									src={item.profilePicture}
 									className="me-3"
 									style={{
-										width: '100px',
-										height: '100px',
+										width: '75px',
+										height: '75px',
 										borderRadius: '50%',
 									}}
 								/>
 								<div className="mx-3">
 									<h3>{item.name}</h3>
-									{item.followers.length} followers {item.following.length}{' '}
-									following
-									<p className="mt-2">
+									<div className="d-flex flex-wrap mb-3">
+										<small
+											className="followLink me-3"
+											onClick={() => checkFollowers()}
+										>
+											{' '}
+											<b>{item.followers.length}</b> followers
+										</small>{' '}
+										<small
+											className="followLink"
+											onClick={() => checkFollowing()}
+										>
+											{' '}
+											<b>{item.following.length}</b> following
+										</small>
+										<FollowersModal followers={item.followers} />
+										<FollowingModal following={item.following} />
+									</div>
+									<p>
 										{userData.length}
 										{userData.length === 1 || userData.length === 0
 											? ' post found'

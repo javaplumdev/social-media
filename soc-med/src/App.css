@@ -10,7 +10,7 @@
 }
 
 .buttons {
-	background-color: #fb8500;
+	background-color: #02c39a;
 	border: none;
 	padding: 10px;
 	border-radius: 10px;
@@ -18,7 +18,7 @@
 }
 
 .buttons:hover {
-	background-color: #d47100;
+	background-color: #00a896;
 }
 
 .modal-backdrop {
@@ -26,11 +26,37 @@
 	border: none;
 }
 
+.icon {
+	color: #02c39a;
+}
+
+.icon:hover {
+	color: #00a896;
+}
+
 .icons {
 	color: #7d7b78;
 }
 
 .icons:hover {
-	color: #e79200;
+	color: #00a896;
 	cursor: pointer;
+}
+
+.followLink:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.followButton {
+	border: 1px solid #02c39a;
+	padding: 0.1em 1em;
+	background: none;
+	border-radius: 20px;
+	transition: 0.2s ease-out;
+}
+
+.followButton:hover {
+	background-color: #00a896;
+	color: #fff;
 }

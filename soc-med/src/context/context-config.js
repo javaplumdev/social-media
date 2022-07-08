@@ -34,14 +34,23 @@ export const ContextFunction = ({ children }) => {
 	const [users, setUsers] = useState({});
 	const [isLoading, setIsLoading] = useState(true);
 	const [content, setContent] = useState('');
-	const [show, setShow] = useState(false);
+
 	const [feedPostID, setFeedPostID] = useState('');
 	const [commentData, setCommentData] = useState({});
 	const [commentValue, setCommentValue] = useState('');
 	const [imageData, setImageData] = useState(null);
 
+	const [show, setShow] = useState(false);
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
+
+	const [showModal, setShowModal] = useState(false);
+	const handleCloseFollowingModal = () => setShowModal(false);
+	const handleShowFollowingModal = () => setShowModal(true);
+
+	const [showModalVer1, setShowModalVer1] = useState(false);
+	const handleCloseFollowersModal = () => setShowModalVer1(false);
+	const handleShowFollowersModal = () => setShowModalVer1(true);
 
 	let currentUserData;
 	let logInType;
@@ -314,9 +323,23 @@ export const ContextFunction = ({ children }) => {
 		toast.success('Followed!');
 	};
 
+	const checkFollowing = () => {
+		handleShowFollowingModal();
+	};
+
+	const checkFollowers = () => {
+		handleShowFollowersModal();
+	};
+
 	return (
 		<ContextVariable.Provider
 			value={{
+				showModalVer1,
+				showModal,
+				handleCloseFollowersModal,
+				checkFollowers,
+				handleCloseFollowingModal,
+				checkFollowing,
 				follow,
 				reportPost,
 				deletePost,
