@@ -10,7 +10,7 @@ const HomePage = () => {
 	const {
 		postContent,
 		feedData,
-
+		user,
 		suggestedFriends,
 		setContent,
 		content,

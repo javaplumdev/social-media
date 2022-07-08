@@ -97,7 +97,7 @@ const RegistrationPage = () => {
 						/>
 					</div>
 
-					<button className="btn btn-primary w-100" type="Submit">
+					<button className="buttons w-100" type="Submit">
 						Create account
 					</button>
 					<hr></hr>

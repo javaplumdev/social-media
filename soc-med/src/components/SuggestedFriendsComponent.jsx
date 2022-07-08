@@ -3,7 +3,7 @@ import { BsPlus } from 'react-icons/bs';
 import { ContextVariable } from '../context/context-config';
 
 const SuggestedFriendsComponent = ({ name, profilePicture, userID }) => {
-	const { suggestedFriends, follow } = useContext(ContextVariable);
+	const { suggestedFriends, user, follow } = useContext(ContextVariable);
 
 	return (
 		<>

@@ -6,20 +6,34 @@ import { BsFillChatLeftFill, BsFillHeartFill } from 'react-icons/bs';
 import PostsComponent from './PostsComponent';
 import FollowingModal from './FollowingModal';
 import FollowersModal from './FollowersModal';
+import { useParams } from 'react-router-dom';
 
 const ProfilePage = () => {
-	const { user, feedData, currentUserData, checkFollowing, checkFollowers } =
-		useContext(ContextVariable);
+	const {
+		user,
+		feedData,
+		currentUserData,
+		checkFollowing,
+		checkFollowers,
+		users,
+	} = useContext(ContextVariable);
+
+	const { id } = useParams();
 
 	const userData = Array.isArray(feedData)
-		? feedData.filter((item) => item.userID === user.uid)
+		? feedData.filter((item) => item.userID === id)
 		: [];
+
+	const profileData =
+		users?.filter && users.filter((item) => item.userID === id);
+
+	console.log(userData);
 
 	return (
 		<div className="grey pt-3 ">
 			<Container>
-				{currentUserData?.map &&
-					currentUserData.map((item) => {
+				{profileData?.map &&
+					profileData.map((item) => {
 						return (
 							<div
 								key={item.userID}
@@ -69,7 +83,7 @@ const ProfilePage = () => {
 					<b>Your posts</b>
 					{feedData?.map &&
 						feedData.map((item) => {
-							if (item.userID === user.uid) {
+							if (item.userID === id) {
 								return (
 									<PostsComponent
 										key={item.postID}

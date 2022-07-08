@@ -10,7 +10,7 @@
 }
 
 .buttons {
-	background-color: #02c39a;
+	background-color: #77b255;
 	border: none;
 	padding: 10px;
 	border-radius: 10px;
@@ -18,7 +18,7 @@
 }
 
 .buttons:hover {
-	background-color: #00a896;
+	background-color: #58843e;
 }
 
 .modal-backdrop {
@@ -27,11 +27,11 @@
 }
 
 .icon {
-	color: #02c39a;
+	color: #77b255;
 }
 
 .icon:hover {
-	color: #00a896;
+	color: #58843e;
 }
 
 .icons {
@@ -39,7 +39,7 @@
 }
 
 .icons:hover {
-	color: #00a896;
+	color: #58843e;
 	cursor: pointer;
 }
 
@@ -49,7 +49,7 @@
 }
 
 .followButton {
-	border: 1px solid #02c39a;
+	border: 1px solid #77b255;
 	padding: 0.1em 1em;
 	background: none;
 	border-radius: 20px;
@@ -57,6 +57,6 @@
 }
 
 .followButton:hover {
-	background-color: #00a896;
+	background-color: #58843e;
 	color: #fff;
 }

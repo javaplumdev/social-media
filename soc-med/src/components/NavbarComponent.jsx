@@ -8,9 +8,11 @@ import {
 	BsFillHouseFill,
 } from 'react-icons/bs';
 import { ContextVariable } from '../context/context-config';
+import { Link } from 'react-router-dom';
+import sillyfroglogo from '../assets/sillyfroglogo.svg';
 
 const NavbarComponent = () => {
-	const { logOut } = useContext(ContextVariable);
+	const { logOut, user } = useContext(ContextVariable);
 
 	const handleLogout = async () => {
 		try {
@@ -21,25 +23,29 @@ const NavbarComponent = () => {
 	};
 
 	return (
-		<Navbar bg="white" variant="light">
+		<Navbar bg="white" variant="light" className="sticky-top">
 			<Container>
-				<Navbar.Brand href="/home" style={{ color: '#00a896' }}>
-					nativefrog
+				<Navbar.Brand href="/home" style={{ color: '#77b255' }}>
+					<img src={sillyfroglogo} />
 				</Navbar.Brand>
+
 				<Nav className="mx-auto">
 					<Nav.Link href="/home">
 						<BsFillHouseFill className="icon" /> Home
 					</Nav.Link>
+
 					<Nav.Link href="#features">Messages</Nav.Link>
 					<Nav.Link href="#pricing">Friend requests</Nav.Link>
 				</Nav>
 				<Nav>
 					<NavDropdown title="Profile" id="basic-nav-dropdown">
-						<NavDropdown.Item href="/profile">
-							<BsFillPersonFill /> Profile
-						</NavDropdown.Item>
+						<Link to={`/profile/${user.uid}`} className="text-decoration-none">
+							<NavDropdown.Item href="/profile">
+								<BsFillPersonFill /> Profile
+							</NavDropdown.Item>
+						</Link>
 
-						<NavDropdown.Item href="/settings">
+						<NavDropdown.Item>
 							<BsGearFill /> Settings
 						</NavDropdown.Item>
 

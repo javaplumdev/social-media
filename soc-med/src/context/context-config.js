@@ -304,12 +304,14 @@ export const ContextFunction = ({ children }) => {
 	};
 
 	const follow = (userID, name, profilePicture) => {
-		updateDoc(doc(db, 'users', userID), {
-			followers: arrayUnion({
-				userID: user.uid,
-				userName: name,
-				profilePicture: profilePicture,
-			}),
+		currentUserData.map((item) => {
+			updateDoc(doc(db, 'users', userID), {
+				followers: arrayUnion({
+					userID: item.userID,
+					userName: item.name,
+					profilePicture: item.profilePicture,
+				}),
+			});
 		});
 
 		updateDoc(doc(db, 'users', user.uid), {

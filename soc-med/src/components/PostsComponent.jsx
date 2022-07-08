@@ -11,6 +11,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import { ContextVariable } from '../context/context-config';
 import { Dropdown } from 'react-bootstrap';
 import CommentModal from './CommentModal';
+import { Link } from 'react-router-dom';
 
 const PostsComponent = ({
 	name,
@@ -59,9 +60,15 @@ const PostsComponent = ({
 					<div className="w-100">
 						<div className="d-flex justify-content-between">
 							<div>
-								<small>
-									<b>{name}</b>
-								</small>
+								<Link
+									to={`/profile/${userID}`}
+									className="text-decoration-none text-black"
+								>
+									<small>
+										<b>{name}</b>
+									</small>
+								</Link>
+
 								<br></br>
 								<small className="text-secondary">{dateAndTime}</small>
 							</div>
@@ -85,7 +92,7 @@ const PostsComponent = ({
 						<div>
 							<BsFillHeartFill
 								size="20"
-								color={isLike ? '#02c39a' : '#bcb8b1'}
+								color={isLike ? '#77b255' : '#bcb8b1'}
 								className="icons me-2"
 								onClick={() => like(postID)}
 							/>{' '}
@@ -115,9 +122,15 @@ const PostsComponent = ({
 						<div className="w-100">
 							<div className="d-flex justify-content-between">
 								<div>
-									<small>
-										<b>{name}</b>
-									</small>
+									<Link
+										to={`/profile/${userID}`}
+										className="text-decoration-none text-black"
+									>
+										<small>
+											<b>{name}</b>
+										</small>
+									</Link>
+
 									<br></br>
 									<small className="text-secondary">{dateAndTime}</small>
 								</div>
@@ -144,7 +157,7 @@ const PostsComponent = ({
 					<div>
 						<BsFillHeartFill
 							size="20"
-							color={isLike ? '#02c39a' : '#bcb8b1'}
+							color={isLike ? '#77b255' : '#bcb8b1'}
 							className="icons me-2"
 							onClick={() => like(postID)}
 						/>{' '}
