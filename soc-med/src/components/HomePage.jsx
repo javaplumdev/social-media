@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { BsUpload, BsImage } from 'react-icons/bs';
 import SuggestedFriendsComponent from './SuggestedFriendsComponent';
 import PostsComponent from './PostsComponent';
+import { Link } from 'react-router-dom';
 
 const HomePage = () => {
 	const {
@@ -33,11 +34,12 @@ const HomePage = () => {
 		<div className="grey pt-4">
 			<Container>
 				<Row>
-					<Col className="d-none d-sm-block">
+					<Col className="d-none d-md-block">
 						<RightCol />
 					</Col>
 					<Col xs={12} md={6}>
 						<div>
+							<p className="d-block d-sm-none">Tangina</p>
 							<Form.Control
 								placeholder="What's on your mind?"
 								aria-label="Recipient's username"
@@ -93,7 +95,7 @@ const HomePage = () => {
 							<p className="text-center">End of feed</p>
 						</div>
 					</Col>
-					<Col className="d-none d-sm-block">
+					<Col className="d-none d-md-block">
 						<div className="bg-white rounded p-3">
 							<h6 className="mb-3">Suggested friends</h6>
 							{suggestedFriends?.map &&
@@ -108,9 +110,11 @@ const HomePage = () => {
 									);
 								})}
 							<hr></hr>
-							<p className="text-center">
-								<b>See all</b>
-							</p>
+							<Link to="/suggested" className="text-dark">
+								<p className="text-center">
+									<b>See all</b>
+								</p>
+							</Link>
 						</div>
 					</Col>
 				</Row>

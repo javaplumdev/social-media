@@ -46,6 +46,7 @@ const ProfilePage = () => {
 										width: '75px',
 										height: '75px',
 										borderRadius: '50%',
+										objectFit: 'cover',
 									}}
 								/>
 								<div className="mx-3">

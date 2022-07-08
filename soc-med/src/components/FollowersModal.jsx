@@ -31,6 +31,7 @@ const FollowersModal = ({ followers }) => {
 											width: '50px',
 											height: '50px',
 											borderRadius: '50%',
+											objectFit: 'cover',
 										}}
 									/>
 

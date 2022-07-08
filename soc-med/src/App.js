@@ -8,6 +8,7 @@ import HomePage from './components/HomePage';
 import ProtectedRoute from './components/ProtectedRoute';
 import ProfilePage from './components/ProfilePage';
 import SettingsComponent from './components/SettingsComponent';
+import FullSuggestedFriendsComponent from './components/FullSuggestedFriendsComponent';
 import { Toaster } from 'react-hot-toast';
 
 function App() {
@@ -44,6 +45,16 @@ function App() {
 							<ProtectedRoute>
 								<NavbarComponent />
 								<SettingsComponent />
+							</ProtectedRoute>
+						}
+					/>
+
+					<Route
+						path="/suggested"
+						element={
+							<ProtectedRoute>
+								<NavbarComponent />
+								<FullSuggestedFriendsComponent />
 							</ProtectedRoute>
 						}
 					/>

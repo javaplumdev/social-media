@@ -41,9 +41,10 @@ const CommentModal = () => {
 										src={item.profilePicture}
 										className="me-3"
 										style={{
-											width: '50px',
+											width: '60px',
 											height: '50px',
 											borderRadius: '50%',
+											objectFit: 'cover',
 										}}
 									/>
 									<div className="w-100 ">
@@ -84,6 +85,7 @@ const CommentModal = () => {
 																			width: '50px',
 																			height: '50px',
 																			borderRadius: '50%',
+																			objectFit: 'cover',
 																		}}
 																	/>
 																	<div>

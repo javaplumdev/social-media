@@ -39,11 +39,9 @@ const NavbarComponent = () => {
 				</Nav>
 				<Nav>
 					<NavDropdown title="Profile" id="basic-nav-dropdown">
-						<Link to={`/profile/${user.uid}`} className="text-decoration-none">
-							<NavDropdown.Item href="/profile">
-								<BsFillPersonFill /> Profile
-							</NavDropdown.Item>
-						</Link>
+						<NavDropdown.Item href={`/profile/${user.uid}`}>
+							<BsFillPersonFill /> Profile
+						</NavDropdown.Item>
 
 						<Link to="/settings" className="text-decoration-none">
 							<NavDropdown.Item href="/settings">

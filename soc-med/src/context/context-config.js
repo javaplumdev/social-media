@@ -236,6 +236,41 @@ export const ContextFunction = ({ children }) => {
 		}
 	};
 
+	const updateProfilePicture = () => {
+		if (imageData === null) return;
+
+		// setProfilePictureData
+		const imageRef = ref(storage, `images/${imageData.name + uuidv4()}`);
+
+		uploadBytes(imageRef, imageData).then(() => {
+			setImageData(null);
+			setContent('');
+			toast.success('Posted!');
+
+			getDownloadURL(imageRef).then((url) => {
+				setDoc(
+					doc(db, 'users', user.uid),
+					{
+						profilePicture: url,
+					},
+					{ merge: true }
+				);
+
+				feedData.map((item) => {
+					if (user.uid === item.userID) {
+						setDoc(
+							doc(db, 'posts', item.postID),
+							{
+								profilePicture: url,
+							},
+							{ merge: true }
+						);
+					}
+				});
+			});
+		});
+	};
+
 	const openComment = (postID) => {
 		handleShow();
 		setFeedPostID(postID);
@@ -336,6 +371,7 @@ export const ContextFunction = ({ children }) => {
 	return (
 		<ContextVariable.Provider
 			value={{
+				updateProfilePicture,
 				showModalVer1,
 				showModal,
 				handleCloseFollowersModal,

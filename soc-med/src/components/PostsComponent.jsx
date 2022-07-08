@@ -52,7 +52,7 @@ const PostsComponent = ({
 						src={profilePicture}
 						className="me-3"
 						style={{
-							width: '50px',
+							width: '60px',
 							height: '50px',
 							borderRadius: '50%',
 						}}
@@ -114,9 +114,10 @@ const PostsComponent = ({
 							src={profilePicture}
 							className="me-3"
 							style={{
-								width: '50px',
+								width: '60px',
 								height: '50px',
 								borderRadius: '50%',
+								objectFit: 'cover',
 							}}
 						/>
 						<div className="w-100">
