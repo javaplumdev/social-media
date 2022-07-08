@@ -45,9 +45,11 @@ const NavbarComponent = () => {
 							</NavDropdown.Item>
 						</Link>
 
-						<NavDropdown.Item>
-							<BsGearFill /> Settings
-						</NavDropdown.Item>
+						<Link to="/settings" className="text-decoration-none">
+							<NavDropdown.Item href="/settings">
+								<BsGearFill /> Settings
+							</NavDropdown.Item>
+						</Link>
 
 						<NavDropdown.Item onClick={handleLogout}>
 							<BsBoxArrowLeft /> Logout

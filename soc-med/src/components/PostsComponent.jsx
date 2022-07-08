@@ -96,7 +96,7 @@ const PostsComponent = ({
 								className="icons me-2"
 								onClick={() => like(postID)}
 							/>{' '}
-							{likes.length}{' '}
+							{likes.length && likes.length}{' '}
 							<BsFillChatLeftFill
 								size="20"
 								className="icons mx-2"
@@ -161,7 +161,7 @@ const PostsComponent = ({
 							className="icons me-2"
 							onClick={() => like(postID)}
 						/>{' '}
-						{likes.length}{' '}
+						{likes.length && likes.length}{' '}
 						<BsFillChatLeftFill
 							size="20"
 							className="icons mx-2"

@@ -33,10 +33,10 @@ const HomePage = () => {
 		<div className="grey pt-4">
 			<Container>
 				<Row>
-					<Col>
+					<Col className="d-none d-sm-block">
 						<RightCol />
 					</Col>
-					<Col xs={6}>
+					<Col xs={12} md={6}>
 						<div>
 							<Form.Control
 								placeholder="What's on your mind?"
@@ -93,11 +93,11 @@ const HomePage = () => {
 							<p className="text-center">End of feed</p>
 						</div>
 					</Col>
-					<Col>
+					<Col className="d-none d-sm-block">
 						<div className="bg-white rounded p-3">
 							<h6 className="mb-3">Suggested friends</h6>
 							{suggestedFriends?.map &&
-								suggestedFriends.map((item) => {
+								suggestedFriends.slice(0, 3).map((item) => {
 									return (
 										<SuggestedFriendsComponent
 											key={item.userID}
@@ -107,6 +107,10 @@ const HomePage = () => {
 										/>
 									);
 								})}
+							<hr></hr>
+							<p className="text-center">
+								<b>See all</b>
+							</p>
 						</div>
 					</Col>
 				</Row>
