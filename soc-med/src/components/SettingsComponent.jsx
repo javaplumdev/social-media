@@ -22,9 +22,10 @@ const SettingsComponent = () => {
 			{currentUserData?.map &&
 				currentUserData.map((item) => {
 					return (
-						<div className="grey py-3" key={item.userID}>
+						<div className="py-3" key={item.userID}>
 							<Container>
 								<div>
+
 									<div style={{ maxWidth: '520px' }}>
 										<div className="my-3">
 											<h6>Change profile: </h6>
@@ -36,7 +37,46 @@ const SettingsComponent = () => {
 													height: '160px',
 													borderRadius: '50%',
 													objectFit: 'cover',
-												}}
+												}} />
+
+									{item.loginType === 'google' ? (
+										<div>
+											<p
+												className="text-center d-flex align-items-center justify-content-center"
+												style={{ height: '320px' }}
+											>
+												We can't change your account details. Since you logged
+												in with your google account. Sorry.
+											</p>
+										</div>
+									) : (
+										<>
+
+										<div style={{ maxWidth: '520px' }}>
+											<div className="grey my-3">
+												<h6>Change profile: </h6>
+												<img
+													src={item.profilePicture}
+													className="me-3"
+													style={{
+														width: '160px',
+														height: '160px',
+														borderRadius: '50%',
+														objectFit: 'cover',
+													}}
+												/>
+												<label htmlFor="file-input" className="me-3">
+													<BsImage size="20" className="icons me-2" />
+													{imageData && imageData.name}
+												</label>
+											</div>
+
+											<input
+												id="file-input"
+												type="file"
+												className="d-none"
+												onChange={(e) => setImageData(e.target.files[0])}
+
 											/>
 											<label htmlFor="file-input" className="me-3">
 												<BsImage size="20" className="icons me-2" />
@@ -69,7 +109,7 @@ const SettingsComponent = () => {
 										>
 											Save
 										</button>
-									</div>
+										</>
 								</div>
 							</Container>
 						</div>
