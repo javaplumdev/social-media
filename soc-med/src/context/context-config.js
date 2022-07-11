@@ -21,9 +21,6 @@ import {
 	deleteDoc,
 } from 'firebase/firestore';
 
-import { firebaseAuth, db, storage } from '../firebase/firebase-config';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-
 import { firebaseAuth, db, storage, auth } from '../firebase/firebase-config';
 import { ref, uploadBytes, listAll, getDownloadURL } from 'firebase/storage';
 
@@ -176,23 +173,24 @@ export const ContextFunction = ({ children }) => {
 
 		return signInWithPopup(firebaseAuth, googleAuthProvider).then(
 			async function createUserDB(userCredentials) {
-				users.map((item) => {
-					if (item.userID !== userCredentials.uid) {
-						setDoc(
-							doc(db, 'users', userCredentials.user.uid),
-							{
-								loginType: 'google',
-								name: userCredentials.user.displayName,
-								userID: userCredentials.user.uid,
-								email: userCredentials.user.email,
-								profilePicture: userCredentials.user.photoURL,
-								followers: [],
-								following: [],
-							},
-							{ merge: true }
-						);
-					}
-				});
+				users?.map &&
+					users.map((item) => {
+						if (item.userID === userCredentials.uid) {
+							setDoc(
+								doc(db, 'users', userCredentials.user.uid),
+								{
+									loginType: 'google',
+									name: userCredentials.user.displayName,
+									userID: userCredentials.user.uid,
+									email: userCredentials.user.email,
+									profilePicture: userCredentials.user.photoURL,
+									followers: [],
+									following: [],
+								},
+								{ merge: true }
+							);
+						}
+					});
 			}
 		);
 	};
@@ -298,7 +296,7 @@ export const ContextFunction = ({ children }) => {
 					users.map((item) => {
 						if (user.uid === item.userID) {
 							setDoc(
-								doc(db, 'users', item.postID),
+								doc(db, 'users', item.userID),
 								{
 									profilePicture: url,
 									name: username,

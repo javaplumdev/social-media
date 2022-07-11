@@ -15,8 +15,6 @@ const SettingsComponent = () => {
 		);
 	}, []);
 
-	console.log(username);
-
 	return (
 		<>
 			{currentUserData?.map &&
@@ -24,93 +22,58 @@ const SettingsComponent = () => {
 					return (
 						<div className="py-3" key={item.userID}>
 							<Container>
-								<div>
-
-									<div style={{ maxWidth: '520px' }}>
-										<div className="my-3">
-											<h6>Change profile: </h6>
-											<img
-												src={item.profilePicture}
-												className="me-3"
-												style={{
-													width: '160px',
-													height: '160px',
-													borderRadius: '50%',
-													objectFit: 'cover',
-												}} />
-
-									{item.loginType === 'google' ? (
-										<div>
-											<p
-												className="text-center d-flex align-items-center justify-content-center"
-												style={{ height: '320px' }}
-											>
-												We can't change your account details. Since you logged
-												in with your google account. Sorry.
-											</p>
-										</div>
-									) : (
-										<>
-
-										<div style={{ maxWidth: '520px' }}>
-											<div className="grey my-3">
-												<h6>Change profile: </h6>
-												<img
-													src={item.profilePicture}
-													className="me-3"
-													style={{
-														width: '160px',
-														height: '160px',
-														borderRadius: '50%',
-														objectFit: 'cover',
-													}}
-												/>
-												<label htmlFor="file-input" className="me-3">
-													<BsImage size="20" className="icons me-2" />
-													{imageData && imageData.name}
-												</label>
-											</div>
-
-											<input
-												id="file-input"
-												type="file"
-												className="d-none"
-												onChange={(e) => setImageData(e.target.files[0])}
-
-											/>
-											<label htmlFor="file-input" className="me-3">
-												<BsImage size="20" className="icons me-2" />
-												{imageData && imageData.name}
-											</label>
-										</div>
-
-										<input
-											id="file-input"
-											type="file"
-											className="d-none"
-											onChange={(e) => setImageData(e.target.files[0])}
+								<div style={{ maxWidth: '520px' }}>
+									<div className=" my-3">
+										<h6>Change profile: </h6>
+										<img
+											src={item.profilePicture}
+											className="me-3"
+											style={{
+												width: '160px',
+												height: '160px',
+												borderRadius: '50%',
+												objectFit: 'cover',
+											}}
 										/>
+										<label htmlFor="file-input" className="me-3">
+											<BsImage size="20" className="icons me-2" />
+											{imageData && imageData.name}
+										</label>
+									</div>
 
-										<Form.Group className="mb-3" controlId="formBasicEmail">
-											<Form.Label>Fist name</Form.Label>
-											<Form.Control
-												type="text"
-												placeholder="Enter first name"
-												onChange={(e) => setUserName(e.target.value)}
-											/>
-											<Form.Text className="text-muted">
-												We'll never share your private details with anyone else.
-											</Form.Text>
-										</Form.Group>
-
-										<button
-											className="buttons"
-											onClick={() => updateUserDetails(username)}
-										>
-											Save
-										</button>
-										</>
+									<input
+										id="file-input"
+										type="file"
+										className="d-none"
+										onChange={(e) => setImageData(e.target.files[0])}
+									/>
 								</div>
+
+								<input
+									id="file-input"
+									type="file"
+									className="d-none"
+									onChange={(e) => setImageData(e.target.files[0])}
+								/>
+
+								<Form.Group className="mb-3" controlId="formBasicEmail">
+									<Form.Label>Fist name</Form.Label>
+									<Form.Control
+										type="text"
+										placeholder="Enter first name"
+										onChange={(e) => setUserName(e.target.value)}
+									/>
+									<Form.Text className="text-muted">
+										We'll never share your private details with anyone else.
+									</Form.Text>
+								</Form.Group>
+
+								<button
+									className="buttons"
+									onClick={() => updateUserDetails(username)}
+								>
+									Save
+								</button>
 							</Container>
 						</div>
 					);
