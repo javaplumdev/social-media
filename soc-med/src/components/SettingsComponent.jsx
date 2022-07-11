@@ -14,19 +14,22 @@ const SettingsComponent = () => {
 			{currentUserData?.map &&
 				currentUserData.map((item) => {
 					return (
-						<div className="grey py-3" key={item.userID}>
+						<div className="py-3" key={item.userID}>
 							<Container>
 								<div>
 									{item.loginType === 'google' ? (
 										<div>
-											<p className="text-center">
+											<p
+												className="text-center d-flex align-items-center justify-content-center"
+												style={{ height: '320px' }}
+											>
 												We can't change your account details. Since you logged
 												in with your google account. Sorry.
 											</p>
 										</div>
 									) : (
 										<div style={{ maxWidth: '520px' }}>
-											<div className="my-3">
+											<div className="grey my-3">
 												<h6>Change profile: </h6>
 												<img
 													src={item.profilePicture}

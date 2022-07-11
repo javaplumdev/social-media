@@ -20,7 +20,7 @@ import {
 	arrayRemove,
 	deleteDoc,
 } from 'firebase/firestore';
-import { firebaseAuth, db, storage } from '../firebase/firebase-config';
+import { firebaseAuth, db, storage, auth } from '../firebase/firebase-config';
 import { ref, uploadBytes, listAll, getDownloadURL } from 'firebase/storage';
 import { createContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -167,6 +167,7 @@ export const ContextFunction = ({ children }) => {
 
 	const googleSignIn = () => {
 		const googleAuthProvider = new GoogleAuthProvider();
+
 		return signInWithPopup(firebaseAuth, googleAuthProvider).then(
 			async function createUserDB(userCredentials) {
 				await setDoc(

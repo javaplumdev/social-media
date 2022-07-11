@@ -1,6 +1,6 @@
 import { async } from '@firebase/util';
 import React, { useContext } from 'react';
-import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
+import { Navbar, Container, Nav, NavDropdown, NavLink } from 'react-bootstrap';
 import {
 	BsFillPersonFill,
 	BsGearFill,
@@ -43,11 +43,9 @@ const NavbarComponent = () => {
 							<BsFillPersonFill /> Profile
 						</NavDropdown.Item>
 
-						<Link to="/settings" className="text-decoration-none">
-							<NavDropdown.Item href="/settings">
-								<BsGearFill /> Settings
-							</NavDropdown.Item>
-						</Link>
+						<NavDropdown.Item href="/settings">
+							<BsGearFill /> Settings
+						</NavDropdown.Item>
 
 						<NavDropdown.Item onClick={handleLogout}>
 							<BsBoxArrowLeft /> Logout
