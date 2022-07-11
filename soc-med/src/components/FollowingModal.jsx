@@ -1,9 +1,11 @@
 import React, { useContext } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { ContextVariable } from '../context/context-config';
+import { Link } from 'react-router-dom';
 
-const FollowingModal = ({ following }) => {
-	const { showModal, handleCloseFollowingModal } = useContext(ContextVariable);
+const FollowingModal = ({ following, userID }) => {
+	const { showModal, handleCloseFollowingModal, user } =
+		useContext(ContextVariable);
 
 	return (
 		<Modal show={showModal} onHide={handleCloseFollowingModal}>
@@ -12,34 +14,72 @@ const FollowingModal = ({ following }) => {
 			</Modal.Header>
 			<Modal.Body>
 				{following.length === 0 ? (
-					<p className="text-center">You haven't follow anyone yet.</p>
+					<p className="text-center">
+						{user.uid === userID
+							? "You haven't follow anyone yet."
+							: "Haven't follow anyone yet."}
+					</p>
 				) : (
 					following.map((item) => {
-						return (
-							<div
-								key={item.userID}
-								className="d-flex my-3 justify-content-between"
-							>
-								<div className="d-flex">
-									<img
-										src={item.profilePicture}
-										className="me-3"
-										style={{
-											width: '50px',
-											height: '50px',
-											borderRadius: '50%',
-											objectFit: 'cover',
-										}}
-									/>
+						if (userID === user.uid) {
+							return (
+								<div
+									key={item.userID}
+									className="followstyle d-flex mb-3 justify-content-between p-2"
+								>
+									<Link
+										to={`/profile/${item.userID}`}
+										className="text-decoration-none text-dark"
+									>
+										<div className=" d-flex w-100 ">
+											<img
+												src={item.profilePicture}
+												className="me-3"
+												style={{
+													width: '50px',
+													height: '50px',
+													borderRadius: '50%',
+													objectFit: 'cover',
+												}}
+											/>
 
-									<p>{item.userName}</p>
+											<p>{item.userName}</p>
+										</div>
+									</Link>
+
+									<button className="followButton">
+										<small>Unfollow</small>
+									</button>
 								</div>
+							);
+						} else {
+							return (
+								<div
+									key={item.userID}
+									className="followstyle d-flex mb-3 justify-content-between p-2"
+								>
+									<Link
+										to={`/profile/${item.userID}`}
+										className="text-decoration-none text-dark"
+									>
+										<div className=" d-flex w-100 ">
+											<img
+												src={item.profilePicture}
+												className="me-3"
+												style={{
+													width: '50px',
+													height: '50px',
+													borderRadius: '50%',
+													objectFit: 'cover',
+												}}
+											/>
 
-								<button className="followButton">
-									<small>Unfollow</small>
-								</button>
-							</div>
-						);
+											<p>{item.userName}</p>
+										</div>
+									</Link>
+								</div>
+							);
+						}
 					})
 				)}
 			</Modal.Body>

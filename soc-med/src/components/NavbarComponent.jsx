@@ -35,7 +35,7 @@ const NavbarComponent = () => {
 					</Nav.Link>
 
 					<Nav.Link href="#features">Messages</Nav.Link>
-					<Nav.Link href="#pricing">Friend requests</Nav.Link>
+					<Nav.Link href="/suggested">Find friends</Nav.Link>
 				</Nav>
 				<Nav>
 					<NavDropdown title="Profile" id="basic-nav-dropdown">
@@ -43,11 +43,9 @@ const NavbarComponent = () => {
 							<BsFillPersonFill /> Profile
 						</NavDropdown.Item>
 
-						<Link to="/settings" className="text-decoration-none">
-							<NavDropdown.Item href="/settings">
-								<BsGearFill /> Settings
-							</NavDropdown.Item>
-						</Link>
+						<NavDropdown.Item href="/settings">
+							<BsGearFill /> Settings
+						</NavDropdown.Item>
 
 						<NavDropdown.Item onClick={handleLogout}>
 							<BsBoxArrowLeft /> Logout

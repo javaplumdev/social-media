@@ -66,8 +66,14 @@ const ProfilePage = () => {
 											{' '}
 											<b>{item.following.length}</b> following
 										</small>
-										<FollowersModal followers={item.followers} />
-										<FollowingModal following={item.following} />
+										<FollowersModal
+											followers={item.followers}
+											userID={item.userID}
+										/>
+										<FollowingModal
+											following={item.following}
+											userID={item.userID}
+										/>
 									</div>
 									<p>
 										{userData.length}

@@ -21,10 +21,11 @@ import {
 	deleteDoc,
 } from 'firebase/firestore';
 import { firebaseAuth, db, storage } from '../firebase/firebase-config';
-import { ref, uploadBytes, listAll, getDownloadURL } from 'firebase/storage';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { createContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { uuidv4 } from '@firebase/util';
+import firebase from 'firebase/compat/app';
 
 export const ContextVariable = createContext();
 
@@ -169,19 +170,23 @@ export const ContextFunction = ({ children }) => {
 		const googleAuthProvider = new GoogleAuthProvider();
 		return signInWithPopup(firebaseAuth, googleAuthProvider).then(
 			async function createUserDB(userCredentials) {
-				await setDoc(
-					doc(db, 'users', userCredentials.user.uid),
-					{
-						loginType: 'google',
-						name: userCredentials.user.displayName,
-						userID: userCredentials.user.uid,
-						email: userCredentials.user.email,
-						profilePicture: userCredentials.user.photoURL,
-						followers: [],
-						following: [],
-					},
-					{ merge: true }
-				);
+				users.map((item) => {
+					if (item.userID !== userCredentials.uid) {
+						setDoc(
+							doc(db, 'users', userCredentials.user.uid),
+							{
+								loginType: 'google',
+								name: userCredentials.user.displayName,
+								userID: userCredentials.user.uid,
+								email: userCredentials.user.email,
+								profilePicture: userCredentials.user.photoURL,
+								followers: [],
+								following: [],
+							},
+							{ merge: true }
+						);
+					}
+				});
 			}
 		);
 	};
@@ -236,39 +241,71 @@ export const ContextFunction = ({ children }) => {
 		}
 	};
 
-	const updateProfilePicture = () => {
-		if (imageData === null) return;
+	const updateUserDetails = (username) => {
+		if (imageData === null && username === '' && !username.trim()) {
+			toast.error("You haven't done any changes yet.");
+		} else {
+			// setProfilePictureData
+			const imageRef = ref(storage, `images/${imageData.name + uuidv4()}`);
 
-		// setProfilePictureData
-		const imageRef = ref(storage, `images/${imageData.name + uuidv4()}`);
+			uploadBytes(imageRef, imageData).then(() => {
+				setImageData(null);
+				setContent('');
+				toast.success('Posted!');
 
-		uploadBytes(imageRef, imageData).then(() => {
-			setImageData(null);
-			setContent('');
-			toast.success('Posted!');
+				getDownloadURL(imageRef).then((url) => {
+					setDoc(
+						doc(db, 'users', user.uid),
+						{
+							profilePicture: url,
+							name: username,
+						},
+						{ merge: true }
+					);
 
-			getDownloadURL(imageRef).then((url) => {
-				setDoc(
-					doc(db, 'users', user.uid),
-					{
-						profilePicture: url,
-					},
-					{ merge: true }
-				);
+					feedData.map((item) => {
+						if (user.uid === item.userID) {
+							setDoc(
+								doc(db, 'posts', item.postID),
+								{
+									profilePicture: url,
+									name: username,
+								},
+								{ merge: true }
+							);
+						}
+					});
 
-				feedData.map((item) => {
-					if (user.uid === item.userID) {
-						setDoc(
-							doc(db, 'posts', item.postID),
-							{
-								profilePicture: url,
-							},
-							{ merge: true }
-						);
-					}
+					commentData.map((item) => {
+						if (user.uid === item.userID) {
+							setDoc(
+								doc(db, 'comments', item.commentID),
+								{
+									profilePicture: url,
+									name: username,
+								},
+								{ merge: true }
+							);
+						}
+					});
+
+					users.map((item) => {
+						if (user.uid === item.userID) {
+							setDoc(
+								doc(db, 'users', item.postID),
+								{
+									profilePicture: url,
+									name: username,
+								},
+								{ merge: true }
+							);
+						}
+					});
 				});
 			});
-		});
+
+			toast.success('Succesfully change!');
+		}
 	};
 
 	const openComment = (postID) => {
@@ -330,11 +367,14 @@ export const ContextFunction = ({ children }) => {
 				reports: arrayUnion({ user: user.uid }),
 			});
 
+			toast.success('Post has been reported. Please wait.');
+
 			if (checkReportData.length === 5) {
 				await deleteDoc(doc(db, 'posts', postID));
+				toast.success(
+					'The report reached in 5 reports. The post will now be deleted. Thank you.'
+				);
 			}
-
-			toast.success('Post has been reported. Please wait.');
 		}
 	};
 
@@ -371,7 +411,7 @@ export const ContextFunction = ({ children }) => {
 	return (
 		<ContextVariable.Provider
 			value={{
-				updateProfilePicture,
+				updateUserDetails,
 				showModalVer1,
 				showModal,
 				handleCloseFollowersModal,

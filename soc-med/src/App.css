@@ -61,3 +61,7 @@
 	background-color: #58843e;
 	color: #fff;
 }
+
+.followstyle:hover {
+	background-color: rgb(239, 239, 239);
+}
