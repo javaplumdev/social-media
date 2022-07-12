@@ -52,7 +52,7 @@ const PostsComponent = ({
 						src={profilePicture}
 						className="me-3"
 						style={{
-							width: '60px',
+							width: '50px',
 							height: '50px',
 							borderRadius: '50%',
 						}}
@@ -114,10 +114,9 @@ const PostsComponent = ({
 							src={profilePicture}
 							className="me-3"
 							style={{
-								width: '60px',
+								width: '50px',
 								height: '50px',
 								borderRadius: '50%',
-								objectFit: 'cover',
 							}}
 						/>
 						<div className="w-100">
@@ -140,7 +139,7 @@ const PostsComponent = ({
 										Open Menu
 									</Dropdown.Toggle>
 									<Dropdown.Menu>
-										<Dropdown.Item onClick={() => reportPost()}>
+										<Dropdown.Item onClick={() => reportPost(postID)}>
 											<BsExclamationCircleFill /> Report
 										</Dropdown.Item>
 										{userID === user.uid && (

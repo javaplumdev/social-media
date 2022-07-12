@@ -1,7 +1,12 @@
 import React, { useContext, useState } from 'react';
-import { Button, Modal, Form } from 'react-bootstrap';
+import { Button, Modal, Form, Dropdown } from 'react-bootstrap';
 import { ContextVariable } from '../context/context-config';
 import { v4 as uuidv4 } from 'uuid';
+import {
+	BsThreeDots,
+	BsTrashFill,
+	BsExclamationCircleFill,
+} from 'react-icons/bs';
 
 const CommentModal = () => {
 	const {
@@ -13,6 +18,9 @@ const CommentModal = () => {
 		setCommentValue,
 		commentValue,
 		commentData,
+		user,
+		deleteComment,
+		reportComment,
 	} = useContext(ContextVariable);
 
 	const commentID = uuidv4();
@@ -22,6 +30,19 @@ const CommentModal = () => {
 	const filteredComments =
 		commentData?.filter &&
 		commentData.filter((item) => item.postID === feedPostID);
+
+	const CustomToggle = React.forwardRef(({ onClick }, ref) => (
+		<a
+			href=""
+			ref={ref}
+			onClick={(e) => {
+				e.preventDefault();
+				onClick(e);
+			}}
+		>
+			{<BsThreeDots className="icons me-3" id="dropdown" />}
+		</a>
+	));
 
 	return (
 		<>
@@ -78,24 +99,107 @@ const CommentModal = () => {
 																	key={data.commentID}
 																	className="my-1 d-flex"
 																>
-																	<img
-																		src={data.profilePicture}
-																		className="me-3"
-																		style={{
-																			width: '50px',
-																			height: '50px',
-																			borderRadius: '50%',
-																			objectFit: 'cover',
-																		}}
-																	/>
-																	<div>
-																		<small>{data.name}</small>
-																		<br></br>
-																		<small className="text-secondary">
-																			{item.dateAndTime}
-																		</small>
-																		<p>{data.comment}</p>
-																	</div>
+																	{data.userID === user.uid ? (
+																		<div className="d-flex justify-content-between w-100">
+																			<div className="d-flex">
+																				<img
+																					src={data.profilePicture}
+																					className="me-3"
+																					style={{
+																						width: '50px',
+																						height: '50px',
+																						borderRadius: '50%',
+																						objectFit: 'cover',
+																					}}
+																				/>
+																				<div>
+																					<small>{data.name}</small>
+																					<br></br>
+																					<small className="text-secondary">
+																						{item.dateAndTime}
+																					</small>
+																					<p>{data.comment}</p>
+																				</div>
+																			</div>
+																			<Dropdown>
+																				<Dropdown.Toggle
+																					as={CustomToggle}
+																					variant="success"
+																				>
+																					Open Menu
+																				</Dropdown.Toggle>
+																				<Dropdown.Menu>
+																					<Dropdown.Item
+																						onClick={() =>
+																							reportComment(data.commentID)
+																						}
+																					>
+																						<BsExclamationCircleFill /> Report
+																					</Dropdown.Item>
+																					{data.userID === user.uid && (
+																						<Dropdown.Item
+																							onClick={() =>
+																								deleteComment(data.commentID)
+																							}
+																						>
+																							<BsTrashFill /> Delete
+																						</Dropdown.Item>
+																					)}
+																				</Dropdown.Menu>
+																			</Dropdown>
+																		</div>
+																	) : (
+																		<>
+																			<div className="d-flex justify-content-between w-100">
+																				<div className="d-flex">
+																					<img
+																						src={data.profilePicture}
+																						className="me-3"
+																						style={{
+																							width: '50px',
+																							height: '50px',
+																							borderRadius: '50%',
+																							objectFit: 'cover',
+																						}}
+																					/>
+																					<div>
+																						<small>{data.name}</small>
+																						<br></br>
+																						<small className="text-secondary">
+																							{item.dateAndTime}
+																						</small>
+																						<p>{data.comment}</p>
+																					</div>
+																				</div>
+																				<Dropdown>
+																					<Dropdown.Toggle
+																						as={CustomToggle}
+																						variant="success"
+																					>
+																						Open Menu
+																					</Dropdown.Toggle>
+																					<Dropdown.Menu>
+																						<Dropdown.Item
+																							onClick={() =>
+																								reportComment(data.commentID)
+																							}
+																						>
+																							<BsExclamationCircleFill /> Report
+																						</Dropdown.Item>
+																						{data.userID === user.uid && (
+																							<Dropdown.Item
+																								onClick={() =>
+																									deleteComment(data.commentID)
+																								}
+																							>
+																								<BsTrashFill /> Delete
+																							</Dropdown.Item>
+																						)}
+																					</Dropdown.Menu>
+																				</Dropdown>
+																			</div>
+																		</>
+																	)}
 																</div>
 															);
 														})}

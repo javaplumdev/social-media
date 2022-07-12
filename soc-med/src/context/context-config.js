@@ -331,6 +331,7 @@ export const ContextFunction = ({ children }) => {
 					userID: user.uid,
 					dateAndTime: `${dateToday} ${hours}:${minutes}${newformat}`,
 					timestamp: serverTimestamp(),
+					reports: [],
 				});
 			});
 
@@ -359,9 +360,41 @@ export const ContextFunction = ({ children }) => {
 		toast.success('Post deleted');
 	};
 
+	const deleteComment = async (commentID) => {
+		await deleteDoc(doc(db, 'comments', commentID));
+
+		toast.success('Comment deleted');
+	};
+
+	const reportComment = (commentID) => {
+		const filteredPosts = commentData.filter(
+			(item) => item.commentID === commentID
+		);
+		const checkReportData = filteredPosts.map((item) => item.reports)[0];
+		const isReported = checkReportData.find((item) => item.user === user.uid);
+
+		if (isReported) {
+			toast.error('Comment already been reported. Please wait.');
+		} else if (isReported === undefined) {
+			updateDoc(doc(db, 'comments', commentID), {
+				reports: arrayUnion({ user: user.uid }),
+			});
+
+			toast.success('Comment has been reported. Please wait.');
+
+			if (checkReportData.length === 5) {
+				deleteDoc(doc(db, 'comments', commentID));
+				toast.success(
+					'The report reached the limit. The Comment will now be deleted. Thank you.'
+				);
+			}
+		}
+	};
+
 	const reportPost = async (postID) => {
 		const filteredPosts = feedData.filter((item) => item.postID === postID);
 		const checkReportData = filteredPosts.map((item) => item.reports)[0];
+
 		const isReported = checkReportData.find((item) => item.user === user.uid);
 
 		if (isReported) {
@@ -415,6 +448,8 @@ export const ContextFunction = ({ children }) => {
 	return (
 		<ContextVariable.Provider
 			value={{
+				reportComment,
+				deleteComment,
 				updateUserDetails,
 				showModalVer1,
 				showModal,

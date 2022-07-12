@@ -27,8 +27,6 @@ const ProfilePage = () => {
 	const profileData =
 		users?.filter && users.filter((item) => item.userID === id);
 
-	console.log(userData);
-
 	return (
 		<div className="grey pt-3 ">
 			<Container>
@@ -86,8 +84,8 @@ const ProfilePage = () => {
 						);
 					})}
 
-				<div className="mt-2" style={{ maxWidth: '720px' }}>
-					<b>Your posts</b>
+				<div className="my-3" style={{ maxWidth: '720px' }}>
+					<b>{id === user.uid ? 'Your posts' : 'User posts'}</b>
 					{feedData?.map &&
 						feedData.map((item) => {
 							if (item.userID === id) {
