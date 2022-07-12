@@ -8,8 +8,8 @@ const ReadMore = ({ children }) => {
 	};
 
 	return (
-		<p className="text">
-			{isReadMore ? text.slice(0, 200) : text}
+		<p className="overflowWrap">
+			{isReadMore ? text.slice(0, 130) : text}
 
 			{text.length >= 100 && (
 				<small onClick={toggleReadMore} className="read-or-hide">

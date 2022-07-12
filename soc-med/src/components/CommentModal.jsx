@@ -63,7 +63,7 @@ const CommentModal = () => {
 											src={item.profilePicture}
 											className="me-3"
 											style={{
-												width: '60px',
+												width: '50px',
 												height: '50px',
 												borderRadius: '50%',
 												objectFit: 'cover',
@@ -160,8 +160,8 @@ const CommentModal = () => {
 																			</small>
 																		</div>
 																	) : (
-																		<>
-																			<div className="d-flex justify-content-between w-100">
+																		<div className=" w-100">
+																			<div className="d-flex justify-content-between">
 																				<div className="d-flex">
 																					<img
 																						src={data.profilePicture}
@@ -179,7 +179,6 @@ const CommentModal = () => {
 																						<small className="text-secondary">
 																							{item.dateAndTime}
 																						</small>
-																						<small>{data.comment}</small>
 																					</div>
 																				</div>
 																				<Dropdown>
@@ -197,19 +196,13 @@ const CommentModal = () => {
 																						>
 																							<BsExclamationCircleFill /> Report
 																						</Dropdown.Item>
-																						{data.userID === user.uid && (
-																							<Dropdown.Item
-																								onClick={() =>
-																									deleteComment(data.commentID)
-																								}
-																							>
-																								<BsTrashFill /> Delete
-																							</Dropdown.Item>
-																						)}
 																					</Dropdown.Menu>
 																				</Dropdown>
 																			</div>
-																		</>
+																			<small className="overflowWrap">
+																				{data.comment}
+																			</small>
+																		</div>
 																	)}
 																</div>
 															);

@@ -61,7 +61,15 @@ const HomePage = () => {
 									className="d-none"
 									onChange={(e) => setImageData(e.target.files[0])}
 								/>
-
+								<p
+									className={
+										content.length >= 200
+											? `text-danger mt-3`
+											: 'text-dark mt-3'
+									}
+								>
+									{content.length} / 200
+								</p>
 								<button
 									className="buttons mt-3"
 									onClick={() => postContent(postID)}

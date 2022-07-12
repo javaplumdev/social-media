@@ -175,7 +175,7 @@ export const ContextFunction = ({ children }) => {
 			async function createUserDB(userCredentials) {
 				users?.map &&
 					users.map((item) => {
-						if (item.userID === userCredentials.uid) {
+						if (item.userID !== userCredentials.user.uid) {
 							setDoc(
 								doc(db, 'users', userCredentials.user.uid),
 								{
@@ -186,6 +186,15 @@ export const ContextFunction = ({ children }) => {
 									profilePicture: userCredentials.user.photoURL,
 									followers: [],
 									following: [],
+								},
+								{ merge: true }
+							);
+						} else if (item.userID === userCredentials.user.uid) {
+							setDoc(
+								doc(db, 'users', userCredentials.user.uid),
+								{
+									name: item.name,
+									profilePicture: item.profilePicture,
 								},
 								{ merge: true }
 							);
@@ -200,22 +209,26 @@ export const ContextFunction = ({ children }) => {
 			if (!content.trim() || content === '') {
 				toast.error('Please enter a content!');
 			} else {
-				currentUserData.map((item) => {
-					setDoc(doc(db, 'posts', postID), {
-						postID: postID,
-						name: item.name,
-						content: content,
-						profilePicture: item.profilePicture,
-						userID: user.uid,
-						dateAndTime: `${dateToday} ${hours}:${minutes}${newformat}`,
-						timestamp: serverTimestamp(),
-						likes: [],
-						reports: [],
+				if (content.length >= 200) {
+					toast.error('Please enter 200 words only!');
+				} else {
+					currentUserData.map((item) => {
+						setDoc(doc(db, 'posts', postID), {
+							postID: postID,
+							name: item.name,
+							content: content,
+							profilePicture: item.profilePicture,
+							userID: user.uid,
+							dateAndTime: `${dateToday} ${hours}:${minutes}${newformat}`,
+							timestamp: serverTimestamp(),
+							likes: [],
+							reports: [],
+						});
 					});
-				});
 
-				setContent('');
-				toast.success('Posted!');
+					setContent('');
+					toast.success('Posted!');
+				}
 			}
 		} else {
 			const imageRef = ref(storage, `images/${imageData.name + uuidv4()}`);
@@ -223,7 +236,6 @@ export const ContextFunction = ({ children }) => {
 			uploadBytes(imageRef, imageData).then(() => {
 				setImageData(null);
 				setContent('');
-				toast.success('Posted!');
 
 				getDownloadURL(imageRef).then((url) => {
 					currentUserData.map((item) => {
@@ -241,27 +253,23 @@ export const ContextFunction = ({ children }) => {
 						});
 					});
 				});
+
+				toast.success('Posted!');
 			});
 		}
 	};
 
 	const updateUserDetails = (username) => {
-		if (imageData === null && username === '' && !username.trim()) {
-			toast.error("You haven't done any changes yet.");
-		} else {
-			// setProfilePictureData
-			const imageRef = ref(storage, `images/${imageData.name + uuidv4()}`);
-
-			uploadBytes(imageRef, imageData).then(() => {
-				setImageData(null);
-				setContent('');
-				toast.success('Posted!');
-
-				getDownloadURL(imageRef).then((url) => {
+		if (imageData === null) {
+			if (!username.trim() || username === '') {
+				toast.error('Please enter a content!');
+			} else {
+				if (username.length >= 25) {
+					toast.error('Please enter 25 letters only.');
+				} else {
 					setDoc(
 						doc(db, 'users', user.uid),
 						{
-							profilePicture: url,
 							name: username,
 						},
 						{ merge: true }
@@ -272,7 +280,6 @@ export const ContextFunction = ({ children }) => {
 							setDoc(
 								doc(db, 'posts', item.postID),
 								{
-									profilePicture: url,
 									name: username,
 								},
 								{ merge: true }
@@ -285,7 +292,6 @@ export const ContextFunction = ({ children }) => {
 							setDoc(
 								doc(db, 'comments', item.commentID),
 								{
-									profilePicture: url,
 									name: username,
 								},
 								{ merge: true }
@@ -298,8 +304,63 @@ export const ContextFunction = ({ children }) => {
 							setDoc(
 								doc(db, 'users', item.userID),
 								{
-									profilePicture: url,
 									name: username,
+								},
+								{ merge: true }
+							);
+						}
+					});
+
+					toast.success('Succesfully changed!');
+				}
+			}
+		} else {
+			// setProfilePictureData
+			const imageRef = ref(storage, `images/${imageData.name + uuidv4()}`);
+
+			uploadBytes(imageRef, imageData).then(() => {
+				setImageData(null);
+				setContent('');
+
+				getDownloadURL(imageRef).then((url) => {
+					setDoc(
+						doc(db, 'users', user.uid),
+						{
+							profilePicture: url,
+						},
+						{ merge: true }
+					);
+
+					feedData.map((item) => {
+						if (user.uid === item.userID) {
+							setDoc(
+								doc(db, 'posts', item.postID),
+								{
+									profilePicture: url,
+								},
+								{ merge: true }
+							);
+						}
+					});
+
+					commentData.map((item) => {
+						if (user.uid === item.userID) {
+							setDoc(
+								doc(db, 'comments', item.commentID),
+								{
+									profilePicture: url,
+								},
+								{ merge: true }
+							);
+						}
+					});
+
+					users.map((item) => {
+						if (user.uid === item.userID) {
+							setDoc(
+								doc(db, 'users', item.userID),
+								{
+									profilePicture: url,
 								},
 								{ merge: true }
 							);
@@ -308,7 +369,7 @@ export const ContextFunction = ({ children }) => {
 				});
 			});
 
-			toast.success('Succesfully change!');
+			toast.success('Succesfully changed!');
 		}
 	};
 
@@ -419,13 +480,14 @@ export const ContextFunction = ({ children }) => {
 		}
 	};
 
-	const follow = (userID, name, profilePicture) => {
+	const follow = (userID, name, profilePicture, userToFollow) => {
 		currentUserData.map((item) => {
 			updateDoc(doc(db, 'users', userID), {
 				followers: arrayUnion({
 					userID: item.userID,
 					userName: item.name,
 					profilePicture: item.profilePicture,
+					userToFollow: userToFollow,
 				}),
 			});
 		});
@@ -435,6 +497,7 @@ export const ContextFunction = ({ children }) => {
 				userID: userID,
 				userName: name,
 				profilePicture: profilePicture,
+				userToFollow: userToFollow,
 			}),
 		});
 

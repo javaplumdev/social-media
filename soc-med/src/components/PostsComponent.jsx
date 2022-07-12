@@ -50,29 +50,34 @@ const PostsComponent = ({
 			{image === undefined ? (
 				<div className="bg-white p-3 rounded  my-3 w-100">
 					<div className="d-flex">
-						<img
-							src={profilePicture}
-							className="me-3"
-							style={{
-								width: '50px',
-								height: '50px',
-								borderRadius: '50%',
-							}}
-						/>
 						<div className="w-100">
 							<div className="d-flex justify-content-between">
-								<div>
-									<Link
-										to={`/profile/${userID}`}
-										className="text-decoration-none text-black"
-									>
-										<small>
-											<b>{name}</b>
-										</small>
-									</Link>
+								<div className="d-flex">
+									<div>
+										<img
+											src={profilePicture}
+											className="me-3"
+											style={{
+												width: '50px',
+												height: '50px',
+												borderRadius: '50%',
+												objectFit: 'cover',
+											}}
+										/>
+									</div>
+									<div>
+										<Link
+											to={`/profile/${userID}`}
+											className="text-decoration-none text-black"
+										>
+											<small>
+												<b>{name}</b>
+											</small>
+										</Link>
 
-									<br></br>
-									<small className="text-secondary">{dateAndTime}</small>
+										<br></br>
+										<small className="text-secondary">{dateAndTime}</small>
+									</div>
 								</div>
 								<Dropdown>
 									<Dropdown.Toggle as={CustomToggle} variant="success">
@@ -92,9 +97,9 @@ const PostsComponent = ({
 							</div>
 						</div>
 					</div>
-					<p className="overflowWrap">
-						<ReadMore>{content}</ReadMore>
-					</p>
+
+					<ReadMore className="overflowWrap">{content}</ReadMore>
+
 					<div>
 						<BsFillHeartFill
 							size="20"
@@ -115,29 +120,34 @@ const PostsComponent = ({
 			) : (
 				<div className="bg-white p-3 rounded  my-3 w-100">
 					<div className="d-flex">
-						<img
-							src={profilePicture}
-							className="me-3"
-							style={{
-								width: '50px',
-								height: '50px',
-								borderRadius: '50%',
-							}}
-						/>
 						<div className="w-100">
 							<div className="d-flex justify-content-between">
-								<div>
-									<Link
-										to={`/profile/${userID}`}
-										className="text-decoration-none text-black"
-									>
-										<small>
-											<b>{name}</b>
-										</small>
-									</Link>
+								<div className="d-flex">
+									<div>
+										<img
+											src={profilePicture}
+											className="me-3"
+											style={{
+												width: '50px',
+												height: '50px',
+												borderRadius: '50%',
+												objectFit: 'cover',
+											}}
+										/>
+									</div>
+									<div>
+										<Link
+											to={`/profile/${userID}`}
+											className="text-decoration-none text-black"
+										>
+											<small>
+												<b>{name}</b>
+											</small>
+										</Link>
 
-									<br></br>
-									<small className="text-secondary">{dateAndTime}</small>
+										<br></br>
+										<small className="text-secondary">{dateAndTime}</small>
+									</div>
 								</div>
 								<Dropdown>
 									<Dropdown.Toggle as={CustomToggle} variant="success">
@@ -157,9 +167,7 @@ const PostsComponent = ({
 							</div>
 						</div>
 					</div>
-					<p className="overflowWrap">
-						<ReadMore>{content}</ReadMore>
-					</p>
+					<ReadMore>{content}</ReadMore>
 					<img className="mb-3" src={image} style={{ width: '100%' }} />
 					<div>
 						<BsFillHeartFill

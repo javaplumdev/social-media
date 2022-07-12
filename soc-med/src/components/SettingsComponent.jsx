@@ -57,7 +57,16 @@ const SettingsComponent = () => {
 								/>
 
 								<Form.Group className="mb-3" controlId="formBasicEmail">
-									<Form.Label>Fist name</Form.Label>
+									<Form.Label>Fist name</Form.Label>{' '}
+									<p
+										className={
+											username.length >= 25
+												? `text-danger mt-3`
+												: 'text-dark mt-3'
+										}
+									>
+										{username.length} / 25
+									</p>
 									<Form.Control
 										type="text"
 										placeholder="Enter first name"
