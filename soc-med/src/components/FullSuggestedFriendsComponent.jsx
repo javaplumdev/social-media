@@ -6,8 +6,6 @@ import { Container } from 'react-bootstrap';
 const FullSuggestedFriendsComponent = () => {
 	const { suggestedFriends } = useContext(ContextVariable);
 
-	console.log(suggestedFriends);
-
 	return (
 		<div>
 			<Container>
