@@ -65,3 +65,18 @@
 .followstyle:hover {
 	background-color: rgb(239, 239, 239);
 }
+
+.overflowWrap {
+	overflow-wrap: break-word;
+	max-width: 100%;
+	margin: 1em 0;
+}
+
+.read-or-hide {
+	color: rgb(141, 141, 141);
+}
+
+.read-or-hide:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}

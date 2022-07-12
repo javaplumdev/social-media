@@ -57,23 +57,30 @@ const CommentModal = () => {
 							className="modal-background"
 						>
 							<Modal.Body>
-								<div className="d-flex ">
-									<img
-										src={item.profilePicture}
-										className="me-3"
-										style={{
-											width: '60px',
-											height: '50px',
-											borderRadius: '50%',
-											objectFit: 'cover',
-										}}
-									/>
-									<div className="w-100 ">
-										<b>{item.name}</b>
-										<br></br>
-										<small className="text-secondary">{item.dateAndTime}</small>
-										<p>{item.content}</p>
+								<div>
+									<div className="d-flex">
+										<img
+											src={item.profilePicture}
+											className="me-3"
+											style={{
+												width: '60px',
+												height: '50px',
+												borderRadius: '50%',
+												objectFit: 'cover',
+											}}
+										/>
 
+										<div>
+											<b>{item.name}</b>
+											<br></br>
+											<small className="text-secondary">
+												{item.dateAndTime}
+											</small>
+										</div>
+									</div>
+
+									<div>
+										<small className="overflowWrap">{item.content}</small>
 										{/* Comments */}
 										<div>
 											<b>
@@ -97,56 +104,60 @@ const CommentModal = () => {
 															return (
 																<div
 																	key={data.commentID}
-																	className="my-1 d-flex"
+																	className="my-3 d-flex"
 																>
 																	{data.userID === user.uid ? (
-																		<div className="d-flex justify-content-between w-100">
-																			<div className="d-flex">
-																				<img
-																					src={data.profilePicture}
-																					className="me-3"
-																					style={{
-																						width: '50px',
-																						height: '50px',
-																						borderRadius: '50%',
-																						objectFit: 'cover',
-																					}}
-																				/>
-																				<div>
-																					<small>{data.name}</small>
-																					<br></br>
-																					<small className="text-secondary">
-																						{item.dateAndTime}
-																					</small>
-																					<p>{data.comment}</p>
+																		<div className=" w-100">
+																			<div className="d-flex justify-content-between">
+																				<div className="d-flex">
+																					<img
+																						src={data.profilePicture}
+																						className="me-3"
+																						style={{
+																							width: '50px',
+																							height: '50px',
+																							borderRadius: '50%',
+																							objectFit: 'cover',
+																						}}
+																					/>
+																					<div>
+																						<small>{data.name}</small>
+																						<br></br>
+																						<small className="text-secondary">
+																							{item.dateAndTime}
+																						</small>
+																					</div>
 																				</div>
-																			</div>
-																			<Dropdown>
-																				<Dropdown.Toggle
-																					as={CustomToggle}
-																					variant="success"
-																				>
-																					Open Menu
-																				</Dropdown.Toggle>
-																				<Dropdown.Menu>
-																					<Dropdown.Item
-																						onClick={() =>
-																							reportComment(data.commentID)
-																						}
+																				<Dropdown>
+																					<Dropdown.Toggle
+																						as={CustomToggle}
+																						variant="success"
 																					>
-																						<BsExclamationCircleFill /> Report
-																					</Dropdown.Item>
-																					{data.userID === user.uid && (
+																						Open Menu
+																					</Dropdown.Toggle>
+																					<Dropdown.Menu>
 																						<Dropdown.Item
 																							onClick={() =>
-																								deleteComment(data.commentID)
+																								reportComment(data.commentID)
 																							}
 																						>
-																							<BsTrashFill /> Delete
+																							<BsExclamationCircleFill /> Report
 																						</Dropdown.Item>
-																					)}
-																				</Dropdown.Menu>
-																			</Dropdown>
+																						{data.userID === user.uid && (
+																							<Dropdown.Item
+																								onClick={() =>
+																									deleteComment(data.commentID)
+																								}
+																							>
+																								<BsTrashFill /> Delete
+																							</Dropdown.Item>
+																						)}
+																					</Dropdown.Menu>
+																				</Dropdown>
+																			</div>
+																			<small className="overflowWrap">
+																				{data.comment}
+																			</small>
 																		</div>
 																	) : (
 																		<>
@@ -168,7 +179,7 @@ const CommentModal = () => {
 																						<small className="text-secondary">
 																							{item.dateAndTime}
 																						</small>
-																						<p>{data.comment}</p>
+																						<small>{data.comment}</small>
 																					</div>
 																				</div>
 																				<Dropdown>
@@ -217,7 +228,13 @@ const CommentModal = () => {
 									value={commentValue}
 									onChange={(e) => setCommentValue(e.target.value)}
 								/>
-
+								<p
+									className={
+										commentValue.length >= 50 ? `text-danger` : 'text-dark'
+									}
+								>
+									{commentValue.length} / 50
+								</p>
 								<Button variant="secondary" onClick={handleClose}>
 									Close
 								</Button>

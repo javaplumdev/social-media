@@ -12,6 +12,7 @@ import { ContextVariable } from '../context/context-config';
 import { Dropdown } from 'react-bootstrap';
 import CommentModal from './CommentModal';
 import { Link } from 'react-router-dom';
+import ReadMore from './ReadMore';
 
 const PostsComponent = ({
 	name,
@@ -47,64 +48,68 @@ const PostsComponent = ({
 	return (
 		<>
 			{image === undefined ? (
-				<div className="bg-white p-3 rounded d-flex my-3">
-					<img
-						src={profilePicture}
-						className="me-3"
-						style={{
-							width: '50px',
-							height: '50px',
-							borderRadius: '50%',
-						}}
-					/>
-					<div className="w-100">
-						<div className="d-flex justify-content-between">
-							<div>
-								<Link
-									to={`/profile/${userID}`}
-									className="text-decoration-none text-black"
-								>
-									<small>
-										<b>{name}</b>
-									</small>
-								</Link>
+				<div className="bg-white p-3 rounded  my-3 w-100">
+					<div className="d-flex">
+						<img
+							src={profilePicture}
+							className="me-3"
+							style={{
+								width: '50px',
+								height: '50px',
+								borderRadius: '50%',
+							}}
+						/>
+						<div className="w-100">
+							<div className="d-flex justify-content-between">
+								<div>
+									<Link
+										to={`/profile/${userID}`}
+										className="text-decoration-none text-black"
+									>
+										<small>
+											<b>{name}</b>
+										</small>
+									</Link>
 
-								<br></br>
-								<small className="text-secondary">{dateAndTime}</small>
-							</div>
-							<Dropdown>
-								<Dropdown.Toggle as={CustomToggle} variant="success">
-									Open Menu
-								</Dropdown.Toggle>
-								<Dropdown.Menu>
-									<Dropdown.Item onClick={() => reportPost(postID)}>
-										<BsExclamationCircleFill /> Report
-									</Dropdown.Item>
-									{userID === user.uid && (
-										<Dropdown.Item onClick={() => deletePost(postID)}>
-											<BsTrashFill /> Delete
+									<br></br>
+									<small className="text-secondary">{dateAndTime}</small>
+								</div>
+								<Dropdown>
+									<Dropdown.Toggle as={CustomToggle} variant="success">
+										Open Menu
+									</Dropdown.Toggle>
+									<Dropdown.Menu>
+										<Dropdown.Item onClick={() => reportPost(postID)}>
+											<BsExclamationCircleFill /> Report
 										</Dropdown.Item>
-									)}
-								</Dropdown.Menu>
-							</Dropdown>
+										{userID === user.uid && (
+											<Dropdown.Item onClick={() => deletePost(postID)}>
+												<BsTrashFill /> Delete
+											</Dropdown.Item>
+										)}
+									</Dropdown.Menu>
+								</Dropdown>
+							</div>
 						</div>
-						<p>{content}</p>
-						<div>
-							<BsFillHeartFill
-								size="20"
-								color={isLike ? '#77b255' : '#bcb8b1'}
-								className="icons me-2"
-								onClick={() => like(postID)}
-							/>{' '}
-							{likes.length && likes.length}{' '}
-							<BsFillChatLeftFill
-								size="20"
-								className="icons mx-2"
-								onClick={() => openComment(postID)}
-							/>{' '}
-							{filteredComments.length}
-							<CommentModal />
-						</div>
+					</div>
+					<p className="overflowWrap">
+						<ReadMore>{content}</ReadMore>
+					</p>
+					<div>
+						<BsFillHeartFill
+							size="20"
+							color={isLike ? '#77b255' : '#bcb8b1'}
+							className="icons me-2"
+							onClick={() => like(postID)}
+						/>{' '}
+						{likes.length && likes.length}{' '}
+						<BsFillChatLeftFill
+							size="20"
+							className="icons mx-2"
+							onClick={() => openComment(postID)}
+						/>{' '}
+						{filteredComments.length}
+						<CommentModal />
 					</div>
 				</div>
 			) : (
@@ -150,9 +155,11 @@ const PostsComponent = ({
 									</Dropdown.Menu>
 								</Dropdown>
 							</div>
-							<p>{content}</p>
 						</div>
 					</div>
+					<p className="overflowWrap">
+						<ReadMore>{content}</ReadMore>
+					</p>
 					<img className="mb-3" src={image} style={{ width: '100%' }} />
 					<div>
 						<BsFillHeartFill

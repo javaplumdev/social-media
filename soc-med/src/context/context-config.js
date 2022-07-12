@@ -321,21 +321,25 @@ export const ContextFunction = ({ children }) => {
 		if (!commentValue.trim() || commentValue === '') {
 			toast.error('Please enter a comment!');
 		} else {
-			currentUserData.map((item) => {
-				setDoc(doc(db, 'comments', commentID), {
-					commentID: commentID,
-					postID: feedPostID,
-					name: item.name,
-					comment: commentValue,
-					profilePicture: item.profilePicture,
-					userID: user.uid,
-					dateAndTime: `${dateToday} ${hours}:${minutes}${newformat}`,
-					timestamp: serverTimestamp(),
-					reports: [],
+			if (commentValue.length >= 50) {
+				toast.error('Please enter 50 words only!');
+			} else {
+				currentUserData.map((item) => {
+					setDoc(doc(db, 'comments', commentID), {
+						commentID: commentID,
+						postID: feedPostID,
+						name: item.name,
+						comment: commentValue,
+						profilePicture: item.profilePicture,
+						userID: user.uid,
+						dateAndTime: `${dateToday} ${hours}:${minutes}${newformat}`,
+						timestamp: serverTimestamp(),
+						reports: [],
+					});
 				});
-			});
 
-			setCommentValue('');
+				setCommentValue('');
+			}
 		}
 	};
 
