@@ -70,15 +70,14 @@ const PostsComponent = ({
 											to={`/profile/${userID}`}
 											className="text-decoration-none text-black"
 										>
-											<small>
-												<b>{name}</b>
-											</small>
+											<b className="overflowWrap">{name}</b>
 										</Link>
 
 										<br></br>
 										<small className="text-secondary">{dateAndTime}</small>
 									</div>
 								</div>
+
 								<Dropdown>
 									<Dropdown.Toggle as={CustomToggle} variant="success">
 										Open Menu

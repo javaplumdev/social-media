@@ -10,8 +10,7 @@ const RegistrationPage = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 
-	const [firstName, setFirstName] = useState('');
-	const [lastName, setLastName] = useState('');
+	const [username, setUsername] = useState('');
 
 	const [retryPassword, setRetryPassword] = useState('');
 	const [error, setError] = useState('');
@@ -26,8 +25,8 @@ const RegistrationPage = () => {
 			toast.error('Passwords are mismatched');
 		} else {
 			try {
-				await register(email, password, firstName, lastName);
-				toast.success('Account created! Please log in');
+				await register(email, password, username);
+
 				navigate('/');
 			} catch (error) {
 				setError(error.message);
@@ -66,19 +65,12 @@ const RegistrationPage = () => {
 						</div>
 					</div>
 					<div className="mb-3">
-						<small className="form-label">First name</small>
+						<small className="form-label">Username</small>
 						<input
 							type="text"
 							className="form-control"
 							aria-describedby="emailHelp"
-							onChange={(e) => setFirstName(e.target.value)}
-						/>
-						<small className="form-label">Last name</small>
-						<input
-							type="text"
-							className="form-control"
-							aria-describedby="emailHelp"
-							onChange={(e) => setLastName(e.target.value)}
+							onChange={(e) => setUsername(e.target.value)}
 						/>
 					</div>
 					<hr></hr>

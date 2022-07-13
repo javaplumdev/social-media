@@ -4,16 +4,22 @@ import { ContextVariable } from '../context/context-config';
 import { BsUpload, BsImage } from 'react-icons/bs';
 
 const SettingsComponent = () => {
-	const { currentUserData, updateUserDetails, imageData, setImageData } =
-		useContext(ContextVariable);
-
-	const [username, setUserName] = useState('');
+	const {
+		currentUserData,
+		updateUserDetails,
+		imageData,
+		setImageData,
+		username,
+		setUserName,
+	} = useContext(ContextVariable);
 
 	useEffect(() => {
 		setUserName(
 			currentUserData?.map && currentUserData.map((item) => item.name)[0]
 		);
 	}, []);
+
+	console.log(username);
 
 	return (
 		<>
@@ -60,12 +66,12 @@ const SettingsComponent = () => {
 									<Form.Label>Fist name</Form.Label>{' '}
 									<p
 										className={
-											username.length >= 25
+											username?.length || 0 >= 20
 												? `text-danger mt-3`
 												: 'text-dark mt-3'
 										}
 									>
-										{username.length} / 25
+										{username?.length} / 20
 									</p>
 									<Form.Control
 										type="text"
@@ -77,10 +83,7 @@ const SettingsComponent = () => {
 									</Form.Text>
 								</Form.Group>
 
-								<button
-									className="buttons"
-									onClick={() => updateUserDetails(username)}
-								>
+								<button className="buttons" onClick={() => updateUserDetails()}>
 									Save
 								</button>
 							</Container>
