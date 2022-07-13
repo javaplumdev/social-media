@@ -28,6 +28,7 @@ import { createContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { uuidv4 } from '@firebase/util';
 import firebase from 'firebase/compat/app';
+import { useNavigate } from 'react-router-dom';
 
 export const ContextVariable = createContext();
 
@@ -38,7 +39,7 @@ export const ContextFunction = ({ children }) => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [content, setContent] = useState('');
 	const [username, setUserName] = useState('-');
-
+	const [searchVar, setSearchVar] = useState('');
 	const [feedPostID, setFeedPostID] = useState('');
 	const [commentData, setCommentData] = useState({});
 	const [commentValue, setCommentValue] = useState('');
@@ -195,15 +196,10 @@ export const ContextFunction = ({ children }) => {
 								},
 								{ merge: true }
 							);
-						} else if (item.userID === userCredentials.user.uid) {
-							setDoc(
-								doc(db, 'users', userCredentials.user.uid),
-								{
-									name: item.name,
-									profilePicture: item.profilePicture,
-								},
-								{ merge: true }
-							);
+						} else if (item.userID === userCredentials) {
+							setDoc(doc(db, 'users', userCredentials.user.uid), {
+								merge: true,
+							});
 						}
 					});
 			}
@@ -518,9 +514,22 @@ export const ContextFunction = ({ children }) => {
 		handleShowFollowersModal();
 	};
 
+	let navigate = useNavigate();
+
+	const search = () => {
+		if (!searchVar.trim() || searchVar === '') {
+			toast.error('Invalid search');
+		} else {
+			navigate(`/results/${searchVar}`);
+		}
+	};
+
 	return (
 		<ContextVariable.Provider
 			value={{
+				searchVar,
+				setSearchVar,
+				search,
 				username,
 				setUserName,
 				reportComment,

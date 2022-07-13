@@ -1,5 +1,5 @@
 import { async } from '@firebase/util';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import {
 	Navbar,
 	Container,
@@ -15,13 +15,16 @@ import {
 	BsBoxArrowLeft,
 	BsFillHouseFill,
 	BsSearch,
+	BsFillChatLeftFill,
+	BsFillPeopleFill,
 } from 'react-icons/bs';
 import { ContextVariable } from '../context/context-config';
 import { Link } from 'react-router-dom';
 import sillyfroglogo from '../assets/sillyfroglogo.svg';
 
 const NavbarComponent = () => {
-	const { logOut, user } = useContext(ContextVariable);
+	const { logOut, user, search, searchVar, setSearchVar } =
+		useContext(ContextVariable);
 
 	const handleLogout = async () => {
 		try {
@@ -41,16 +44,15 @@ const NavbarComponent = () => {
 
 				<Navbar.Collapse id="basic-navbar-nav">
 					<Nav className="mx-auto">
-						<div className="d-none d-sm-block my-1">
+						<div className="d-none d-md-block my-1">
 							<InputGroup>
 								<Form.Control
-									placeholder="Seach"
-									aria-label="Recipient's username"
-									aria-describedby="basic-addon2"
+									placeholder="Search"
+									onChange={(e) => setSearchVar(e.target.value)}
 								/>
-								<Button variant="outline-secondary" id="button-addon2">
+								<div className="buttons" onClick={() => search(searchVar)}>
 									<BsSearch />
-								</Button>
+								</div>
 							</InputGroup>
 						</div>
 					</Nav>
@@ -59,8 +61,12 @@ const NavbarComponent = () => {
 							<BsFillHouseFill className="icon" /> Home
 						</Nav.Link>
 
-						<Nav.Link href="#features">Messages</Nav.Link>
-						<Nav.Link href="/suggested">Find friends</Nav.Link>
+						<Nav.Link href="#features">
+							<BsFillChatLeftFill className="icon" /> Messages
+						</Nav.Link>
+						<Nav.Link href="/suggested">
+							<BsFillPeopleFill className="icon" /> friends
+						</Nav.Link>
 						<NavDropdown title="Profile" id="basic-nav-dropdown">
 							<NavDropdown.Item href={`/profile/${user.uid}`}>
 								<BsFillPersonFill /> Profile

@@ -48,7 +48,7 @@ const FollowersModal = ({ followers, userID }) => {
 									</Link>
 
 									<button className="followButton">
-										<small>Unfollow</small>
+										<small>Remove</small>
 									</button>
 								</div>
 							);

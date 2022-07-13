@@ -45,9 +45,6 @@ const PostsComponent = ({
 		</a>
 	));
 
-	console.log(likes);
-	console.log(likes.length);
-
 	return (
 		<>
 			{image === undefined ? (

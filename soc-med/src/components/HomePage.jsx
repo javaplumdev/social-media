@@ -19,13 +19,14 @@ const HomePage = () => {
 	const {
 		postContent,
 		feedData,
-		user,
+		search,
 		suggestedFriends,
 		setContent,
 		content,
-		commentData,
 		imageData,
 		setImageData,
+		searchVar,
+		setSearchVar,
 	} = useContext(ContextVariable);
 
 	const postID = uuidv4();
@@ -47,26 +48,16 @@ const HomePage = () => {
 					</Col>
 					<Col xs={12} md={6}>
 						<div>
-							{/* <InputGroup className="d-block d-sm-none w-100">
-								<Form.Control
-									placeholder="Recipient's username"
-									aria-label="Recipient's username"
-									aria-describedby="basic-addon2"
-								/>
-								<Button variant="outline-secondary" id="button-addon2">
-									Button
-								</Button>
-							</InputGroup> */}
-							<div className="w-100 d-block d-sm-none my-2">
+							<div className="w-100 d-block d-md-none my-2">
 								<InputGroup>
 									<Form.Control
 										placeholder="Search"
-										aria-label="Recipient's username"
-										aria-describedby="basic-addon2"
+										onChange={(e) => setSearchVar(e.target.value)}
 									/>
-									<Button variant="outline-secondary" id="button-addon2">
+
+									<div className="buttons" onClick={() => search()}>
 										<BsSearch />
-									</Button>
+									</div>
 								</InputGroup>
 							</div>
 

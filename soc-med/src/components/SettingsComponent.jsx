@@ -11,6 +11,8 @@ const SettingsComponent = () => {
 		setImageData,
 		username,
 		setUserName,
+		users,
+		user,
 	} = useContext(ContextVariable);
 
 	useEffect(() => {
@@ -19,7 +21,9 @@ const SettingsComponent = () => {
 		);
 	}, []);
 
-	console.log(username);
+	console.log(
+		users?.filter && users.filter((item) => item.userID === user.uid)
+	);
 
 	return (
 		<>
@@ -66,7 +70,7 @@ const SettingsComponent = () => {
 									<Form.Label>Fist name</Form.Label>{' '}
 									<p
 										className={
-											username?.length || 0 >= 15
+											username?.length > 15
 												? `text-danger mt-3`
 												: 'text-dark mt-3'
 										}
