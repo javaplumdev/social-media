@@ -45,6 +45,9 @@ const PostsComponent = ({
 		</a>
 	));
 
+	console.log(likes);
+	console.log(likes.length);
+
 	return (
 		<>
 			{image === undefined ? (
@@ -53,26 +56,26 @@ const PostsComponent = ({
 						<div className="w-100">
 							<div className="d-flex justify-content-between">
 								<div className="d-flex">
-									<div>
-										<img
-											src={profilePicture}
-											className="me-3"
-											style={{
-												width: '50px',
-												height: '50px',
-												borderRadius: '50%',
-												objectFit: 'cover',
-											}}
-										/>
-									</div>
+									<img
+										src={profilePicture}
+										className="me-3"
+										style={{
+											width: '50px',
+											height: '50px',
+											borderRadius: '50%',
+											objectFit: 'cover',
+										}}
+									/>
+
 									<div>
 										<Link
 											to={`/profile/${userID}`}
 											className="text-decoration-none text-black"
 										>
-											<b className="overflowWrap">{name}</b>
+											<small className="overflowWrap">
+												<b>{name}</b>
+											</small>
 										</Link>
-
 										<br></br>
 										<small className="text-secondary">{dateAndTime}</small>
 									</div>
@@ -106,7 +109,7 @@ const PostsComponent = ({
 							className="icons me-2"
 							onClick={() => like(postID)}
 						/>{' '}
-						{likes.length && likes.length}{' '}
+						{likes.length}{' '}
 						<BsFillChatLeftFill
 							size="20"
 							className="icons mx-2"
@@ -175,7 +178,7 @@ const PostsComponent = ({
 							className="icons me-2"
 							onClick={() => like(postID)}
 						/>{' '}
-						{likes.length && likes.length}{' '}
+						{likes.length}{' '}
 						<BsFillChatLeftFill
 							size="20"
 							className="icons mx-2"

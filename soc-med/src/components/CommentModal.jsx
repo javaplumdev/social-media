@@ -221,14 +221,16 @@ const CommentModal = () => {
 									value={commentValue}
 									onChange={(e) => setCommentValue(e.target.value)}
 								/>
-								<p
+								<small
 									className={
-										commentValue.length >= 50 ? `text-danger` : 'text-dark'
+										commentValue.length > 50
+											? `text-danger me-3`
+											: 'text-dark me-3'
 									}
 								>
 									{commentValue.length} / 50
-								</p>
-								<Button variant="secondary" onClick={handleClose}>
+								</small>
+								<Button variant="outlined-secondary" onClick={handleClose}>
 									Close
 								</Button>
 								<button

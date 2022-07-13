@@ -215,7 +215,7 @@ export const ContextFunction = ({ children }) => {
 			if (!content.trim() || content === '') {
 				toast.error('Please enter a content!');
 			} else {
-				if (content.length >= 200) {
+				if (content.length > 200) {
 					toast.error('Please enter 200 words only!');
 				} else {
 					currentUserData.map((item) => {
@@ -270,8 +270,8 @@ export const ContextFunction = ({ children }) => {
 			if (!username.trim() || username === '') {
 				toast.error('Please enter a content!');
 			} else {
-				if (username.length >= 21) {
-					toast.error('Please enter 20 letters only.');
+				if (username.length >= 16) {
+					toast.error('Please enter 15 letters only.');
 				} else {
 					setDoc(
 						doc(db, 'users', user.uid),
@@ -388,7 +388,7 @@ export const ContextFunction = ({ children }) => {
 		if (!commentValue.trim() || commentValue === '') {
 			toast.error('Please enter a comment!');
 		} else {
-			if (commentValue.length >= 50) {
+			if (commentValue.length > 50) {
 				toast.error('Please enter 50 words only!');
 			} else {
 				currentUserData.map((item) => {

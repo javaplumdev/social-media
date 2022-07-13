@@ -48,7 +48,7 @@ const ProfilePage = () => {
 									}}
 								/>
 								<div className="mx-3">
-									<h3>{item.name}</h3>
+									<h6>{item.name}</h6>
 									<div className="d-flex flex-wrap mb-3">
 										<small
 											className="followLink me-3"

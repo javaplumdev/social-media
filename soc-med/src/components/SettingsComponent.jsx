@@ -66,12 +66,12 @@ const SettingsComponent = () => {
 									<Form.Label>Fist name</Form.Label>{' '}
 									<p
 										className={
-											username?.length || 0 >= 20
+											username?.length || 0 >= 15
 												? `text-danger mt-3`
 												: 'text-dark mt-3'
 										}
 									>
-										{username?.length} / 20
+										{username?.length} / 15
 									</p>
 									<Form.Control
 										type="text"

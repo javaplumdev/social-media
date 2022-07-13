@@ -1,8 +1,16 @@
 import React, { useContext, useState } from 'react';
-import { Row, Container, Col, FloatingLabel, Form } from 'react-bootstrap';
+import {
+	Row,
+	Container,
+	Col,
+	FloatingLabel,
+	Form,
+	InputGroup,
+	Button,
+} from 'react-bootstrap';
 import { ContextVariable } from '../context/context-config';
 import { v4 as uuidv4 } from 'uuid';
-import { BsUpload, BsImage } from 'react-icons/bs';
+import { BsUpload, BsImage, BsSearch } from 'react-icons/bs';
 import SuggestedFriendsComponent from './SuggestedFriendsComponent';
 import PostsComponent from './PostsComponent';
 import { Link } from 'react-router-dom';
@@ -39,7 +47,29 @@ const HomePage = () => {
 					</Col>
 					<Col xs={12} md={6}>
 						<div>
-							<p className="d-block d-sm-none">Tangina</p>
+							{/* <InputGroup className="d-block d-sm-none w-100">
+								<Form.Control
+									placeholder="Recipient's username"
+									aria-label="Recipient's username"
+									aria-describedby="basic-addon2"
+								/>
+								<Button variant="outline-secondary" id="button-addon2">
+									Button
+								</Button>
+							</InputGroup> */}
+							<div className="w-100 d-block d-sm-none my-2">
+								<InputGroup>
+									<Form.Control
+										placeholder="Search"
+										aria-label="Recipient's username"
+										aria-describedby="basic-addon2"
+									/>
+									<Button variant="outline-secondary" id="button-addon2">
+										<BsSearch />
+									</Button>
+								</InputGroup>
+							</div>
+
 							<Form.Control
 								placeholder="What's on your mind?"
 								aria-label="Recipient's username"
@@ -48,7 +78,13 @@ const HomePage = () => {
 								value={content}
 								onChange={(e) => setContent(e.target.value)}
 							/>
-
+							<small
+								className={
+									content.length > 200 ? `text-danger mt-3` : 'text-dark mt-3'
+								}
+							>
+								{content.length} / 200
+							</small>
 							<div className="d-flex justify-content-between align-items-center">
 								<label htmlFor="file-input" className="my-3">
 									<BsImage size="20" className="icons me-2" />
@@ -61,15 +97,7 @@ const HomePage = () => {
 									className="d-none"
 									onChange={(e) => setImageData(e.target.files[0])}
 								/>
-								<p
-									className={
-										content.length >= 200
-											? `text-danger mt-3`
-											: 'text-dark mt-3'
-									}
-								>
-									{content.length} / 200
-								</p>
+
 								<button
 									className="buttons mt-3"
 									onClick={() => postContent(postID)}
