@@ -4,10 +4,8 @@
 	box-sizing: border-box;
 }
 
-.form,
-.grey {
-	background-color: rgb(240, 240, 240);
-	height: 100%;
+body {
+	background-color: rgb(240, 240, 240) !important;
 }
 
 .buttons {

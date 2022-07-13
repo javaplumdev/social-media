@@ -5,6 +5,8 @@ import {
 	signOut,
 	GoogleAuthProvider,
 	signInWithPopup,
+	getAdditionalUserInfo,
+	getRedirectResult,
 } from 'firebase/auth';
 import {
 	setDoc,
@@ -27,7 +29,6 @@ import { ref, uploadBytes, listAll, getDownloadURL } from 'firebase/storage';
 import { createContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { uuidv4 } from '@firebase/util';
-import firebase from 'firebase/compat/app';
 import { useNavigate } from 'react-router-dom';
 
 export const ContextVariable = createContext();
@@ -175,33 +176,28 @@ export const ContextFunction = ({ children }) => {
 		return signOut(firebaseAuth);
 	};
 
-	const googleSignIn = () => {
+	const googleSignIn = async () => {
 		const googleAuthProvider = new GoogleAuthProvider();
 
 		return signInWithPopup(firebaseAuth, googleAuthProvider).then(
-			async function createUserDB(userCredentials) {
-				users?.map &&
-					users.map((item) => {
-						if (item.userID !== userCredentials.user.uid) {
-							setDoc(
-								doc(db, 'users', userCredentials.user.uid),
-								{
-									loginType: 'google',
-									name: userCredentials.user.displayName,
-									userID: userCredentials.user.uid,
-									email: userCredentials.user.email,
-									profilePicture: userCredentials.user.photoURL,
-									followers: [],
-									following: [],
-								},
-								{ merge: true }
-							);
-						} else if (item.userID === userCredentials) {
-							setDoc(doc(db, 'users', userCredentials.user.uid), {
-								merge: true,
-							});
-						}
-					});
+			async function createUserDb(userCredentials) {
+				const details = getAdditionalUserInfo(userCredentials);
+
+				if (details.isNewUser) {
+					setDoc(
+						doc(db, 'users', userCredentials.user.uid),
+						{
+							loginType: 'google',
+							name: userCredentials.user.displayName,
+							userID: userCredentials.user.uid,
+							email: userCredentials.user.email,
+							profilePicture: userCredentials.user.photoURL,
+							followers: [],
+							following: [],
+						},
+						{ merge: true }
+					);
+				}
 			}
 		);
 	};

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { ContextVariable } from '../context/context-config';
 import { useNavigate } from 'react-router-dom';
 import GoogleButton from 'react-google-button';
-import { async } from '@firebase/util';
 
 const LoginPage = () => {
 	const { logIn, googleSignIn } = useContext(ContextVariable);
