@@ -45,6 +45,7 @@ export const ContextFunction = ({ children }) => {
 	const [commentData, setCommentData] = useState({});
 	const [commentValue, setCommentValue] = useState('');
 	const [imageData, setImageData] = useState(null);
+	const [messagesData, setMessagesData] = useState({});
 
 	const [show, setShow] = useState(false);
 	const handleClose = () => setShow(false);
@@ -57,6 +58,12 @@ export const ContextFunction = ({ children }) => {
 	const [showModalVer1, setShowModalVer1] = useState(false);
 	const handleCloseFollowersModal = () => setShowModalVer1(false);
 	const handleShowFollowersModal = () => setShowModalVer1(true);
+
+	const [showModalVer2, setShowModalVer2] = useState(false);
+	const handleCloseToMessage = () => setShowModalVer2(false);
+	const handleShowToMessage = () => setShowModalVer2(true);
+
+	let navigate = useNavigate();
 
 	let currentUserData;
 	let logInType;
@@ -101,6 +108,12 @@ export const ContextFunction = ({ children }) => {
 
 		onSnapshot(collection(db, 'users'), (snapshot) => {
 			setUsers(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+		});
+
+		onSnapshot(collection(db, 'messages'), (snapshot) => {
+			setMessagesData(
+				snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+			);
 		});
 
 		setIsLoading(false);
@@ -510,8 +523,6 @@ export const ContextFunction = ({ children }) => {
 		handleShowFollowersModal();
 	};
 
-	let navigate = useNavigate();
-
 	const search = () => {
 		if (!searchVar.trim() || searchVar === '') {
 			toast.error('Invalid search');
@@ -520,9 +531,42 @@ export const ContextFunction = ({ children }) => {
 		}
 	};
 
+	const addMessages = () => {
+		handleShowToMessage();
+	};
+
+	const pickRecipient = async (chatBoxID, recipientID) => {
+		console.log(messagesData);
+
+		const chatID = messagesData.find((item) => item.chatBoxID === chatBoxID);
+
+		if (chatID) {
+			navigate(`/chat/${chatBoxID}`);
+		} else {
+			setDoc(
+				doc(db, 'messages', chatBoxID),
+				{
+					chatBoxID: chatBoxID,
+					messages: [],
+					sender: user.uid,
+					recipientID: recipientID,
+				},
+				{ merge: true }
+			);
+
+			console.log(chatBoxID);
+			navigate(`/chat/${chatBoxID}`);
+		}
+	};
+
 	return (
 		<ContextVariable.Provider
 			value={{
+				messagesData,
+				pickRecipient,
+				showModalVer2,
+				handleCloseToMessage,
+				addMessages,
 				searchVar,
 				setSearchVar,
 				search,

@@ -79,7 +79,6 @@ const HomePage = () => {
 							<div className="d-flex justify-content-between align-items-center">
 								<label htmlFor="file-input" className="my-3">
 									<BsImage size="20" className="icons me-2" />
-									{imageData && imageData.name}
 								</label>
 
 								<input
@@ -96,6 +95,7 @@ const HomePage = () => {
 									Post
 								</button>
 							</div>
+							<small>{imageData && imageData.name}</small>
 						</div>
 						<div className="mt-2">
 							<b>What's happening today?</b>

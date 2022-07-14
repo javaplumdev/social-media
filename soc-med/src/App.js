@@ -11,6 +11,7 @@ import SettingsComponent from './components/SettingsComponent';
 import FullSuggestedFriendsComponent from './components/FullSuggestedFriendsComponent';
 import SearchResults from './components/SearchResults';
 import Messages from './components/Messages';
+import Chatbox from './components/Chatbox';
 import { Toaster } from 'react-hot-toast';
 
 function App() {
@@ -75,6 +76,16 @@ function App() {
 							<ProtectedRoute>
 								<NavbarComponent />
 								<Messages />
+							</ProtectedRoute>
+						}
+					/>
+
+					<Route
+						path="/chat/:id"
+						element={
+							<ProtectedRoute>
+								<NavbarComponent />
+								<Chatbox />
 							</ProtectedRoute>
 						}
 					/>

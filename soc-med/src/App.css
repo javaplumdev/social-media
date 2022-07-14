@@ -83,3 +83,15 @@ body {
 	text-decoration: underline;
 	cursor: pointer;
 }
+
+.chatBox {
+	position: relative;
+	height: 80vh;
+	width: 100%;
+}
+
+.sendMsgButton {
+	position: absolute;
+	bottom: 0;
+	width: 90%;
+}
