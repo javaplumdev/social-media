@@ -10,6 +10,7 @@ import ProfilePage from './components/ProfilePage';
 import SettingsComponent from './components/SettingsComponent';
 import FullSuggestedFriendsComponent from './components/FullSuggestedFriendsComponent';
 import SearchResults from './components/SearchResults';
+import Messages from './components/Messages';
 import { Toaster } from 'react-hot-toast';
 
 function App() {
@@ -64,6 +65,16 @@ function App() {
 							<ProtectedRoute>
 								<NavbarComponent />
 								<SearchResults />
+							</ProtectedRoute>
+						}
+					/>
+
+					<Route
+						path="/messages"
+						element={
+							<ProtectedRoute>
+								<NavbarComponent />
+								<Messages />
 							</ProtectedRoute>
 						}
 					/>

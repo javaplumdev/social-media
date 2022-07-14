@@ -61,7 +61,7 @@ const NavbarComponent = () => {
 							<BsFillHouseFill className="icon" /> Home
 						</Nav.Link>
 
-						<Nav.Link href="#features">
+						<Nav.Link href="/messages">
 							<BsFillChatLeftFill className="icon" /> Messages
 						</Nav.Link>
 						<Nav.Link href="/suggested">
