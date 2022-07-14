@@ -12,6 +12,9 @@ const PickToMessageModal = () => {
 		messagesData,
 	} = useContext(ContextVariable);
 
+	const followingToMessage =
+		currentUserData?.map && currentUserData.map((item) => item.following)[0];
+
 	const chatBoxID = uuidv4();
 
 	return (

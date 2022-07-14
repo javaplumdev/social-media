@@ -25,6 +25,9 @@ const Messages = () => {
 					/>
 					<PickToMessageModal />
 				</div>
+				<div>
+					<p>Hi</p>
+				</div>
 			</Container>
 		</div>
 	);

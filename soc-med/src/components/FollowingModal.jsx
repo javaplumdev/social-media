@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { ContextVariable } from '../context/context-config';
 import { Link } from 'react-router-dom';
-
+import { IoPersonRemove } from 'react-icons/io5';
 import { HiUserRemove } from 'react-icons/hi';
 
 const FollowingModal = ({ following, userID }) => {
