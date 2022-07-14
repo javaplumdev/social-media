@@ -46,6 +46,7 @@ export const ContextFunction = ({ children }) => {
 	const [commentValue, setCommentValue] = useState('');
 	const [imageData, setImageData] = useState(null);
 	const [messagesData, setMessagesData] = useState({});
+	const [messagesHolder, setMessagesHolder] = useState('');
 
 	const [show, setShow] = useState(false);
 	const handleClose = () => setShow(false);
@@ -110,7 +111,12 @@ export const ContextFunction = ({ children }) => {
 			setUsers(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
 		});
 
-		onSnapshot(collection(db, 'messages'), (snapshot) => {
+		const queryMessages = query(
+			collection(db, 'messages'),
+			orderBy('timestamp', 'desc')
+		);
+
+		onSnapshot(queryMessages, (snapshot) => {
 			setMessagesData(
 				snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
 			);
@@ -536,12 +542,12 @@ export const ContextFunction = ({ children }) => {
 	};
 
 	const pickRecipient = async (chatBoxID, recipientID) => {
-		console.log(messagesData);
+		const findIfExist = messagesData.find(
+			(item) => item.recipientID === recipientID && item.sender === user.uid
+		);
 
-		const chatID = messagesData.find((item) => item.chatBoxID === chatBoxID);
-
-		if (chatID) {
-			navigate(`/chat/${chatBoxID}`);
+		if (findIfExist) {
+			navigate(`/chat/${findIfExist.chatBoxID}`);
 		} else {
 			setDoc(
 				doc(db, 'messages', chatBoxID),
@@ -550,18 +556,32 @@ export const ContextFunction = ({ children }) => {
 					messages: [],
 					sender: user.uid,
 					recipientID: recipientID,
+					timestamp: serverTimestamp(),
 				},
 				{ merge: true }
 			);
 
-			console.log(chatBoxID);
 			navigate(`/chat/${chatBoxID}`);
 		}
+	};
+
+	const sendMessage = (chatID, recipientID) => {
+		updateDoc(doc(db, 'messages', chatID), {
+			messages: arrayUnion({
+				message: messagesHolder,
+				recipient: recipientID,
+				sender: user.uid,
+			}),
+		});
+
+		setMessagesHolder('');
 	};
 
 	return (
 		<ContextVariable.Provider
 			value={{
+				setMessagesHolder,
+				sendMessage,
 				messagesData,
 				pickRecipient,
 				showModalVer2,

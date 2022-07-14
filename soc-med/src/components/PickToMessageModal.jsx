@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { ContextVariable } from '../context/context-config';
 import { Modal, Button } from 'react-bootstrap';
 import { v4 as uuidv4 } from 'uuid';
+import { IoSend } from 'react-icons/io5';
 
 const PickToMessageModal = () => {
 	const {
@@ -33,7 +34,7 @@ const PickToMessageModal = () => {
 								<div className="d-flex">
 									<img
 										src={item.profilePicture}
-										className="me-3"
+										className="me-2"
 										style={{
 											width: '50px',
 											height: '50px',
@@ -48,10 +49,11 @@ const PickToMessageModal = () => {
 								</div>
 
 								<button
-									className="buttons"
+									className="buttons w-100"
+									style={{ maxWidth: '50px' }}
 									onClick={() => pickRecipient(chatBoxID, item.userID)}
 								>
-									Message
+									<IoSend />
 								</button>
 							</div>
 						);
