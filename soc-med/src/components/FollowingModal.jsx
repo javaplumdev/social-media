@@ -3,6 +3,8 @@ import { Modal, Button } from 'react-bootstrap';
 import { ContextVariable } from '../context/context-config';
 import { Link } from 'react-router-dom';
 
+import { HiUserRemove } from 'react-icons/hi';
+
 const FollowingModal = ({ following, userID }) => {
 	const { showModal, handleCloseFollowingModal, user } =
 		useContext(ContextVariable);
@@ -23,33 +25,32 @@ const FollowingModal = ({ following, userID }) => {
 					following.map((item) => {
 						if (userID === user.uid) {
 							return (
-								<div
-									key={item.userID}
-									className="followstyle d-flex mb-3 justify-content-between p-2"
-								>
-									<Link
-										to={`/profile/${item.userID}`}
-										className="text-decoration-none text-dark"
-									>
-										<div className=" d-flex w-100 ">
-											<img
-												src={item.profilePicture}
-												className="me-3"
-												style={{
-													width: '50px',
-													height: '50px',
-													borderRadius: '50%',
-													objectFit: 'cover',
-												}}
-											/>
+								<div key={item.userID}>
+									<div className="followstyle  mb-3 ">
+										<Link
+											to={`/profile/${item.userID}`}
+											className="text-decoration-none text-dark"
+										>
+											<div className="d-flex justify-content-between p-1">
+												<img
+													src={item.profilePicture}
+													className="me-3"
+													style={{
+														width: '50px',
+														height: '50px',
+														borderRadius: '50%',
+														objectFit: 'cover',
+													}}
+												/>
 
-											<p>{item.userName}</p>
-										</div>
-									</Link>
+												<button className="followButton">
+													<HiUserRemove />
+												</button>
+											</div>
 
-									<button className="followButton">
-										<small>Unfollow</small>
-									</button>
+											<p className="overflowWrap">{item.userName}</p>
+										</Link>
+									</div>
 								</div>
 							);
 						} else {

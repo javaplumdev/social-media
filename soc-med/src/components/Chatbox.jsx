@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { ContextVariable } from '../context/context-config';
 import { Container, InputGroup, Form, Button } from 'react-bootstrap';
+import { IoSend } from 'react-icons/io5';
 
 const Chatbox = () => {
 	const { id } = useParams();
@@ -23,9 +24,9 @@ const Chatbox = () => {
 						aria-label="Recipient's username"
 						aria-describedby="basic-addon2"
 					/>
-					<Button variant="outline-secondary" id="button-addon2">
-						Send
-					</Button>
+					<button className="buttons w-75" style={{ maxWidth: '60px' }}>
+						<IoSend />
+					</button>
 				</InputGroup>
 			</div>
 		</Container>
