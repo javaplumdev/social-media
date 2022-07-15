@@ -29,10 +29,7 @@ const Chatbox = () => {
 		filteredMessagesData.find((item) => item.messages).messages;
 
 	const sender =
-		filteredMessagesData?.filter &&
-		filteredMessagesData.filter((item) => item.sender !== user.uid);
-
-	console.log(sender);
+		messages?.filter && messages.filter((item) => item.sender !== user.uid);
 
 	const senderID = sender?.map && sender.map((item) => item.sender)[0];
 
@@ -41,91 +38,60 @@ const Chatbox = () => {
 
 	return (
 		<Container className="chatBox">
-			<div className="bg-white p-2">
-<<<<<<< HEAD
-				{filteredMessagesData?.map &&
-					filteredMessagesData.map((item) => {
-						if (item.sender !== user.uid) {
+			<div
+				className="sendMsgButton"
+				style={{
+					height: '100%',
+				}}
+			>
+				<div
+					className="userdetails bg-white p-2 w-100"
+					style={{ borderBottom: '.5px solid #caccc9' }}
+				>
+					{senderToDisplay?.map &&
+						senderToDisplay.map((item) => {
 							return (
-								<div className="d-flex my-2">
-									{users.map((data) => {
-										if (data.userID === item.sender) {
-											return (
-												<div key={item.userID} className='className="d-flex"'>
-													<img
-														src={data.profilePicture}
-														className="me-2"
-														style={{
-															width: '40px',
-															height: '40px',
-															borderRadius: '50%',
-															objectFit: 'cover',
-														}}
-													/>
+								<div key={item.userID} className="d-flex ">
+									<img
+										src={item.profilePicture}
+										className="me-3"
+										style={{
+											width: '50px',
+											height: '50px',
+											borderRadius: '50%',
+											objectFit: 'cover',
+										}}
+									/>
 
-													<small className="overflowWrap">{data.name}</small>
-												</div>
-											);
-										}
-									})}
+									<div>
+										<small className="overflowWrap">{item.name}</small>
+									</div>
 								</div>
 							);
-						}
-=======
-				{senderToDisplay?.map &&
-					senderToDisplay.map((item) => {
-						return (
-							<div key={item.userID} className="d-flex">
-								<img
-									src={item.profilePicture}
-									className="me-3"
-									style={{
-										width: '50px',
-										height: '50px',
-										borderRadius: '50%',
-										objectFit: 'cover',
-									}}
-								/>
+						})}
+				</div>
 
-								<div>
-									<small className="overflowWrap">{item.name}</small>
-								</div>
-							</div>
-						);
->>>>>>> parent of 4888b48 (update)
-					})}
-			</div>
-
-			<div className="sendMsgButton">
-				<div>
+				<div
+					className="bg-white"
+					style={{
+						overflow: 'scroll',
+						overflowX: 'hidden',
+						height: '90%',
+					}}
+				>
 					{messages?.map &&
 						messages.map((item) => {
 							if (item.sender === user.uid) {
 								return (
-									<div className="d-flex justify-content-end">
-										<p>{item.message}</p>
-									</div>
+									<>
+										<div className=" d-flex justify-content-end p-2">
+											<small className="reciptpient">{item.message}</small>
+										</div>
+									</>
 								);
 							} else {
 								return (
-									<div className="d-flex my-2">
-<<<<<<< HEAD
-										{users.map((data) => {
-											if (data.userID === item.sender) {
-												return (
-													<img
-														src={data.profilePicture}
-														className="me-2"
-														style={{
-															width: '40px',
-															height: '40px',
-															borderRadius: '50%',
-															objectFit: 'cover',
-														}}
-													/>
-												);
-											}
-=======
+									<div className="d-flex my-2 p-2">
 										{senderToDisplay.map((item) => {
 											return (
 												<img
@@ -139,9 +105,8 @@ const Chatbox = () => {
 													}}
 												/>
 											);
->>>>>>> parent of 4888b48 (update)
 										})}
-
+										<small className="senderBg">{item.message}</small>
 										<p>{item.message}</p>
 									</div>
 								);
