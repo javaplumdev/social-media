@@ -29,12 +29,12 @@ const Chatbox = () => {
 		filteredMessagesData.find((item) => item.messages).messages;
 
 	const sender =
-		messages?.filter && messages.filter((item) => item.sender !== user.uid);
+		filteredMessagesData?.filter &&
+		filteredMessagesData.filter((item) => item.sender !== user.uid);
+
+	console.log(sender);
 
 	const senderID = sender?.map && sender.map((item) => item.sender)[0];
-
-	console.log(filteredMessagesData);
-	console.log(recipientID);
 
 	const senderToDisplay =
 		users?.filter && users.filter((item) => item.userID === senderID);
@@ -42,26 +42,34 @@ const Chatbox = () => {
 	return (
 		<Container className="chatBox">
 			<div className="bg-white p-2">
-				{senderToDisplay?.map &&
-					senderToDisplay.map((item) => {
-						return (
-							<div key={item.userID} className="d-flex">
-								<img
-									src={item.profilePicture}
-									className="me-3"
-									style={{
-										width: '50px',
-										height: '50px',
-										borderRadius: '50%',
-										objectFit: 'cover',
-									}}
-								/>
+				{filteredMessagesData?.map &&
+					filteredMessagesData.map((item) => {
+						if (item.sender !== user.uid) {
+							return (
+								<div className="d-flex my-2">
+									{users.map((data) => {
+										if (data.userID === item.sender) {
+											return (
+												<div key={item.userID} className='className="d-flex"'>
+													<img
+														src={data.profilePicture}
+														className="me-2"
+														style={{
+															width: '40px',
+															height: '40px',
+															borderRadius: '50%',
+															objectFit: 'cover',
+														}}
+													/>
 
-								<div>
-									<small className="overflowWrap">{item.name}</small>
+													<small className="overflowWrap">{data.name}</small>
+												</div>
+											);
+										}
+									})}
 								</div>
-							</div>
-						);
+							);
+						}
 					})}
 			</div>
 
@@ -78,19 +86,21 @@ const Chatbox = () => {
 							} else {
 								return (
 									<div className="d-flex my-2">
-										{senderToDisplay.map((item) => {
-											return (
-												<img
-													src={item.profilePicture}
-													className="me-2"
-													style={{
-														width: '40px',
-														height: '40px',
-														borderRadius: '50%',
-														objectFit: 'cover',
-													}}
-												/>
-											);
+										{users.map((data) => {
+											if (data.userID === item.sender) {
+												return (
+													<img
+														src={data.profilePicture}
+														className="me-2"
+														style={{
+															width: '40px',
+															height: '40px',
+															borderRadius: '50%',
+															objectFit: 'cover',
+														}}
+													/>
+												);
+											}
 										})}
 
 										<p>{item.message}</p>

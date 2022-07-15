@@ -21,6 +21,8 @@ const Messages = () => {
 		userMessages?.find &&
 		userMessages.find((item) => item.recipientID).recipientID;
 
+	console.log(userMessages);
+
 	return (
 		<div className="mt-3">
 			<Container>
@@ -36,61 +38,32 @@ const Messages = () => {
 					{userMessages?.map &&
 						userMessages.map((item) => (
 							<div key={item.chatBoxID}>
-								{senderID === user.uid ? (
-									<div className="div">
-										{users.map((data) => {
-											if (data.userID === recipientID) {
-												return (
-													<Link
-														to={`/chat/${item.chatBoxID}`}
-														className="text-decoration-none text-dark"
-													>
-														<div className="p-3 rounded d-flex">
-															<img
-																src={data.profilePicture}
-																className="me-3"
-																style={{
-																	width: '50px',
-																	height: '50px',
-																	borderRadius: '50%',
-																	objectFit: 'cover',
-																}}
-															/>
-															<p>{data.name}</p>
-														</div>
-													</Link>
-												);
-											}
-										})}
-									</div>
-								) : (
-									<div className="div">
-										{users.map((data) => {
-											if (data.userID === senderID) {
-												return (
-													<Link
-														to={`/chat/${item.chatBoxID}`}
-														className="text-decoration-none text-dark"
-													>
-														<div className="p-3 rounded d-flex">
-															<img
-																src={data.profilePicture}
-																className="me-3"
-																style={{
-																	width: '50px',
-																	height: '50px',
-																	borderRadius: '50%',
-																	objectFit: 'cover',
-																}}
-															/>
-															<p>{data.name}</p>
-														</div>
-													</Link>
-												);
-											}
-										})}
-									</div>
-								)}
+								<div className="div">
+									{users.map((data) => {
+										if (data.userID === item.sender) {
+											return (
+												<Link
+													to={`/chat/${item.chatBoxID}`}
+													className="text-decoration-none text-dark"
+												>
+													<div className="p-3 rounded d-flex">
+														<img
+															src={data.profilePicture}
+															className="me-3"
+															style={{
+																width: '50px',
+																height: '50px',
+																borderRadius: '50%',
+																objectFit: 'cover',
+															}}
+														/>
+														<p>{data.name}</p>
+													</div>
+												</Link>
+											);
+										}
+									})}
+								</div>
 							</div>
 						))}
 				</div>
