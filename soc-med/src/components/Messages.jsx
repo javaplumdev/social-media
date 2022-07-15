@@ -17,8 +17,6 @@ const Messages = () => {
 
 	console.log(userMessages);
 
-	console.log(userMessages);
-
 	return (
 		<div className="mt-3">
 			<Container>

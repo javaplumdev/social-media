@@ -543,7 +543,9 @@ export const ContextFunction = ({ children }) => {
 
 	const pickRecipient = async (chatBoxID, recipientID) => {
 		const findIfExist = messagesData.find(
-			(item) => item.recipientID === recipientID
+			(item) =>
+				(item.recipientID === recipientID && item.sender === user.uid) ||
+				(item.sender === recipientID && item.recipientID === user.uid)
 		);
 
 		if (findIfExist) {
@@ -578,9 +580,11 @@ export const ContextFunction = ({ children }) => {
 					dateAndTime: `${dateToday} ${hours}:${minutes}${newformat}`,
 				}),
 			});
-
-			setMessagesHolder('');
 		}
+
+		setMessagesHolder('');
+
+		console.log(messagesHolder);
 	};
 
 	return (

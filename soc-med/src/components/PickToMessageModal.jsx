@@ -42,8 +42,11 @@ const PickToMessageModal = () => {
 								{users.map((data) => {
 									if (data.userID === item.userID) {
 										return (
-											<>
-												<div className="d-flex">
+											<div
+												key={item.userID}
+												className="d-flex w-100 justify-content-between"
+											>
+												<div>
 													<img
 														src={item.profilePicture}
 														className="me-2"
@@ -55,9 +58,9 @@ const PickToMessageModal = () => {
 														}}
 													/>
 
-													<div>
-														<small>{item.userName}</small>
-													</div>
+													<small className="overflowWrap">
+														{item.userName}
+													</small>
 												</div>
 
 												<button
@@ -67,7 +70,7 @@ const PickToMessageModal = () => {
 												>
 													<IoSend />
 												</button>
-											</>
+											</div>
 										);
 									}
 								})}

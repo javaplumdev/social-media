@@ -20,15 +20,13 @@ const Chatbox = () => {
 		messagesData?.filter &&
 		messagesData.filter((item) => item.chatBoxID === id);
 
-	console.log(filteredMessagesData);
-
 	const recipientID =
-		filteredMessagesData?.find &&
-		filteredMessagesData?.find((item) => item.recipientID).recipientID;
+		filteredMessagesData?.map &&
+		filteredMessagesData.map((item) => item.recipientID)[0];
 
 	const messages =
-		filteredMessagesData?.find &&
-		filteredMessagesData.find((item) => item.messages).messages;
+		filteredMessagesData?.map &&
+		filteredMessagesData.map((item) => item.messages)[0];
 
 	const sender =
 		messages?.filter && messages.filter((item) => item.sender !== user.uid);
@@ -37,6 +35,12 @@ const Chatbox = () => {
 
 	const senderToDisplay =
 		users?.filter && users.filter((item) => item.userID === senderID);
+
+	const chatBoxMessages =
+		filteredMessagesData?.map &&
+		filteredMessagesData.map((item) => item.messages)[0];
+
+	console.log(chatBoxMessages);
 
 	return (
 		<Container className="chatBox">
@@ -81,25 +85,24 @@ const Chatbox = () => {
 						height: '90%',
 					}}
 				>
-					{messages?.map &&
-						messages.map((item) => {
+					{chatBoxMessages?.map &&
+						chatBoxMessages.map((item) => {
 							if (item.sender === user.uid) {
 								return (
-									<>
-										<div
-											key={item.messageID}
-											className=" d-flex justify-content-end m-3"
-										>
-											<small className="reciptpient">{item.message}</small>
-										</div>
-									</>
+									<div
+										key={item.messageID}
+										className=" d-flex justify-content-end m-3"
+									>
+										<small className="reciptpient">{item.message}</small>
+									</div>
 								);
 							} else {
 								return (
-									<div className="d-flex my-2 p-2">
+									<div key={item.messageID} className="d-flex my-2 p-2">
 										{senderToDisplay.map((item) => {
 											return (
 												<img
+													key={item.userID}
 													src={item.profilePicture}
 													className="me-2"
 													style={{
@@ -111,18 +114,18 @@ const Chatbox = () => {
 												/>
 											);
 										})}
-										<small key={item.messageID} className="senderBg ">
-											{item.message}
-										</small>
+										<small className="senderBg ">{item.message}</small>
 									</div>
 								);
 							}
 						})}
 				</div>
+
 				<InputGroup>
 					<Form.Control
-						placeholder="Recipient's username"
-						aria-label="Recipient's username"
+						type="text"
+						placeholder="Send"
+						aria-label="Send"
 						aria-describedby="basic-addon2"
 						value={messagesHolder}
 						onChange={(e) => setMessagesHolder(e.target.value)}
