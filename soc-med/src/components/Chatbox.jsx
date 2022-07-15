@@ -42,6 +42,7 @@ const Chatbox = () => {
 	return (
 		<Container className="chatBox">
 			<div className="bg-white p-2">
+<<<<<<< HEAD
 				{filteredMessagesData?.map &&
 					filteredMessagesData.map((item) => {
 						if (item.sender !== user.uid) {
@@ -70,6 +71,28 @@ const Chatbox = () => {
 								</div>
 							);
 						}
+=======
+				{senderToDisplay?.map &&
+					senderToDisplay.map((item) => {
+						return (
+							<div key={item.userID} className="d-flex">
+								<img
+									src={item.profilePicture}
+									className="me-3"
+									style={{
+										width: '50px',
+										height: '50px',
+										borderRadius: '50%',
+										objectFit: 'cover',
+									}}
+								/>
+
+								<div>
+									<small className="overflowWrap">{item.name}</small>
+								</div>
+							</div>
+						);
+>>>>>>> parent of 4888b48 (update)
 					})}
 			</div>
 
@@ -86,6 +109,7 @@ const Chatbox = () => {
 							} else {
 								return (
 									<div className="d-flex my-2">
+<<<<<<< HEAD
 										{users.map((data) => {
 											if (data.userID === item.sender) {
 												return (
@@ -101,6 +125,21 @@ const Chatbox = () => {
 													/>
 												);
 											}
+=======
+										{senderToDisplay.map((item) => {
+											return (
+												<img
+													src={item.profilePicture}
+													className="me-2"
+													style={{
+														width: '40px',
+														height: '40px',
+														borderRadius: '50%',
+														objectFit: 'cover',
+													}}
+												/>
+											);
+>>>>>>> parent of 4888b48 (update)
 										})}
 
 										<p>{item.message}</p>
