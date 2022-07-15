@@ -15,11 +15,9 @@ const Messages = () => {
 			(item) => item.sender === user.uid || item.recipientID === user.uid
 		);
 
-	const senderID =
-		userMessages?.find && userMessages.find((item) => item.sender).sender;
-	const recipientID =
-		userMessages?.find &&
-		userMessages.find((item) => item.recipientID).recipientID;
+	console.log(userMessages);
+
+	console.log(userMessages);
 
 	return (
 		<div className="mt-3">
@@ -32,68 +30,88 @@ const Messages = () => {
 					/>
 					<PickToMessageModal />
 				</div>
+				<div className="mt-2">{console.log(userMessages)}</div>
 				<div className="mt-2">
-					{userMessages?.map &&
-						userMessages.map((item) => (
-							<div key={item.chatBoxID}>
-								{senderID === user.uid ? (
-									<div className="div">
-										{users.map((data) => {
-											if (data.userID === recipientID) {
-												return (
-													<Link
-														to={`/chat/${item.chatBoxID}`}
-														className="text-decoration-none text-dark"
-													>
-														<div className="p-3 rounded d-flex">
-															<img
-																src={data.profilePicture}
-																className="me-3"
-																style={{
-																	width: '50px',
-																	height: '50px',
-																	borderRadius: '50%',
-																	objectFit: 'cover',
-																}}
-															/>
-															<p>{data.name}</p>
-														</div>
-													</Link>
-												);
-											} else if (item.sender === data.userID) {
-											}
-										})}
-									</div>
-								) : (
-									<div className="div">
-										{users.map((data) => {
-											if (data.userID === senderID) {
-												return (
-													<Link
-														to={`/chat/${item.chatBoxID}`}
-														className="text-decoration-none text-dark"
-													>
-														<div className="p-3 rounded d-flex">
-															<img
-																src={data.profilePicture}
-																className="me-3"
-																style={{
-																	width: '50px',
-																	height: '50px',
-																	borderRadius: '50%',
-																	objectFit: 'cover',
-																}}
-															/>
-															<p>{data.name}</p>
-														</div>
-													</Link>
-												);
-											}
-										})}
-									</div>
-								)}
-							</div>
-						))}
+					{userMessages?.length === 0 ? (
+						<p>You don't have messages</p>
+					) : (
+						userMessages?.map &&
+						userMessages.map((item) => {
+							if (item.sender === user.uid) {
+								{
+									return users.map((data) => {
+										if (data.userID === item.recipientID) {
+											return (
+												<Link
+													key={data.userID}
+													to={`/chat/${item.chatBoxID}`}
+													className="div p-2 w-100 text-decoration-none text-dark d-flex"
+												>
+													<img
+														src={data.profilePicture}
+														className="me-3"
+														style={{
+															width: '50px',
+															height: '50px',
+															borderRadius: '50%',
+															objectFit: 'cover',
+														}}
+													/>
+													<div>
+														<p>
+															{data.name} <br></br>
+															<small className="text-secondary">
+																{
+																	item.messages[item.messages.length - 1]
+																		?.message
+																}
+															</small>
+														</p>
+													</div>
+												</Link>
+											);
+										}
+									});
+								}
+							} else if (item.recipientID === user.uid) {
+								{
+									return users.map((data) => {
+										if (data.userID === item.sender) {
+											return (
+												<Link
+													key={data.userID}
+													to={`/chat/${item.chatBoxID}`}
+													className="div p-2 w-100 text-decoration-none text-dark d-flex"
+												>
+													<img
+														src={data.profilePicture}
+														className="me-3"
+														style={{
+															width: '50px',
+															height: '50px',
+															borderRadius: '50%',
+															objectFit: 'cover',
+														}}
+													/>
+													<div>
+														<p>
+															{data.name} <br></br>
+															<small className="text-secondary">
+																{
+																	item.messages[item.messages.length - 1]
+																		.message
+																}
+															</small>
+														</p>
+													</div>
+												</Link>
+											);
+										}
+									});
+								}
+							}
+						})
+					)}
 				</div>
 			</Container>
 		</div>

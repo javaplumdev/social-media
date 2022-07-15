@@ -20,9 +20,11 @@ const Chatbox = () => {
 		messagesData?.filter &&
 		messagesData.filter((item) => item.chatBoxID === id);
 
+	console.log(filteredMessagesData);
+
 	const recipientID =
 		filteredMessagesData?.find &&
-		filteredMessagesData.find((item) => item.recipientID).recipientID;
+		filteredMessagesData?.find((item) => item.recipientID).recipientID;
 
 	const messages =
 		filteredMessagesData?.find &&
@@ -84,7 +86,10 @@ const Chatbox = () => {
 							if (item.sender === user.uid) {
 								return (
 									<>
-										<div className=" d-flex justify-content-end p-2">
+										<div
+											key={item.messageID}
+											className=" d-flex justify-content-end m-3"
+										>
 											<small className="reciptpient">{item.message}</small>
 										</div>
 									</>
@@ -106,8 +111,9 @@ const Chatbox = () => {
 												/>
 											);
 										})}
-										<small className="senderBg">{item.message}</small>
-										<p>{item.message}</p>
+										<small key={item.messageID} className="senderBg ">
+											{item.message}
+										</small>
 									</div>
 								);
 							}

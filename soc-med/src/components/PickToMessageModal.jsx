@@ -11,6 +11,7 @@ const PickToMessageModal = () => {
 		currentUserData,
 		pickRecipient,
 		messagesData,
+		users,
 	} = useContext(ContextVariable);
 
 	const followingToMessage =
@@ -18,46 +19,62 @@ const PickToMessageModal = () => {
 
 	const chatBoxID = uuidv4();
 
+	console.log(followingToMessage);
+
 	return (
 		<Modal show={showModalVer2} onHide={handleCloseToMessage}>
 			<Modal.Header closeButton>
 				<Modal.Title>Send message</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
-				{followingToMessage?.map &&
+				{followingToMessage?.length === 0 ? (
+					<p className="text-center">
+						You have to follow someone to send a message
+					</p>
+				) : (
+					followingToMessage?.map &&
 					followingToMessage.map((item) => {
 						return (
 							<div
 								key={item.userID}
 								className="d-flex my-3 justify-content-between"
 							>
-								<div className="d-flex">
-									<img
-										src={item.profilePicture}
-										className="me-2"
-										style={{
-											width: '50px',
-											height: '50px',
-											borderRadius: '50%',
-											objectFit: 'cover',
-										}}
-									/>
+								{users.map((data) => {
+									if (data.userID === item.userID) {
+										return (
+											<>
+												<div className="d-flex">
+													<img
+														src={item.profilePicture}
+														className="me-2"
+														style={{
+															width: '50px',
+															height: '50px',
+															borderRadius: '50%',
+															objectFit: 'cover',
+														}}
+													/>
 
-									<div>
-										<small>{item.userName}</small>
-									</div>
-								</div>
+													<div>
+														<small>{item.userName}</small>
+													</div>
+												</div>
 
-								<button
-									className="buttons w-100"
-									style={{ maxWidth: '50px' }}
-									onClick={() => pickRecipient(chatBoxID, item.userID)}
-								>
-									<IoSend />
-								</button>
+												<button
+													className="buttons w-100"
+													style={{ maxWidth: '50px' }}
+													onClick={() => pickRecipient(chatBoxID, item.userID)}
+												>
+													<IoSend />
+												</button>
+											</>
+										);
+									}
+								})}
 							</div>
 						);
-					})}
+					})
+				)}
 			</Modal.Body>
 			<Modal.Footer>
 				<Button variant="outlined" onClick={handleCloseToMessage}>
