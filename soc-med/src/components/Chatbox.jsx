@@ -29,88 +29,81 @@ const Chatbox = () => {
 		filteredMessagesData.find((item) => item.messages).messages;
 
 	const sender =
-		messages?.filter && messages.filter((item) => item.sender !== user.uid);
+		filteredMessagesData?.filter &&
+		filteredMessagesData.filter((item) => item.sender !== user.uid);
+
+	console.log(sender);
 
 	const senderID = sender?.map && sender.map((item) => item.sender)[0];
-
-	console.log(filteredMessagesData);
-	console.log(recipientID);
 
 	const senderToDisplay =
 		users?.filter && users.filter((item) => item.userID === senderID);
 
 	return (
 		<Container className="chatBox">
-			<div
-				className="sendMsgButton "
-				style={{
-					height: '100%',
-				}}
-			>
-				<div
-					className="userdetails bg-white p-2 w-100"
-					style={{ borderBottom: '.5px solid #caccc9' }}
-				>
-					{senderToDisplay?.map &&
-						senderToDisplay.map((item) => {
+			<div className="bg-white p-2">
+				{filteredMessagesData?.map &&
+					filteredMessagesData.map((item) => {
+						if (item.sender !== user.uid) {
 							return (
-								<div key={item.userID} className="d-flex ">
-									<img
-										src={item.profilePicture}
-										className="me-3"
-										style={{
-											width: '50px',
-											height: '50px',
-											borderRadius: '50%',
-											objectFit: 'cover',
-										}}
-									/>
+								<div className="d-flex my-2">
+									{users.map((data) => {
+										if (data.userID === item.sender) {
+											return (
+												<div key={item.userID} className='className="d-flex"'>
+													<img
+														src={data.profilePicture}
+														className="me-2"
+														style={{
+															width: '40px',
+															height: '40px',
+															borderRadius: '50%',
+															objectFit: 'cover',
+														}}
+													/>
 
-									<div>
-										<small className="overflowWrap">{item.name}</small>
-									</div>
+													<small className="overflowWrap">{data.name}</small>
+												</div>
+											);
+										}
+									})}
 								</div>
 							);
-						})}
-				</div>
+						}
+					})}
+			</div>
 
-				<div
-					className="bg-white"
-					style={{
-						overflow: 'scroll',
-						overflowX: 'hidden',
-						height: '90%',
-					}}
-				>
+			<div className="sendMsgButton">
+				<div>
 					{messages?.map &&
 						messages.map((item) => {
 							if (item.sender === user.uid) {
 								return (
-									<>
-										<div className=" d-flex justify-content-end p-2">
-											<small className="reciptpient">{item.message}</small>
-										</div>
-									</>
+									<div className="d-flex justify-content-end">
+										<p>{item.message}</p>
+									</div>
 								);
 							} else {
 								return (
-									<div className="d-flex my-2 p-2">
-										{senderToDisplay.map((item) => {
-											return (
-												<img
-													src={item.profilePicture}
-													className="me-2"
-													style={{
-														width: '40px',
-														height: '40px',
-														borderRadius: '50%',
-														objectFit: 'cover',
-													}}
-												/>
-											);
+									<div className="d-flex my-2">
+										{users.map((data) => {
+											if (data.userID === item.sender) {
+												return (
+													<img
+														src={data.profilePicture}
+														className="me-2"
+														style={{
+															width: '40px',
+															height: '40px',
+															borderRadius: '50%',
+															objectFit: 'cover',
+														}}
+													/>
+												);
+											}
 										})}
 
-										<small className="senderBg">{item.message}</small>
+										<p>{item.message}</p>
 									</div>
 								);
 							}
