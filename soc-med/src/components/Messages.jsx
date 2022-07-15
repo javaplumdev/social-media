@@ -21,6 +21,8 @@ const Messages = () => {
 		userMessages?.find &&
 		userMessages.find((item) => item.recipientID).recipientID;
 
+	console.log(userMessages);
+
 	return (
 		<div className="mt-3">
 			<Container>
@@ -35,6 +37,7 @@ const Messages = () => {
 
 				<div className="mt-2">
 					{userMessages?.map &&
+
 						userMessages.map((item) => {
 							if (item.sender === user.uid) {
 								return (
@@ -47,6 +50,19 @@ const Messages = () => {
 														to={`/chat/${item.chatBoxID}`}
 														className="p-3 w-100 text-decoration-none text-dark d-flex"
 													>
+
+						userMessages.map((item) => (
+							<div key={item.chatBoxID}>
+								<div className="div">
+									{users.map((data) => {
+										if (data.userID === item.sender) {
+											return (
+												<Link
+													to={`/chat/${item.chatBoxID}`}
+													className="text-decoration-none text-dark"
+												>
+													<div className="p-3 rounded d-flex">
+
 														<img
 															src={data.profilePicture}
 															className="me-3"
@@ -57,6 +73,7 @@ const Messages = () => {
 																objectFit: 'cover',
 															}}
 														/>
+
 														<div>
 															<p>
 																{data.name} <br></br>
@@ -114,6 +131,17 @@ const Messages = () => {
 								);
 							}
 						})}
+
+														<p>{data.name}</p>
+													</div>
+												</Link>
+											);
+										}
+									})}
+								</div>
+							</div>
+						))}
+
 				</div>
 			</Container>
 		</div>
