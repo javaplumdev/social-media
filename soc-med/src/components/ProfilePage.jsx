@@ -35,7 +35,7 @@ const ProfilePage = () => {
 						return (
 							<div
 								key={item.userID}
-								className="d-flex mt-5 bg-white p-3 rounded "
+								className="mt-5 bg-white p-3 rounded d-flex flex-wrap"
 							>
 								<img
 									src={item.profilePicture}
@@ -47,8 +47,8 @@ const ProfilePage = () => {
 										objectFit: 'cover',
 									}}
 								/>
-								<div className="mx-3">
-									<h6>{item.name}</h6>
+								<h6 className="m-3">{item.name}</h6>
+								<div className="mt-3">
 									<div className="d-flex flex-wrap mb-3">
 										<small
 											className="followLink me-3"

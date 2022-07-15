@@ -566,15 +566,21 @@ export const ContextFunction = ({ children }) => {
 	};
 
 	const sendMessage = (chatID, recipientID) => {
-		updateDoc(doc(db, 'messages', chatID), {
-			messages: arrayUnion({
-				message: messagesHolder,
-				recipient: recipientID,
-				sender: user.uid,
-			}),
-		});
+		if (!messagesHolder.trim() || messagesHolder === '') {
+			toast.error('Please enter a message');
+		} else {
+			updateDoc(doc(db, 'messages', chatID), {
+				messages: arrayUnion({
+					message: messagesHolder,
+					recipient: recipientID,
+					sender: user.uid,
+					messageID: uuidv4(),
+					dateAndTime: `${dateToday} ${hours}:${minutes}${newformat}`,
+				}),
+			});
 
-		setMessagesHolder('');
+			setMessagesHolder('');
+		}
 	};
 
 	return (

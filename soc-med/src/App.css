@@ -96,10 +96,32 @@ body {
 	width: 90%;
 }
 
+.userdetails {
+	position: absolute;
+	top: 0;
+}
+
 .div {
 	background-color: rgb(255, 255, 255);
 }
 
 .div:hover {
 	background-color: rgb(239, 239, 239);
+}
+
+.senderBg {
+	background-color: #77b255;
+	padding: 1em;
+	color: #fff;
+	max-width: 220px;
+	overflow-wrap: break-word;
+	border-radius: 1em 1em 1em 0;
+}
+
+.reciptpient {
+	background-color: #caccc9;
+	padding: 1em;
+	max-width: 220px;
+	overflow-wrap: break-word;
+	border-radius: 1em 1em 0 1em;
 }

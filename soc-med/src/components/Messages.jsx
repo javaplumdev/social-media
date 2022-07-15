@@ -32,67 +32,88 @@ const Messages = () => {
 					/>
 					<PickToMessageModal />
 				</div>
+
 				<div className="mt-2">
 					{userMessages?.map &&
-						userMessages.map((item) => (
-							<div key={item.chatBoxID}>
-								{senderID === user.uid ? (
-									<div className="div">
+						userMessages.map((item) => {
+							if (item.sender === user.uid) {
+								return (
+									<div className="div d-flex" key={item.chatBoxID}>
 										{users.map((data) => {
-											if (data.userID === recipientID) {
+											if (item.recipientID === data.userID) {
 												return (
 													<Link
+														key={data.userID}
 														to={`/chat/${item.chatBoxID}`}
-														className="text-decoration-none text-dark"
+														className="p-3 w-100 text-decoration-none text-dark d-flex"
 													>
-														<div className="p-3 rounded d-flex">
-															<img
-																src={data.profilePicture}
-																className="me-3"
-																style={{
-																	width: '50px',
-																	height: '50px',
-																	borderRadius: '50%',
-																	objectFit: 'cover',
-																}}
-															/>
-															<p>{data.name}</p>
+														<img
+															src={data.profilePicture}
+															className="me-3"
+															style={{
+																width: '50px',
+																height: '50px',
+																borderRadius: '50%',
+																objectFit: 'cover',
+															}}
+														/>
+														<div>
+															<p>
+																{data.name} <br></br>
+																<small className="text-secondary">
+																	{
+																		item.messages[item.messages.length - 1]
+																			.message
+																	}
+																</small>
+															</p>
 														</div>
 													</Link>
 												);
 											}
 										})}
 									</div>
-								) : (
-									<div className="div">
+								);
+							} else {
+								return (
+									<div className="div d-flex" key={item.chatBoxID}>
 										{users.map((data) => {
-											if (data.userID === senderID) {
+											if (item.sender === data.userID) {
 												return (
 													<Link
+														key={data.userID}
 														to={`/chat/${item.chatBoxID}`}
-														className="text-decoration-none text-dark"
+														className="p-3 w-100 text-decoration-none text-dark d-flex"
 													>
-														<div className="p-3 rounded d-flex">
-															<img
-																src={data.profilePicture}
-																className="me-3"
-																style={{
-																	width: '50px',
-																	height: '50px',
-																	borderRadius: '50%',
-																	objectFit: 'cover',
-																}}
-															/>
-															<p>{data.name}</p>
+														<img
+															src={data.profilePicture}
+															className="me-3"
+															style={{
+																width: '50px',
+																height: '50px',
+																borderRadius: '50%',
+																objectFit: 'cover',
+															}}
+														/>
+														<div>
+															<p>
+																{data.name} <br></br>
+																<small className="text-secondary">
+																	{
+																		item.messages[item.messages.length - 1]
+																			.message
+																	}
+																</small>
+															</p>
 														</div>
 													</Link>
 												);
 											}
 										})}
 									</div>
-								)}
-							</div>
-						))}
+								);
+							}
+						})}
 				</div>
 			</Container>
 		</div>
