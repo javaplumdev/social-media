@@ -125,6 +125,9 @@ const HomePage = () => {
 					<Col className="d-none d-md-block">
 						<div className="bg-white rounded p-3">
 							<h6 className="mb-3">Suggested friends</h6>
+							{suggestedFriends?.length === 0 && (
+								<p>You've followed everyone</p>
+							)}
 							{suggestedFriends?.map &&
 								suggestedFriends.slice(0, 3).map((item) => {
 									return (

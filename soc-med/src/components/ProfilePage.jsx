@@ -35,7 +35,7 @@ const ProfilePage = () => {
 						return (
 							<div
 								key={item.userID}
-								className="d-flex mt-5 bg-white p-3 rounded "
+								className="d-flex mt-5 bg-white p-3 rounded flex-wrap"
 							>
 								<img
 									src={item.profilePicture}
@@ -47,9 +47,9 @@ const ProfilePage = () => {
 										objectFit: 'cover',
 									}}
 								/>
-								<div className="mx-3">
+								<div className="m-3">
 									<h6>{item.name}</h6>
-									<div className="d-flex flex-wrap mb-3">
+									<div className="d-flex flex-wrap ">
 										<small
 											className="followLink me-3"
 											onClick={() => checkFollowers()}
@@ -85,7 +85,6 @@ const ProfilePage = () => {
 					})}
 
 				<div className="my-3" style={{ maxWidth: '720px' }}>
-					<b>{id === user.uid ? 'Your posts' : 'User posts'}</b>
 					{feedData?.map &&
 						feedData.map((item) => {
 							if (item.userID === id) {

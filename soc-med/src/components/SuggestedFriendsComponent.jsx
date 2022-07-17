@@ -33,11 +33,7 @@ const SuggestedFriendsComponent = ({ name, profilePicture, userID }) => {
 					</Link>
 					<br></br>
 					<div className=" rounded my-2">
-						<BsPlus
-							className="icons"
-							onClick={() => follow(userID, name, profilePicture, user.uid)}
-						/>{' '}
-						Follow
+						<BsPlus className="icons" onClick={() => follow(userID)} /> Follow
 					</div>
 				</div>
 			</div>

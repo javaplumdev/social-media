@@ -21,10 +21,6 @@ const SettingsComponent = () => {
 		);
 	}, []);
 
-	console.log(
-		users?.filter && users.filter((item) => item.userID === user.uid)
-	);
-
 	return (
 		<div>
 			<Container>

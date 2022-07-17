@@ -15,8 +15,6 @@ const Messages = () => {
 			(item) => item.sender === user.uid || item.recipientID === user.uid
 		);
 
-	console.log(userMessages);
-
 	return (
 		<div className="mt-3">
 			<Container>
@@ -28,7 +26,7 @@ const Messages = () => {
 					/>
 					<PickToMessageModal />
 				</div>
-				<div className="mt-2">{console.log(userMessages)}</div>
+
 				<div className="mt-2">
 					{userMessages?.length === 0 ? (
 						<p>You don't have messages</p>

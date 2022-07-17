@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { ContextVariable } from '../context/context-config';
 import { Container, InputGroup, Form, Button } from 'react-bootstrap';
 import { IoSend } from 'react-icons/io5';
+import { Link } from 'react-router-dom';
 
 const Chatbox = () => {
 	const { id } = useParams();
@@ -24,14 +25,9 @@ const Chatbox = () => {
 		filteredMessagesData?.map &&
 		filteredMessagesData.map((item) => item.recipientID)[0];
 
-	const messages =
+	const senderID =
 		filteredMessagesData?.map &&
-		filteredMessagesData.map((item) => item.messages)[0];
-
-	const sender =
-		messages?.filter && messages.filter((item) => item.sender !== user.uid);
-
-	const senderID = sender?.map && sender.map((item) => item.sender)[0];
+		filteredMessagesData.map((item) => item.sender)[0];
 
 	const senderToDisplay =
 		users?.filter && users.filter((item) => item.userID === senderID);
@@ -39,8 +35,6 @@ const Chatbox = () => {
 	const chatBoxMessages =
 		filteredMessagesData?.map &&
 		filteredMessagesData.map((item) => item.messages)[0];
-
-	console.log(chatBoxMessages);
 
 	return (
 		<Container className="chatBox">
@@ -51,30 +45,70 @@ const Chatbox = () => {
 				}}
 			>
 				<div
-					className="userdetails bg-white p-2 w-100"
+					className="userdetails p-2 w-100 bg-white"
 					style={{ borderBottom: '.5px solid #caccc9' }}
 				>
-					{senderToDisplay?.map &&
-						senderToDisplay.map((item) => {
-							return (
-								<div key={item.userID} className="d-flex ">
-									<img
-										src={item.profilePicture}
-										className="me-3"
-										style={{
-											width: '50px',
-											height: '50px',
-											borderRadius: '50%',
-											objectFit: 'cover',
-										}}
-									/>
+					{senderID === user.uid ? (
+						<>
+							{users.map((item) => {
+								if (item.userID === recipientID) {
+									return (
+										<div key={item.userID}>
+											<Link
+												to={`/profile/${item.userID}`}
+												className="text-decoration-none text-dark"
+											>
+												<img
+													src={item.profilePicture}
+													className="me-3"
+													style={{
+														width: '50px',
+														height: '50px',
+														borderRadius: '50%',
+														objectFit: 'cover',
+													}}
+												/>
 
-									<div>
-										<small className="overflowWrap">{item.name}</small>
-									</div>
-								</div>
-							);
-						})}
+												<div>
+													<small className="overflowWrap">{item.name}</small>
+												</div>
+											</Link>
+										</div>
+									);
+								}
+							})}
+						</>
+					) : (
+						<>
+							{users.map((item) => {
+								if (item.userID === senderID) {
+									return (
+										<div key={item.userID}>
+											<Link
+												to={`/profile/${item.userID}`}
+												className="text-decoration-none text-dark d-flex"
+											>
+												<img
+													src={item.profilePicture}
+													className="me-3"
+													style={{
+														width: '50px',
+														height: '50px',
+														borderRadius: '50%',
+														objectFit: 'cover',
+													}}
+												/>
+
+												<div>
+													<small className="overflowWrap">{item.name}</small>
+												</div>
+											</Link>
+										</div>
+									);
+								}
+							})}
+						</>
+					)}
 				</div>
 
 				<div
@@ -82,7 +116,8 @@ const Chatbox = () => {
 					style={{
 						overflow: 'scroll',
 						overflowX: 'hidden',
-						height: '90%',
+						height: '70%',
+						marginTop: '4em',
 					}}
 				>
 					{chatBoxMessages?.map &&

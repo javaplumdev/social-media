@@ -13,7 +13,10 @@ const FullSuggestedFriendsComponent = () => {
 					<h6>Suggested friends below</h6>
 					<small>All of accounts made are public</small>
 				</div>
-				{suggestedFriends?.map &&
+				{suggestedFriends?.length === 0 ? (
+					<p>You've followed everyone already</p>
+				) : (
+					suggestedFriends?.map &&
 					suggestedFriends.map((item) => {
 						return (
 							<SuggestedFriendsComponent
@@ -23,7 +26,8 @@ const FullSuggestedFriendsComponent = () => {
 								profilePicture={item.profilePicture}
 							/>
 						);
-					})}
+					})
+				)}
 			</Container>
 		</div>
 	);

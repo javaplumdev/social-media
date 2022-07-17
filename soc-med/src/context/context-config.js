@@ -497,14 +497,11 @@ export const ContextFunction = ({ children }) => {
 		}
 	};
 
-	const follow = (userID, name, profilePicture, userToFollow) => {
+	const follow = (userID) => {
 		currentUserData.map((item) => {
 			updateDoc(doc(db, 'users', userID), {
 				followers: arrayUnion({
 					userID: item.userID,
-					userName: item.name,
-					profilePicture: item.profilePicture,
-					userToFollow: userToFollow,
 				}),
 			});
 		});
@@ -512,9 +509,6 @@ export const ContextFunction = ({ children }) => {
 		updateDoc(doc(db, 'users', user.uid), {
 			following: arrayUnion({
 				userID: userID,
-				userName: name,
-				profilePicture: profilePicture,
-				userToFollow: userToFollow,
 			}),
 		});
 
@@ -583,13 +577,37 @@ export const ContextFunction = ({ children }) => {
 		}
 
 		setMessagesHolder('');
+	};
 
-		console.log(messagesHolder);
+	const removeFollowing = (userID) => {
+		updateDoc(doc(db, 'users', user.uid), {
+			following: arrayRemove({ userID: userID }),
+		});
+
+		updateDoc(doc(db, 'users', userID), {
+			followers: arrayRemove({ userID: user.uid }),
+		});
+
+		toast.success('Unfollowed');
+	};
+
+	const removeFollowers = (userID) => {
+		updateDoc(doc(db, 'users', user.uid), {
+			followers: arrayRemove({ userID: userID }),
+		});
+
+		updateDoc(doc(db, 'users', userID), {
+			following: arrayRemove({ userID: user.uid }),
+		});
+
+		toast.success('Removed');
 	};
 
 	return (
 		<ContextVariable.Provider
 			value={{
+				removeFollowers,
+				removeFollowing,
 				setMessagesHolder,
 				sendMessage,
 				messagesData,

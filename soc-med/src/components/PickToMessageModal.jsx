@@ -48,7 +48,7 @@ const PickToMessageModal = () => {
 											>
 												<div>
 													<img
-														src={item.profilePicture}
+														src={data.profilePicture}
 														className="me-2"
 														style={{
 															width: '50px',
@@ -58,9 +58,7 @@ const PickToMessageModal = () => {
 														}}
 													/>
 
-													<small className="overflowWrap">
-														{item.userName}
-													</small>
+													<small className="overflowWrap">{data.name}</small>
 												</div>
 
 												<button

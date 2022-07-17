@@ -10,13 +10,11 @@ const SearchResults = () => {
 		(item) => item.name === searchVar
 	);
 
-	console.log(searchHolder);
-
 	return (
 		<div className="mt-3">
 			<Container>
 				{searchHolder.length === 0 ? (
-					<h6 className="text-center p-5">No results for "{searchVar}"</h6>
+					<h6 className="text-center p-5">No user results for "{searchVar}"</h6>
 				) : (
 					<>
 						<h6>Results for "{searchVar}"</h6>
