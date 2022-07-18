@@ -44,6 +44,12 @@ const CommentModal = () => {
 		</a>
 	));
 
+	var Filter = require('bad-words'),
+		filter = new Filter();
+
+	filter.addWords('tite', 'puke', 'kantutan', 'otin');
+	filter.removeWords('fuck', 'sex');
+
 	return (
 		<>
 			{filteredPost?.map &&
@@ -80,7 +86,9 @@ const CommentModal = () => {
 									</div>
 
 									<div>
-										<small className="overflowWrap">{item.content}</small>
+										<small className="overflowWrap">
+											{filter.clean(item.content)}
+										</small>
 										{/* Comments */}
 										<div>
 											<b>
@@ -156,7 +164,7 @@ const CommentModal = () => {
 																				</Dropdown>
 																			</div>
 																			<small className="overflowWrap">
-																				{data.comment}
+																				{filter.clean(data.comment)}
 																			</small>
 																		</div>
 																	) : (
@@ -200,7 +208,7 @@ const CommentModal = () => {
 																				</Dropdown>
 																			</div>
 																			<small className="overflowWrap">
-																				{data.comment}
+																				{filter.clean(data.comment)}
 																			</small>
 																		</div>
 																	)}

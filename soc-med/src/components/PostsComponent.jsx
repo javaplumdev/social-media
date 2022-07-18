@@ -45,6 +45,13 @@ const PostsComponent = ({
 		</a>
 	));
 
+	// For profanity words
+	var Filter = require('bad-words'),
+		filter = new Filter();
+
+	filter.addWords('tite', 'puke', 'kantutan', 'otin');
+	filter.removeWords('fuck', 'sex');
+
 	return (
 		<>
 			{image === undefined ? (
@@ -97,7 +104,7 @@ const PostsComponent = ({
 						</div>
 					</div>
 
-					<ReadMore className="overflowWrap">{content}</ReadMore>
+					<ReadMore className="overflowWrap">{filter.clean(content)}</ReadMore>
 
 					<div>
 						<BsFillHeartFill

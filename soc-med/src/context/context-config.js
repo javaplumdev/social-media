@@ -574,6 +574,14 @@ export const ContextFunction = ({ children }) => {
 					dateAndTime: `${dateToday} ${hours}:${minutes}${newformat}`,
 				}),
 			});
+
+			updateDoc(
+				doc(db, 'messages', chatID),
+				{
+					timestamp: serverTimestamp(),
+				},
+				{ merge: true }
+			);
 		}
 
 		setMessagesHolder('');

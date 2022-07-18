@@ -54,15 +54,25 @@ const Messages = () => {
 														}}
 													/>
 													<div>
-														<p>
-															{data.name} <br></br>
-															<small className="text-secondary">
-																{
-																	item.messages[item.messages.length - 1]
-																		?.message
-																}
-															</small>
-														</p>
+														{data.name} <br></br>
+														<div>
+															{item.messages[item.messages.length - 1]
+																.sender === user.uid ? (
+																<small className=" text-secondary">
+																	You:{' '}
+																	{item.messages[
+																		item.messages.length - 1
+																	].message.slice(0, 20)}
+																	...
+																</small>
+															) : (
+																<small className=" text-secondary">
+																	{item.messages[
+																		item.messages.length - 1
+																	].message.message.slice(0, 20)}
+																</small>
+															)}
+														</div>
 													</div>
 												</Link>
 											);
@@ -90,15 +100,29 @@ const Messages = () => {
 														}}
 													/>
 													<div>
-														<p>
-															{data.name} <br></br>
-															<small className="text-secondary">
-																{
-																	item.messages[item.messages.length - 1]
-																		.message
-																}
-															</small>
-														</p>
+														{data.name} <br></br>
+														<div
+															style={{
+																maxWidth: '320px',
+																backgroundColor: 'red',
+															}}
+														>
+															{item.messages[item.messages.length - 1]
+																.sender === user.uid ? (
+																<small className=" text-secondary">
+																	You:{' '}
+																	{item.messages[
+																		item.messages.length - 1
+																	].message.message.slice(0, 20)}
+																</small>
+															) : (
+																<small className=" text-secondary">
+																	{item.messages[
+																		item.messages.length - 1
+																	].message.message.slice(0, 20)}
+																</small>
+															)}
+														</div>
 													</div>
 												</Link>
 											);

@@ -19,8 +19,6 @@ const PickToMessageModal = () => {
 
 	const chatBoxID = uuidv4();
 
-	console.log(followingToMessage);
-
 	return (
 		<Modal show={showModalVer2} onHide={handleCloseToMessage}>
 			<Modal.Header closeButton>

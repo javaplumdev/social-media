@@ -50,63 +50,65 @@ const Chatbox = () => {
 				>
 					{senderID === user.uid ? (
 						<>
-							{users.map((item) => {
-								if (item.userID === recipientID) {
-									return (
-										<div key={item.userID}>
-											<Link
-												to={`/profile/${item.userID}`}
-												className="text-decoration-none text-dark"
-											>
-												<img
-													src={item.profilePicture}
-													className="me-3"
-													style={{
-														width: '50px',
-														height: '50px',
-														borderRadius: '50%',
-														objectFit: 'cover',
-													}}
-												/>
+							{users?.map &&
+								users.map((item) => {
+									if (item.userID === recipientID) {
+										return (
+											<div key={item.userID}>
+												<Link
+													to={`/profile/${item.userID}`}
+													className="text-decoration-none text-dark d-flex"
+												>
+													<img
+														src={item.profilePicture}
+														className="me-3"
+														style={{
+															width: '50px',
+															height: '50px',
+															borderRadius: '50%',
+															objectFit: 'cover',
+														}}
+													/>
 
-												<div>
-													<small className="overflowWrap">{item.name}</small>
-												</div>
-											</Link>
-										</div>
-									);
-								}
-							})}
+													<div>
+														<small className="overflowWrap">{item.name}</small>
+													</div>
+												</Link>
+											</div>
+										);
+									}
+								})}
 						</>
 					) : (
 						<>
-							{users.map((item) => {
-								if (item.userID === senderID) {
-									return (
-										<div key={item.userID}>
-											<Link
-												to={`/profile/${item.userID}`}
-												className="text-decoration-none text-dark d-flex"
-											>
-												<img
-													src={item.profilePicture}
-													className="me-3"
-													style={{
-														width: '50px',
-														height: '50px',
-														borderRadius: '50%',
-														objectFit: 'cover',
-													}}
-												/>
+							{users?.map &&
+								users.map((item) => {
+									if (item.userID === senderID) {
+										return (
+											<div key={item.userID}>
+												<Link
+													to={`/profile/${item.userID}`}
+													className="text-decoration-none text-dark d-flex"
+												>
+													<img
+														src={item.profilePicture}
+														className="me-3"
+														style={{
+															width: '50px',
+															height: '50px',
+															borderRadius: '50%',
+															objectFit: 'cover',
+														}}
+													/>
 
-												<div>
-													<small className="overflowWrap">{item.name}</small>
-												</div>
-											</Link>
-										</div>
-									);
-								}
-							})}
+													<div>
+														<small className="overflowWrap">{item.name}</small>
+													</div>
+												</Link>
+											</div>
+										);
+									}
+								})}
 						</>
 					)}
 				</div>
@@ -133,23 +135,56 @@ const Chatbox = () => {
 								);
 							} else {
 								return (
-									<div key={item.messageID} className="d-flex my-2 p-2">
-										{senderToDisplay.map((item) => {
-											return (
-												<img
-													key={item.userID}
-													src={item.profilePicture}
-													className="me-2"
-													style={{
-														width: '40px',
-														height: '40px',
-														borderRadius: '50%',
-														objectFit: 'cover',
-													}}
-												/>
-											);
-										})}
-										<small className="senderBg ">{item.message}</small>
+									<div
+										key={item.messageID}
+										className="d-flex my-2 p-2 align-items-center"
+									>
+										{senderID === user.uid ? (
+											<>
+												{users?.map &&
+													users.map((item) => {
+														if (item.userID === recipientID) {
+															return (
+																<div key={item.userID}>
+																	<img
+																		src={item.profilePicture}
+																		className="me-3"
+																		style={{
+																			width: '45px',
+																			height: '45px',
+																			borderRadius: '50%',
+																			objectFit: 'cover',
+																		}}
+																	/>
+																</div>
+															);
+														}
+													})}
+											</>
+										) : (
+											<>
+												{users?.map &&
+													users.map((item) => {
+														if (item.userID === senderID) {
+															return (
+																<div key={item.userID}>
+																	<img
+																		src={item.profilePicture}
+																		className="me-3"
+																		style={{
+																			width: '45px',
+																			height: '45px',
+																			borderRadius: '50%',
+																			objectFit: 'cover',
+																		}}
+																	/>
+																</div>
+															);
+														}
+													})}
+											</>
+										)}
+										<small className="senderBg">{item.message}</small>
 									</div>
 								);
 							}
