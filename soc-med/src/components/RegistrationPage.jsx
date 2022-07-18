@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 
 const RegistrationPage = () => {
-	const { register } = useContext(ContextVariable);
+	const { register, users } = useContext(ContextVariable);
 
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');

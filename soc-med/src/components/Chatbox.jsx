@@ -138,6 +138,7 @@ const Chatbox = () => {
 									<div
 										key={item.messageID}
 										className="d-flex my-2 p-2 align-items-center"
+										style={{ maxWidth: '220px' }}
 									>
 										{senderID === user.uid ? (
 											<>
@@ -150,8 +151,8 @@ const Chatbox = () => {
 																		src={item.profilePicture}
 																		className="me-3"
 																		style={{
-																			width: '45px',
-																			height: '45px',
+																			width: '30px',
+																			height: '30px',
 																			borderRadius: '50%',
 																			objectFit: 'cover',
 																		}}
@@ -172,8 +173,8 @@ const Chatbox = () => {
 																		src={item.profilePicture}
 																		className="me-3"
 																		style={{
-																			width: '45px',
-																			height: '45px',
+																			width: '30px',
+																			height: '30px',
 																			borderRadius: '50%',
 																			objectFit: 'cover',
 																		}}

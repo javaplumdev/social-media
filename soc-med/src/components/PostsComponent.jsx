@@ -113,13 +113,13 @@ const PostsComponent = ({
 							className="icons me-2"
 							onClick={() => like(postID)}
 						/>{' '}
-						{likes.length}{' '}
+						{likes?.length}{' '}
 						<BsFillChatLeftFill
 							size="20"
 							className="icons mx-2"
 							onClick={() => openComment(postID)}
 						/>{' '}
-						{filteredComments.length}
+						{filteredComments?.length}
 						<CommentModal />
 					</div>
 				</div>

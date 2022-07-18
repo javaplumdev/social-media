@@ -12,13 +12,16 @@ import FullSuggestedFriendsComponent from './components/FullSuggestedFriendsComp
 import SearchResults from './components/SearchResults';
 import Messages from './components/Messages';
 import Chatbox from './components/Chatbox';
+
 import { Toaster } from 'react-hot-toast';
+import ReactHelmet from './components/ReactHelmet';
 
 function App() {
 	return (
 		<ContextFunction>
 			<div className="App">
 				<Toaster />
+				<ReactHelmet />
 				<Routes>
 					<Route path="/" element={<LoginPage />} />
 					<Route path="/register" element={<RegistrationPage />} />

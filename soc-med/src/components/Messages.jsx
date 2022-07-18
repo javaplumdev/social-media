@@ -55,21 +55,25 @@ const Messages = () => {
 													/>
 													<div>
 														{data.name} <br></br>
-														<div>
+														<div
+															style={{
+																maxWidth: '220px',
+															}}
+														>
 															{item.messages[item.messages.length - 1]
 																.sender === user.uid ? (
 																<small className=" text-secondary">
 																	You:{' '}
 																	{item.messages[
 																		item.messages.length - 1
-																	].message.slice(0, 20)}
+																	].message?.slice(0, 20)}
 																	...
 																</small>
 															) : (
 																<small className=" text-secondary">
 																	{item.messages[
 																		item.messages.length - 1
-																	].message.message.slice(0, 20)}
+																	].message?.message.slice(0, 20)}
 																</small>
 															)}
 														</div>
@@ -103,8 +107,7 @@ const Messages = () => {
 														{data.name} <br></br>
 														<div
 															style={{
-																maxWidth: '320px',
-																backgroundColor: 'red',
+																maxWidth: '220px',
 															}}
 														>
 															{item.messages[item.messages.length - 1]
@@ -113,13 +116,14 @@ const Messages = () => {
 																	You:{' '}
 																	{item.messages[
 																		item.messages.length - 1
-																	].message.message.slice(0, 20)}
+																	].message?.slice(0, 20)}
+																	...
 																</small>
 															) : (
 																<small className=" text-secondary">
 																	{item.messages[
 																		item.messages.length - 1
-																	].message.message.slice(0, 20)}
+																	].message.message?.slice(0, 20)}
 																</small>
 															)}
 														</div>

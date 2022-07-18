@@ -2,7 +2,8 @@ import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ContextVariable } from '../context/context-config';
 import { useNavigate } from 'react-router-dom';
-import GoogleButton from 'react-google-button';
+import { FcGoogle } from 'react-icons/fc';
+import { BsFacebook } from 'react-icons/bs';
 
 const LoginPage = () => {
 	const { logIn, googleSignIn } = useContext(ContextVariable);
@@ -77,11 +78,14 @@ const LoginPage = () => {
 						Log in
 					</button>
 					<hr></hr>
-					<GoogleButton
-						type="light"
-						className="w-100"
-						onClick={handleGoogleSignIn}
-					/>
+
+					<div className="text-center">
+						<FcGoogle
+							onClick={handleGoogleSignIn}
+							size="30"
+							className="followLink me-2"
+						/>
+					</div>
 
 					<div className="text-center mt-3">
 						<p>

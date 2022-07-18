@@ -9,14 +9,8 @@ import FollowersModal from './FollowersModal';
 import { useParams } from 'react-router-dom';
 
 const ProfilePage = () => {
-	const {
-		user,
-		feedData,
-		currentUserData,
-		checkFollowing,
-		checkFollowers,
-		users,
-	} = useContext(ContextVariable);
+	const { feedData, checkFollowing, checkFollowers, users, setTabName } =
+		useContext(ContextVariable);
 
 	const { id } = useParams();
 
