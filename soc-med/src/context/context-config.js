@@ -50,6 +50,7 @@ export const ContextFunction = ({ children }) => {
 	const [messagesData, setMessagesData] = useState({});
 	const [messagesHolder, setMessagesHolder] = useState('');
 	const [tabName, setTabName] = useState('');
+	const [notificationsData, setNotificationsData] = useState({});
 
 	const [show, setShow] = useState(false);
 	const handleClose = () => setShow(false);
@@ -121,6 +122,17 @@ export const ContextFunction = ({ children }) => {
 
 		onSnapshot(queryMessages, (snapshot) => {
 			setMessagesData(
+				snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+			);
+		});
+
+		const queryNotification = query(
+			collection(db, 'notifications'),
+			orderBy('timestamp', 'desc')
+		);
+
+		onSnapshot(queryNotification, (snapshot) => {
+			setNotificationsData(
 				snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
 			);
 		});
@@ -401,7 +413,7 @@ export const ContextFunction = ({ children }) => {
 		setFeedPostID(postID);
 	};
 
-	const comment = (commentID, feedPostID) => {
+	const comment = (commentID, feedPostID, userWhoPost) => {
 		if (!commentValue.trim() || commentValue === '') {
 			toast.error('Please enter a comment!');
 		} else {
@@ -422,12 +434,22 @@ export const ContextFunction = ({ children }) => {
 					});
 				});
 
+				setDoc(doc(db, 'notifications', commentID + user.uid), {
+					notificationID: feedPostID + user.uid,
+					postID: feedPostID,
+					userWhoLikes: user.uid,
+					userWhoPosts: userWhoPost,
+					type: 'comment',
+					isViewed: false,
+					timestamp: serverTimestamp(),
+				});
+
 				setCommentValue('');
 			}
 		}
 	};
 
-	const like = (postID) => {
+	const like = async (postID, userID) => {
 		const filteredPosts = feedData.filter((item) => item.postID === postID);
 		const checkFeedData = filteredPosts.map((item) => item.likes)[0];
 		const isLike = checkFeedData.find((item) => item.user === user.uid);
@@ -436,9 +458,21 @@ export const ContextFunction = ({ children }) => {
 			updateDoc(doc(db, 'posts', postID), {
 				likes: arrayRemove({ user: user.uid }),
 			});
+
+			await deleteDoc(doc(db, 'notifications', postID + user.uid));
 		} else if (isLike === undefined) {
 			updateDoc(doc(db, 'posts', postID), {
 				likes: arrayUnion({ user: user.uid }),
+			});
+
+			setDoc(doc(db, 'notifications', postID + user.uid), {
+				notificationID: postID + user.uid,
+				postID: postID,
+				userWhoLikes: user.uid,
+				userWhoPosts: userID,
+				type: 'like',
+				isViewed: false,
+				timestamp: serverTimestamp(),
 			});
 		}
 	};
@@ -459,6 +493,7 @@ export const ContextFunction = ({ children }) => {
 
 	const deleteComment = async (commentID) => {
 		await deleteDoc(doc(db, 'comments', commentID));
+		await deleteDoc(doc(db, 'notifications', commentID + user.uid));
 
 		toast.success('Comment deleted');
 	};
@@ -525,6 +560,15 @@ export const ContextFunction = ({ children }) => {
 			following: arrayUnion({
 				userID: userID,
 			}),
+		});
+
+		setDoc(doc(db, 'notifications', user.uid), {
+			notificationID: user.uid,
+			userWhoLikes: user.uid,
+			userWhoPosts: userID,
+			type: 'follow',
+			isViewed: false,
+			timestamp: serverTimestamp(),
 		});
 
 		toast.success('Followed!');
@@ -597,12 +641,12 @@ export const ContextFunction = ({ children }) => {
 				},
 				{ merge: true }
 			);
-		}
 
-		setMessagesHolder('');
+			setMessagesHolder('');
+		}
 	};
 
-	const removeFollowing = (userID) => {
+	const removeFollowing = async (userID) => {
 		updateDoc(doc(db, 'users', user.uid), {
 			following: arrayRemove({ userID: userID }),
 		});
@@ -610,6 +654,8 @@ export const ContextFunction = ({ children }) => {
 		updateDoc(doc(db, 'users', userID), {
 			followers: arrayRemove({ userID: user.uid }),
 		});
+
+		await deleteDoc(doc(db, 'notifications', user.uid));
 
 		toast.success('Unfollowed');
 	};
@@ -626,9 +672,16 @@ export const ContextFunction = ({ children }) => {
 		toast.success('Removed');
 	};
 
+	const navigateNotification = () => {
+		navigate('/notifications');
+	};
+
 	return (
 		<ContextVariable.Provider
 			value={{
+				notificationsData,
+				navigateNotification,
+				messagesHolder,
 				tabName,
 				setTabName,
 				removeFollowers,

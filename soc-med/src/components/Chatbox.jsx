@@ -194,10 +194,8 @@ const Chatbox = () => {
 
 				<InputGroup>
 					<Form.Control
-						type="text"
 						placeholder="Send"
 						aria-label="Send"
-						aria-describedby="basic-addon2"
 						value={messagesHolder}
 						onChange={(e) => setMessagesHolder(e.target.value)}
 					/>

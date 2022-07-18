@@ -12,6 +12,7 @@ import FullSuggestedFriendsComponent from './components/FullSuggestedFriendsComp
 import SearchResults from './components/SearchResults';
 import Messages from './components/Messages';
 import Chatbox from './components/Chatbox';
+import Notifications from './components/Notifications';
 
 import { Toaster } from 'react-hot-toast';
 import ReactHelmet from './components/ReactHelmet';
@@ -69,6 +70,16 @@ function App() {
 							<ProtectedRoute>
 								<NavbarComponent />
 								<SearchResults />
+							</ProtectedRoute>
+						}
+					/>
+
+					<Route
+						path="/notifications"
+						element={
+							<ProtectedRoute>
+								<NavbarComponent />
+								<Notifications />
 							</ProtectedRoute>
 						}
 					/>

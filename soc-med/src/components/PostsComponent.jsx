@@ -111,7 +111,7 @@ const PostsComponent = ({
 							size="20"
 							color={isLike ? '#77b255' : '#bcb8b1'}
 							className="icons me-2"
-							onClick={() => like(postID)}
+							onClick={() => like(postID, userID)}
 						/>{' '}
 						{likes?.length}{' '}
 						<BsFillChatLeftFill
@@ -180,7 +180,7 @@ const PostsComponent = ({
 							size="20"
 							color={isLike ? '#77b255' : '#bcb8b1'}
 							className="icons me-2"
-							onClick={() => like(postID)}
+							onClick={() => like(postID, userID)}
 						/>{' '}
 						{likes.length}{' '}
 						<BsFillChatLeftFill

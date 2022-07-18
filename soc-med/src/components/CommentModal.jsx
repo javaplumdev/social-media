@@ -31,6 +31,9 @@ const CommentModal = () => {
 		commentData?.filter &&
 		commentData.filter((item) => item.postID === feedPostID);
 
+	const userWhoPost =
+		filteredPost?.map && filteredPost.map((item) => item.userID)[0];
+
 	const CustomToggle = React.forwardRef(({ onClick }, ref) => (
 		<a
 			href=""
@@ -243,7 +246,7 @@ const CommentModal = () => {
 								</Button>
 								<button
 									className="buttons"
-									onClick={() => comment(commentID, feedPostID)}
+									onClick={() => comment(commentID, feedPostID, userWhoPost)}
 								>
 									Comment
 								</button>

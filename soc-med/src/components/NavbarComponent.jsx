@@ -21,10 +21,17 @@ import {
 import { ContextVariable } from '../context/context-config';
 import { Link } from 'react-router-dom';
 import sillyfroglogo from '../assets/sillyfroglogo.svg';
+import { IoNotificationsSharp } from 'react-icons/io5';
 
 const NavbarComponent = () => {
-	const { logOut, user, search, searchVar, setSearchVar } =
-		useContext(ContextVariable);
+	const {
+		logOut,
+		user,
+		search,
+		searchVar,
+		setSearchVar,
+		navigateNotification,
+	} = useContext(ContextVariable);
 
 	const handleLogout = async () => {
 		try {
@@ -57,15 +64,15 @@ const NavbarComponent = () => {
 						</div>
 					</Nav>
 					<Nav>
-						<Nav.Link href="/home">
-							<BsFillHouseFill className="icon" /> Home
+						<Nav.Link onClick={navigateNotification}>
+							<IoNotificationsSharp className="icon" size="25" />
 						</Nav.Link>
 
 						<Nav.Link href="/messages">
-							<BsFillChatLeftFill className="icon" /> Messages
+							<BsFillChatLeftFill className="icon" size="25" />
 						</Nav.Link>
 						<Nav.Link href="/suggested">
-							<BsFillPeopleFill className="icon" /> friends
+							<BsFillPeopleFill className="icon" size="25" />
 						</Nav.Link>
 						<NavDropdown title="Profile" id="basic-nav-dropdown">
 							<NavDropdown.Item href={`/profile/${user.uid}`}>
