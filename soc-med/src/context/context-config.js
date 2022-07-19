@@ -102,7 +102,7 @@ export const ContextFunction = ({ children }) => {
 
 		const queryComments = query(
 			collection(db, 'comments'),
-			orderBy('timestamp', 'asc')
+			orderBy('timestamp', 'desc')
 		);
 
 		onSnapshot(queryComments, (querySnapshot) => {
@@ -436,13 +436,14 @@ export const ContextFunction = ({ children }) => {
 
 				if (userWhoPost !== user.uid) {
 					setDoc(doc(db, 'notifications', commentID + user.uid), {
-						notificationID: feedPostID + user.uid,
+						notificationID: commentID + user.uid,
 						postID: feedPostID,
 						userWhoLikes: user.uid,
 						userWhoPosts: userWhoPost,
 						type: 'comment',
 						isViewed: false,
 						timestamp: serverTimestamp(),
+						dateAndTime: `${dateToday} ${hours}:${minutes}${newformat}`,
 					});
 				}
 
@@ -476,6 +477,7 @@ export const ContextFunction = ({ children }) => {
 					type: 'like',
 					isViewed: false,
 					timestamp: serverTimestamp(),
+					dateAndTime: `${dateToday} ${hours}:${minutes}${newformat}`,
 				});
 			}
 		}
@@ -573,6 +575,7 @@ export const ContextFunction = ({ children }) => {
 			type: 'follow',
 			isViewed: false,
 			timestamp: serverTimestamp(),
+			dateAndTime: `${dateToday} ${hours}:${minutes}${newformat}`,
 		});
 
 		toast.success('Followed!');
@@ -635,6 +638,7 @@ export const ContextFunction = ({ children }) => {
 					sender: user.uid,
 					messageID: uuidv4(),
 					dateAndTime: `${dateToday} ${hours}:${minutes}${newformat}`,
+					isViewed: false,
 				}),
 			});
 
@@ -677,12 +681,31 @@ export const ContextFunction = ({ children }) => {
 	};
 
 	const navigateNotification = () => {
+		const yourNotification =
+			notificationsData?.filter &&
+			notificationsData.filter((item) => item.userWhoPosts === user.uid);
+
+		yourNotification.forEach((item) => {
+			setDoc(
+				doc(db, 'notifications', item.notificationID),
+				{
+					isViewed: true,
+				},
+				{ merge: true }
+			);
+		});
+
 		navigate('/notifications');
+	};
+
+	const openChatBox = (id) => {
+		navigate(`/chat/${id}`);
 	};
 
 	return (
 		<ContextVariable.Provider
 			value={{
+				openChatBox,
 				notificationsData,
 				navigateNotification,
 				messagesHolder,

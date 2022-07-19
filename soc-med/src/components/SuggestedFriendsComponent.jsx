@@ -8,7 +8,7 @@ const SuggestedFriendsComponent = ({ name, profilePicture, userID }) => {
 
 	return (
 		<>
-			<div className="d-flex my-3 ">
+			<div className="d-flex my-3">
 				<Link
 					to={`/profile/${userID}`}
 					className="text-decoration-none text-dark"

@@ -6,7 +6,7 @@ import PickToMessageModal from './PickToMessageModal';
 import { Link } from 'react-router-dom';
 
 const Messages = () => {
-	const { addMessages, messagesData, users, user } =
+	const { addMessages, messagesData, users, user, openChatBox } =
 		useContext(ContextVariable);
 
 	const userMessages =
@@ -17,8 +17,10 @@ const Messages = () => {
 
 	return (
 		<div className="mt-3">
-			<Container>
-				<div className="d-flex justify-content-end">
+			<Container className=" bg-white p-3">
+				<div className="d-flex justify-content-between">
+					<h6>Messages</h6>
+
 					<BsFillPlusCircleFill
 						className="icons"
 						size="40"
@@ -38,10 +40,10 @@ const Messages = () => {
 									return users.map((data) => {
 										if (data.userID === item.recipientID) {
 											return (
-												<Link
+												<div
 													key={data.userID}
-													to={`/chat/${item.chatBoxID}`}
-													className="div p-2 w-100 text-decoration-none text-dark d-flex"
+													className="followstyle div p-2 w-100 text-decoration-none text-dark d-flex"
+													onClick={() => openChatBox(item.chatBoxID)}
 												>
 													<img
 														src={data.profilePicture}
@@ -73,12 +75,12 @@ const Messages = () => {
 																<small className=" text-secondary">
 																	{item.messages[
 																		item.messages.length - 1
-																	].message?.message.slice(0, 20)}
+																	].message?.slice(0, 20)}
 																</small>
 															)}
 														</div>
 													</div>
-												</Link>
+												</div>
 											);
 										}
 									});
@@ -88,10 +90,10 @@ const Messages = () => {
 									return users.map((data) => {
 										if (data.userID === item.sender) {
 											return (
-												<Link
+												<div
 													key={data.userID}
-													to={`/chat/${item.chatBoxID}`}
-													className="div p-2 w-100 text-decoration-none text-dark d-flex"
+													className="followstyle div p-2 w-100 text-decoration-none text-dark d-flex"
+													onClick={() => openChatBox(item.chatBoxID)}
 												>
 													<img
 														src={data.profilePicture}
@@ -123,12 +125,12 @@ const Messages = () => {
 																<small className=" text-secondary">
 																	{item.messages[
 																		item.messages.length - 1
-																	].message.message?.slice(0, 20)}
+																	].message?.slice(0, 20)}
 																</small>
 															)}
 														</div>
 													</div>
-												</Link>
+												</div>
 											);
 										}
 									});

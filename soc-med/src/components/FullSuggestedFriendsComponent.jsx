@@ -7,7 +7,7 @@ const FullSuggestedFriendsComponent = () => {
 	const { suggestedFriends } = useContext(ContextVariable);
 
 	return (
-		<div>
+		<div className="bg-white p-3">
 			<Container>
 				<div className="my-3">
 					<h6>Suggested friends below</h6>

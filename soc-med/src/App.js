@@ -13,6 +13,7 @@ import SearchResults from './components/SearchResults';
 import Messages from './components/Messages';
 import Chatbox from './components/Chatbox';
 import Notifications from './components/Notifications';
+import PostContent from './components/PostContent';
 
 import { Toaster } from 'react-hot-toast';
 import ReactHelmet from './components/ReactHelmet';
@@ -100,6 +101,16 @@ function App() {
 							<ProtectedRoute>
 								<NavbarComponent />
 								<Chatbox />
+							</ProtectedRoute>
+						}
+					/>
+
+					<Route
+						path="/post/:id"
+						element={
+							<ProtectedRoute>
+								<NavbarComponent />
+								<PostContent />
 							</ProtectedRoute>
 						}
 					/>

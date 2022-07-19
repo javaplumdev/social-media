@@ -7,7 +7,7 @@ import {
 	NavDropdown,
 	InputGroup,
 	Form,
-	Button,
+	Badge,
 } from 'react-bootstrap';
 import {
 	BsFillPersonFill,
@@ -46,6 +46,10 @@ const NavbarComponent = () => {
 		}
 	};
 
+	const unread =
+		yourNotification?.filter &&
+		yourNotification.filter((item) => item.isViewed === false);
+
 	return (
 		<Navbar bg="light" expand="lg" className="sticky-top">
 			<Container>
@@ -71,6 +75,14 @@ const NavbarComponent = () => {
 					<Nav>
 						<Nav.Link onClick={navigateNotification}>
 							<IoNotificationsSharp className="icon" size="25" />
+
+							{unread?.length === 0 ? (
+								''
+							) : (
+								<Badge pill bg="danger" size="5">
+									{unread?.length}
+								</Badge>
+							)}
 						</Nav.Link>
 
 						<Nav.Link href="/messages">

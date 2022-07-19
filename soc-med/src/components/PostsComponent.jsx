@@ -10,7 +10,6 @@ import {
 import Spinner from 'react-bootstrap/Spinner';
 import { ContextVariable } from '../context/context-config';
 import { Dropdown } from 'react-bootstrap';
-import CommentModal from './CommentModal';
 import { Link } from 'react-router-dom';
 import ReadMore from './ReadMore';
 
@@ -29,6 +28,8 @@ const PostsComponent = ({
 
 	const filteredComments =
 		commentData?.filter && commentData.filter((item) => item.postID === postID);
+
+	console.log(filteredComments);
 
 	const isLike = likes?.find && likes.find((item) => item.user === user.uid);
 
@@ -114,13 +115,14 @@ const PostsComponent = ({
 							onClick={() => like(postID, userID)}
 						/>{' '}
 						{likes?.length}{' '}
-						<BsFillChatLeftFill
-							size="20"
-							className="icons mx-2"
-							onClick={() => openComment(postID)}
-						/>{' '}
+						<Link to={`/post/${postID}`} className="text-decoration-none">
+							<BsFillChatLeftFill
+								size="20"
+								className="icons mx-2"
+								// onClick={() => openComment(postID)}
+							/>{' '}
+						</Link>
 						{filteredComments?.length}
-						<CommentModal />
 					</div>
 				</div>
 			) : (
@@ -173,7 +175,9 @@ const PostsComponent = ({
 							</div>
 						</div>
 					</div>
-					<ReadMore>{content}</ReadMore>
+					<ReadMore className="overflowWrap">
+						{content && filter.clean(content)}
+					</ReadMore>
 					<img className="mb-3" src={image} style={{ width: '100%' }} />
 					<div>
 						<BsFillHeartFill
@@ -183,13 +187,14 @@ const PostsComponent = ({
 							onClick={() => like(postID, userID)}
 						/>{' '}
 						{likes.length}{' '}
-						<BsFillChatLeftFill
-							size="20"
-							className="icons mx-2"
-							onClick={() => openComment(postID)}
-						/>{' '}
+						<Link to={`/post/${postID}`} className="text-decoration-none">
+							<BsFillChatLeftFill
+								size="20"
+								className="icons mx-2"
+								// onClick={() => openComment(postID)}
+							/>{' '}
+						</Link>
 						{filteredComments.length}
-						<CommentModal />
 					</div>
 				</div>
 			)}
