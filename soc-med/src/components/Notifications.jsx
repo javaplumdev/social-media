@@ -9,10 +9,8 @@ const Notifications = () => {
 		notificationsData?.filter &&
 		notificationsData.filter((item) => item.userWhoPosts === user.uid);
 
-	console.log(yourNotification);
-
 	return (
-		<Container className="d-flex justify-content-center mt-3 bg-white p-3">
+		<Container className="justify-content-center mt-3 bg-white p-3">
 			{yourNotification?.length === 0 ? (
 				<p>You don't have notifications</p>
 			) : (
@@ -26,7 +24,10 @@ const Notifications = () => {
 											if (data.userID === item.userWhoLikes) {
 												if (item.type === 'like') {
 													return (
-														<div key={item.notificationID} className="d-flex ">
+														<div
+															key={item.notificationID}
+															className="d-flex mb-3"
+														>
 															<img
 																src={data.profilePicture}
 																className="me-2"
@@ -40,9 +41,12 @@ const Notifications = () => {
 															<p>{data.name} hearts your post</p>
 														</div>
 													);
-												} else if (item.type === 'commnet') {
+												} else if (item.type === 'comment') {
 													return (
-														<div key={item.notificationID}>
+														<div
+															key={item.notificationID}
+															className="d-flex mb-3"
+														>
 															<img
 																src={data.profilePicture}
 																className="me-2"
@@ -53,11 +57,14 @@ const Notifications = () => {
 																	objectFit: 'cover',
 																}}
 															/>
-															<p>{data.name} comments on your post</p>
+															<p>{data.name} comment on your post</p>
 														</div>
 													);
 												} else if (item.type === 'follow') {
-													<div key={item.notificationID} className="d-flex">
+													<div
+														key={item.notificationID}
+														className="d-flex mb-3"
+													>
 														<img
 															src={data.profilePicture}
 															className="me-2"

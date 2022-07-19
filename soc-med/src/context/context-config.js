@@ -434,15 +434,17 @@ export const ContextFunction = ({ children }) => {
 					});
 				});
 
-				setDoc(doc(db, 'notifications', commentID + user.uid), {
-					notificationID: feedPostID + user.uid,
-					postID: feedPostID,
-					userWhoLikes: user.uid,
-					userWhoPosts: userWhoPost,
-					type: 'comment',
-					isViewed: false,
-					timestamp: serverTimestamp(),
-				});
+				if (userWhoPost !== user.uid) {
+					setDoc(doc(db, 'notifications', commentID + user.uid), {
+						notificationID: feedPostID + user.uid,
+						postID: feedPostID,
+						userWhoLikes: user.uid,
+						userWhoPosts: userWhoPost,
+						type: 'comment',
+						isViewed: false,
+						timestamp: serverTimestamp(),
+					});
+				}
 
 				setCommentValue('');
 			}
@@ -465,15 +467,17 @@ export const ContextFunction = ({ children }) => {
 				likes: arrayUnion({ user: user.uid }),
 			});
 
-			setDoc(doc(db, 'notifications', postID + user.uid), {
-				notificationID: postID + user.uid,
-				postID: postID,
-				userWhoLikes: user.uid,
-				userWhoPosts: userID,
-				type: 'like',
-				isViewed: false,
-				timestamp: serverTimestamp(),
-			});
+			if (userID !== user.uid) {
+				setDoc(doc(db, 'notifications', postID + user.uid), {
+					notificationID: postID + user.uid,
+					postID: postID,
+					userWhoLikes: user.uid,
+					userWhoPosts: userID,
+					type: 'like',
+					isViewed: false,
+					timestamp: serverTimestamp(),
+				});
+			}
 		}
 	};
 

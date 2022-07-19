@@ -31,7 +31,12 @@ const NavbarComponent = () => {
 		searchVar,
 		setSearchVar,
 		navigateNotification,
+		notificationsData,
 	} = useContext(ContextVariable);
+
+	const yourNotification =
+		notificationsData?.filter &&
+		notificationsData.filter((item) => item.userWhoPosts === user.uid);
 
 	const handleLogout = async () => {
 		try {
