@@ -95,6 +95,23 @@ const PostContent = () => {
 												style={{ height: 'auto', objectFit: 'cover' }}
 											/>
 										)}
+										<div className="d-flex flex-wrap my-2">
+											{item.category &&
+												item.category?.map((item) => {
+													return (
+														<small
+															key={item.id}
+															className="me-1 rounded"
+															style={{
+																backgroundColor: '#edede9',
+																padding: '2px 10px',
+															}}
+														>
+															{item.name}
+														</small>
+													);
+												})}
+										</div>
 									</small>
 									{/* Comments */}
 									<div>

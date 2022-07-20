@@ -8,15 +8,14 @@ const ReadMore = ({ children }) => {
 	};
 
 	return (
-		<p className="overflowWrap">
+		<small className="overflowWrap">
 			{isReadMore ? text.slice(0, 130) : text}
-
 			{text.length >= 100 && (
 				<small onClick={toggleReadMore} className="read-or-hide">
 					{isReadMore ? '...read more' : ' show less'}
 				</small>
 			)}
-		</p>
+		</small>
 	);
 };
 

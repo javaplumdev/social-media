@@ -292,6 +292,7 @@ export const ContextFunction = ({ children }) => {
 							content: content,
 							profilePicture: item.profilePicture,
 							userID: user.uid,
+							category: category,
 							dateAndTime: `${dateToday} ${hours}:${minutes}${newformat}`,
 							image: url,
 							timestamp: serverTimestamp(),

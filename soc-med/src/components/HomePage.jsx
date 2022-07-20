@@ -96,36 +96,10 @@ const HomePage = () => {
 								</InputGroup>
 							</div>
 
-							<Form.Control
-								placeholder="What's on your mind?"
-								aria-label="Recipient's username"
-								aria-describedby="basic-addon2"
-								style={{ height: '75px' }}
-								value={content}
-								onChange={(e) => setContent(e.target.value)}
-							/>
-							<small
-								className={
-									content.length > 200 ? `text-danger mt-3` : 'text-dark mt-3'
-								}
-							>
-								{content.length} / 200
-							</small>
 							<div className="d-flex justify-content-between align-items-center my-2">
-								<label htmlFor="file-input">
-									<BsImage size="20" className="icons me-2" />
-								</label>
-
-								<input
-									id="file-input"
-									type="file"
-									className="d-none"
-									onChange={(e) => setImageData(e.target.files[0])}
-								/>
-
-								<button className="outline-buttons" onClick={handleShow}>
-									Category
-								</button>
+								<div className="outline-buttons w-100 p-3" onClick={handleShow}>
+									What do you think?
+								</div>
 								<Modal
 									show={show}
 									onHide={handleClose}
@@ -133,37 +107,74 @@ const HomePage = () => {
 									keyboard={false}
 								>
 									<Modal.Header closeButton>
-										<Modal.Title>Category</Modal.Title>
+										<Modal.Title>Post</Modal.Title>
 									</Modal.Header>
 									<Modal.Body>
-										Choose a category:{' '}
-										<div className="d-flex flex-wrap my-1">
-											{category?.map &&
-												category.map((item) => {
-													return (
-														<p
-															key={item.id}
-															className="me-1 rounded"
-															style={{
-																backgroundColor: '#edede9',
-																padding: '2px 10px',
-															}}
-															onClick={() => removeCategory(item.id, item.name)}
-														>
-															{item.name}
-															<GrClose size="10" className="mx-1" />
-														</p>
-													);
-												})}
+										<div>
+											<div className="d-flex flex-column">
+												<Form.Control
+													placeholder="What's on your mind?"
+													aria-label="Recipient's username"
+													aria-describedby="basic-addon2"
+													style={{ height: '75px' }}
+													value={content}
+													onChange={(e) => setContent(e.target.value)}
+												/>
+												<small
+													className={
+														content.length > 200
+															? `text-danger mt-3`
+															: 'text-dark mt-3'
+													}
+												>
+													{content.length} / 200
+												</small>
+
+												<label htmlFor="file-input">
+													<BsImage size="20" className="icons me-2" />
+												</label>
+
+												<input
+													id="file-input"
+													type="file"
+													className="d-none"
+													onChange={(e) => setImageData(e.target.files[0])}
+												/>
+
+												<small>{imageData && imageData.name}</small>
+											</div>
+
+											<small>Choose a category: </small>
+											<div className="d-flex flex-wrap my-1">
+												{category?.map &&
+													category.map((item) => {
+														return (
+															<small
+																key={item.id}
+																className="m-1 rounded"
+																style={{
+																	backgroundColor: '#edede9',
+																	padding: '2px 10px',
+																}}
+																onClick={() =>
+																	removeCategory(item.id, item.name)
+																}
+															>
+																{item.name}
+																<GrClose size="10" className="mx-1" />
+															</small>
+														);
+													})}
+											</div>
 										</div>
 										<hr></hr>
 										<div className="d-flex flex-wrap my-1">
 											{categoryData?.map &&
 												categoryData.map((item) => {
 													return (
-														<p
+														<small
 															key={item.id}
-															className="me-1 rounded"
+															className="m-1 rounded"
 															style={{
 																backgroundColor: '#edede9',
 																padding: '2px 10px',
@@ -171,7 +182,7 @@ const HomePage = () => {
 															onClick={() => addCategory(item.id, item.name)}
 														>
 															{item.name}
-														</p>
+														</small>
 													);
 												})}
 										</div>
@@ -180,14 +191,15 @@ const HomePage = () => {
 										<Button variant="light" onClick={handleClose}>
 											Close
 										</Button>
-										<button className="buttons">Add</button>
+										<button
+											className="buttons"
+											onClick={() => postContent(postID, category)}
+										>
+											Post
+										</button>
 									</Modal.Footer>
 								</Modal>
-								<button className="buttons" onClick={() => postContent(postID)}>
-									Post
-								</button>
 							</div>
-							<small>{imageData && imageData.name}</small>
 						</div>
 						<div className="mt-2">
 							<b>What's happening today?</b>
@@ -207,6 +219,7 @@ const HomePage = () => {
 											postID={item.postID}
 											likes={item.likes}
 											image={item.image}
+											category={item.category}
 										/>
 									);
 								})}

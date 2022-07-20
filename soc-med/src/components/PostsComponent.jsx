@@ -22,6 +22,7 @@ const PostsComponent = ({
 	likes,
 	image,
 	userID,
+	category,
 }) => {
 	const { openComment, commentData, user, like, deletePost, reportPost } =
 		useContext(ContextVariable);
@@ -103,9 +104,30 @@ const PostsComponent = ({
 						</div>
 					</div>
 
-					<ReadMore className="overflowWrap">{filter.clean(content)}</ReadMore>
+					<div className="my-2">
+						<ReadMore className="overflowWrap">
+							{filter.clean(content)}
+						</ReadMore>
+					</div>
 
-					<div>
+					<div className="d-flex flex-wrap my-2">
+						{category &&
+							category?.map((item) => {
+								return (
+									<small
+										key={item.id}
+										className="me-1 rounded"
+										style={{
+											backgroundColor: '#edede9',
+											padding: '2px 10px',
+										}}
+									>
+										{item.name}
+									</small>
+								);
+							})}
+					</div>
+					<div className="mt-1">
 						<BsFillHeartFill
 							size="20"
 							color={isLike ? '#77b255' : '#bcb8b1'}
@@ -173,10 +195,31 @@ const PostsComponent = ({
 							</div>
 						</div>
 					</div>
-					<ReadMore className="overflowWrap">
-						{content && filter.clean(content)}
-					</ReadMore>
+					<div className="my-2">
+						<ReadMore className="overflowWrap">
+							{filter.clean(content)}
+						</ReadMore>
+					</div>
+
 					<img className="mb-3" src={image} style={{ width: '100%' }} />
+
+					<div className="d-flex flex-wrap my-2">
+						{category &&
+							category?.map((item) => {
+								return (
+									<small
+										key={item.id}
+										className="me-1 rounded"
+										style={{
+											backgroundColor: '#edede9',
+											padding: '2px 10px',
+										}}
+									>
+										{item.name}
+									</small>
+								);
+							})}
+					</div>
 					<div>
 						<BsFillHeartFill
 							size="20"
