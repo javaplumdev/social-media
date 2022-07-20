@@ -77,6 +77,19 @@ export const ContextFunction = ({ children }) => {
 
 	let dateToday = new Date().toLocaleDateString();
 
+	const categoryData = [
+		{ id: 1, name: 'Anime' },
+		{ id: 2, name: 'Family' },
+		{ id: 3, name: 'Sports' },
+		{ id: 4, name: 'Kpop' },
+		{ id: 5, name: 'History' },
+		{ id: 6, name: 'Current situation' },
+		{ id: 7, name: 'Job ' },
+		{ id: 8, name: 'Fashion' },
+		{ id: 9, name: 'News' },
+		{ id: 10, name: 'Entertainment' },
+	];
+
 	var date = new Date();
 	var hours = date.getHours();
 	var minutes = date.getMinutes();
@@ -237,7 +250,7 @@ export const ContextFunction = ({ children }) => {
 		);
 	};
 
-	const postContent = async (postID) => {
+	const postContent = async (postID, category) => {
 		if (imageData === null) {
 			if (!content.trim() || content === '') {
 				toast.error('Please enter a content!');
@@ -252,6 +265,7 @@ export const ContextFunction = ({ children }) => {
 							content: content,
 							profilePicture: item.profilePicture,
 							userID: user.uid,
+							category: category,
 							dateAndTime: `${dateToday} ${hours}:${minutes}${newformat}`,
 							timestamp: serverTimestamp(),
 							likes: [],
@@ -705,6 +719,7 @@ export const ContextFunction = ({ children }) => {
 	return (
 		<ContextVariable.Provider
 			value={{
+				categoryData,
 				openChatBox,
 				notificationsData,
 				navigateNotification,

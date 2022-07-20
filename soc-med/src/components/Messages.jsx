@@ -62,8 +62,9 @@ const Messages = () => {
 																maxWidth: '220px',
 															}}
 														>
-															{item.messages[item.messages.length - 1]
-																.sender === user.uid ? (
+															{item.messages?.length !== 0 &&
+															item.messages[item.messages.length - 1].sender ===
+																user.uid ? (
 																<small className=" text-secondary">
 																	You:{' '}
 																	{item.messages[
@@ -74,9 +75,10 @@ const Messages = () => {
 															) : (
 																<div>
 																	<small className=" text-secondary">
-																		{item.messages[
-																			item.messages.length - 1
-																		].message?.slice(0, 20)}
+																		{item.messages?.length !== 0 &&
+																			item.messages[
+																				item.messages.length - 1
+																			].message?.slice(0, 20)}
 																	</small>
 																</div>
 															)}
@@ -114,8 +116,9 @@ const Messages = () => {
 																maxWidth: '220px',
 															}}
 														>
-															{item.messages[item.messages.length - 1]
-																.sender === user.uid ? (
+															{item.messages?.length !== 0 &&
+															item.messages[item.messages.length - 1].sender ===
+																user.uid ? (
 																<small className=" text-secondary">
 																	You:{' '}
 																	{item.messages[
@@ -126,9 +129,10 @@ const Messages = () => {
 															) : (
 																<div>
 																	<small className=" text-secondary">
-																		{item.messages[
-																			item.messages.length - 1
-																		].message?.slice(0, 20)}
+																		{item.messages?.length !== 0 &&
+																			item.messages[
+																				item.messages.length - 1
+																			].message?.slice(0, 20)}
 																	</small>
 																</div>
 															)}

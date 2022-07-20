@@ -21,6 +21,19 @@ body {
 	cursor: pointer;
 }
 
+.outline-buttons {
+	padding: 10px;
+	border-radius: 5px;
+	border: 1px solid #77b255;
+	transition: 0.1s ease-in;
+	color: #262524;
+}
+
+.outline-buttons:hover {
+	color: white;
+	background-color: #77b255;
+}
+
 .modal-backdrop {
 	background-color: rgba(0, 0, 0, 0.2) !important;
 	border: none;

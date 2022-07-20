@@ -24,6 +24,7 @@ const FullSuggestedFriendsComponent = () => {
 								name={item.name}
 								userID={item.userID}
 								profilePicture={item.profilePicture}
+								followers={item.followers}
 							/>
 						);
 					})

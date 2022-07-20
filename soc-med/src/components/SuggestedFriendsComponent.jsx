@@ -3,7 +3,12 @@ import { BsPlus } from 'react-icons/bs';
 import { ContextVariable } from '../context/context-config';
 import { Link } from 'react-router-dom';
 
-const SuggestedFriendsComponent = ({ name, profilePicture, userID }) => {
+const SuggestedFriendsComponent = ({
+	name,
+	profilePicture,
+	userID,
+	followers,
+}) => {
 	const { suggestedFriends, user, follow } = useContext(ContextVariable);
 
 	return (
@@ -32,6 +37,11 @@ const SuggestedFriendsComponent = ({ name, profilePicture, userID }) => {
 						<small>{name}</small>
 					</Link>
 					<br></br>
+					<small>
+						{followers?.length === 0 || followers?.length === 1
+							? `Follower: ${followers?.length}`
+							: `Followers: ${followers?.length}`}
+					</small>
 					<div className=" rounded my-2">
 						<BsPlus className="icons" onClick={() => follow(userID)} /> Follow
 					</div>

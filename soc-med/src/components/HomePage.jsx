@@ -6,7 +6,6 @@ import {
 	FloatingLabel,
 	Form,
 	InputGroup,
-	Button,
 } from 'react-bootstrap';
 import { ContextVariable } from '../context/context-config';
 import { v4 as uuidv4 } from 'uuid';
@@ -14,6 +13,10 @@ import { BsUpload, BsImage, BsSearch } from 'react-icons/bs';
 import SuggestedFriendsComponent from './SuggestedFriendsComponent';
 import PostsComponent from './PostsComponent';
 import { Link } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import { GrClose } from 'react-icons/gr';
+import { toast } from 'react-hot-toast';
 
 const HomePage = () => {
 	const {
@@ -25,8 +28,8 @@ const HomePage = () => {
 		content,
 		imageData,
 		setImageData,
-		searchVar,
 		setSearchVar,
+		categoryData,
 	} = useContext(ContextVariable);
 
 	const postID = uuidv4();
@@ -37,6 +40,38 @@ const HomePage = () => {
 				<h6>What's trending?</h6>
 			</div>
 		);
+	};
+
+	const [category, setCategory] = useState([]);
+
+	const [show, setShow] = useState(false);
+
+	const handleClose = () => setShow(false);
+	const handleShow = () => setShow(true);
+
+	const addCategory = (categoryID, categoryName) => {
+		const findCategory =
+			category?.find && category.find((item) => item.id === categoryID);
+
+		if (findCategory) {
+			toast.error(`You've already choose ${findCategory.name}`);
+		} else {
+			if (category.length === 3) {
+				toast.error('3 categories only');
+			} else {
+				setCategory((prevState) => {
+					return [...prevState, { id: categoryID, name: categoryName }];
+				});
+
+				console.log(category);
+			}
+		}
+	};
+
+	const removeCategory = (categoryID) => {
+		const filtered = category.filter((element) => element.id !== categoryID);
+
+		setCategory(filtered);
 	};
 
 	return (
@@ -76,8 +111,8 @@ const HomePage = () => {
 							>
 								{content.length} / 200
 							</small>
-							<div className="d-flex justify-content-between align-items-center">
-								<label htmlFor="file-input" className="my-3">
+							<div className="d-flex justify-content-between align-items-center my-2">
+								<label htmlFor="file-input">
 									<BsImage size="20" className="icons me-2" />
 								</label>
 
@@ -88,10 +123,67 @@ const HomePage = () => {
 									onChange={(e) => setImageData(e.target.files[0])}
 								/>
 
-								<button
-									className="buttons mt-3"
-									onClick={() => postContent(postID)}
+								<button className="outline-buttons" onClick={handleShow}>
+									Category
+								</button>
+								<Modal
+									show={show}
+									onHide={handleClose}
+									backdrop="static"
+									keyboard={false}
 								>
+									<Modal.Header closeButton>
+										<Modal.Title>Category</Modal.Title>
+									</Modal.Header>
+									<Modal.Body>
+										Choose a category:{' '}
+										<div className="d-flex flex-wrap my-1">
+											{category?.map &&
+												category.map((item) => {
+													return (
+														<p
+															key={item.id}
+															className="me-1 rounded"
+															style={{
+																backgroundColor: '#edede9',
+																padding: '2px 10px',
+															}}
+															onClick={() => removeCategory(item.id, item.name)}
+														>
+															{item.name}
+															<GrClose size="10" className="mx-1" />
+														</p>
+													);
+												})}
+										</div>
+										<hr></hr>
+										<div className="d-flex flex-wrap my-1">
+											{categoryData?.map &&
+												categoryData.map((item) => {
+													return (
+														<p
+															key={item.id}
+															className="me-1 rounded"
+															style={{
+																backgroundColor: '#edede9',
+																padding: '2px 10px',
+															}}
+															onClick={() => addCategory(item.id, item.name)}
+														>
+															{item.name}
+														</p>
+													);
+												})}
+										</div>
+									</Modal.Body>
+									<Modal.Footer>
+										<Button variant="light" onClick={handleClose}>
+											Close
+										</Button>
+										<button className="buttons">Add</button>
+									</Modal.Footer>
+								</Modal>
+								<button className="buttons" onClick={() => postContent(postID)}>
 									Post
 								</button>
 							</div>
@@ -136,6 +228,7 @@ const HomePage = () => {
 											name={item.name}
 											userID={item.userID}
 											profilePicture={item.profilePicture}
+											followers={item.followers}
 										/>
 									);
 								})}
