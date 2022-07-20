@@ -15,7 +15,7 @@ const Notifications = () => {
 	return (
 		<div className="container bg-white">
 			{yourNotification?.length === 0 ? (
-				<p>You don't have notifications</p>
+				<h6 className="text-center p-5">You don't have notifications</h6>
 			) : (
 				<>
 					{yourNotification?.map &&

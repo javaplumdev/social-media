@@ -19,6 +19,8 @@ import { Toaster } from 'react-hot-toast';
 import ReactHelmet from './components/ReactHelmet';
 
 function App() {
+	// document.body.classList.add('bg-dark');
+
 	return (
 		<ContextFunction>
 			<div className="App">

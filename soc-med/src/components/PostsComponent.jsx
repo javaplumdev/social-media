@@ -29,8 +29,6 @@ const PostsComponent = ({
 	const filteredComments =
 		commentData?.filter && commentData.filter((item) => item.postID === postID);
 
-	console.log(filteredComments);
-
 	const isLike = likes?.find && likes.find((item) => item.user === user.uid);
 
 	const CustomToggle = React.forwardRef(({ onClick }, ref) => (

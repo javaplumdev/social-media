@@ -125,3 +125,7 @@ body {
 	overflow-wrap: break-word;
 	border-radius: 1em 1em 0 1em;
 }
+
+.dark-mode {
+	background-color: #ffd166;
+}

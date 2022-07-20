@@ -72,11 +72,13 @@ const Messages = () => {
 																	...
 																</small>
 															) : (
-																<small className=" text-secondary">
-																	{item.messages[
-																		item.messages.length - 1
-																	].message?.slice(0, 20)}
-																</small>
+																<div>
+																	<small className=" text-secondary">
+																		{item.messages[
+																			item.messages.length - 1
+																		].message?.slice(0, 20)}
+																	</small>
+																</div>
 															)}
 														</div>
 													</div>
@@ -122,11 +124,13 @@ const Messages = () => {
 																	...
 																</small>
 															) : (
-																<small className=" text-secondary">
-																	{item.messages[
-																		item.messages.length - 1
-																	].message?.slice(0, 20)}
-																</small>
+																<div>
+																	<small className=" text-secondary">
+																		{item.messages[
+																			item.messages.length - 1
+																		].message?.slice(0, 20)}
+																	</small>
+																</div>
 															)}
 														</div>
 													</div>
