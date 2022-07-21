@@ -23,6 +23,7 @@ const PostsComponent = ({
 	image,
 	userID,
 	category,
+	mainCategory,
 }) => {
 	const { openComment, commentData, user, like, deletePost, reportPost } =
 		useContext(ContextVariable);
@@ -113,18 +114,34 @@ const PostsComponent = ({
 					<div className="d-flex flex-wrap my-2">
 						{category &&
 							category?.map((item) => {
-								return (
-									<small
-										key={item.id}
-										className="me-1 rounded"
-										style={{
-											backgroundColor: '#edede9',
-											padding: '2px 10px',
-										}}
-									>
-										{item.name}
-									</small>
-								);
+								if (item.id === mainCategory) {
+									return (
+										<small
+											key={item.id}
+											className="me-1 rounded"
+											style={{
+												backgroundColor: '#77b255',
+												color: '#fff',
+												padding: '2px 10px',
+											}}
+										>
+											{item.name}
+										</small>
+									);
+								} else {
+									return (
+										<small
+											key={item.id}
+											className="me-1 rounded"
+											style={{
+												backgroundColor: '#edede9',
+												padding: '2px 10px',
+											}}
+										>
+											{item.name}
+										</small>
+									);
+								}
 							})}
 					</div>
 					<div className="mt-1">
@@ -206,18 +223,33 @@ const PostsComponent = ({
 					<div className="d-flex flex-wrap my-2">
 						{category &&
 							category?.map((item) => {
-								return (
-									<small
-										key={item.id}
-										className="me-1 rounded"
-										style={{
-											backgroundColor: '#edede9',
-											padding: '2px 10px',
-										}}
-									>
-										{item.name}
-									</small>
-								);
+								if (item.id === mainCategory) {
+									return (
+										<small
+											key={item.id}
+											className="me-1 rounded"
+											style={{
+												backgroundColor: '#77b255',
+												padding: '2px 10px',
+											}}
+										>
+											{item.name}
+										</small>
+									);
+								} else {
+									return (
+										<small
+											key={item.id}
+											className="me-1 rounded"
+											style={{
+												backgroundColor: '#edede9',
+												padding: '2px 10px',
+											}}
+										>
+											{item.name}
+										</small>
+									);
+								}
 							})}
 					</div>
 					<div>

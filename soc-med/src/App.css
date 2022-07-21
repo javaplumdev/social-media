@@ -24,7 +24,8 @@ body {
 .outline-buttons {
 	padding: 10px;
 	border-radius: 5px;
-	border: 1px solid #77b255;
+	border: 1px solid #dcdad584;
+	background-color: #fff;
 	transition: 0.1s ease-in;
 	color: #262524;
 }
@@ -33,6 +34,7 @@ body {
 	color: white;
 	background-color: #77b255;
 	cursor: pointer;
+	border: 1px solid #77b255;
 }
 
 .modal-backdrop {

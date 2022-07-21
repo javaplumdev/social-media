@@ -14,6 +14,8 @@ import Messages from './components/Messages';
 import Chatbox from './components/Chatbox';
 import Notifications from './components/Notifications';
 import PostContent from './components/PostContent';
+import TrendingPage from './components/TrendingPage';
+import TrendingPosts from './components/TrendingPosts';
 
 import { Toaster } from 'react-hot-toast';
 import ReactHelmet from './components/ReactHelmet';
@@ -66,7 +68,6 @@ function App() {
 							</ProtectedRoute>
 						}
 					/>
-
 					<Route
 						path="/results/:results"
 						element={
@@ -76,7 +77,6 @@ function App() {
 							</ProtectedRoute>
 						}
 					/>
-
 					<Route
 						path="/notifications"
 						element={
@@ -86,7 +86,6 @@ function App() {
 							</ProtectedRoute>
 						}
 					/>
-
 					<Route
 						path="/messages"
 						element={
@@ -96,7 +95,6 @@ function App() {
 							</ProtectedRoute>
 						}
 					/>
-
 					<Route
 						path="/chat/:id"
 						element={
@@ -106,13 +104,32 @@ function App() {
 							</ProtectedRoute>
 						}
 					/>
-
 					<Route
 						path="/post/:id"
 						element={
 							<ProtectedRoute>
 								<NavbarComponent />
 								<PostContent />
+							</ProtectedRoute>
+						}
+					/>
+
+					<Route
+						path="/trending"
+						element={
+							<ProtectedRoute>
+								<NavbarComponent />
+								<TrendingPage />
+							</ProtectedRoute>
+						}
+					/>
+
+					<Route
+						path="/trending/posts/:id"
+						element={
+							<ProtectedRoute>
+								<NavbarComponent />
+								<TrendingPosts />
 							</ProtectedRoute>
 						}
 					/>

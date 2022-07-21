@@ -51,6 +51,7 @@ export const ContextFunction = ({ children }) => {
 	const [messagesHolder, setMessagesHolder] = useState('');
 	const [tabName, setTabName] = useState('');
 	const [notificationsData, setNotificationsData] = useState({});
+	const [category, setCategory] = useState([]);
 
 	const [show, setShow] = useState(false);
 	const handleClose = () => setShow(false);
@@ -68,26 +69,30 @@ export const ContextFunction = ({ children }) => {
 	const handleCloseToMessage = () => setShowModalVer2(false);
 	const handleShowToMessage = () => setShowModalVer2(true);
 
+	const [showPost, setShowPost] = useState(false);
+
+	const handleClosePost = () => setShowPost(false);
+	const handleShowPost = () => setShowPost(true);
+
 	let navigate = useNavigate();
 
 	let currentUserData;
 	let logInType;
 	let suggestedFriends;
-	let newSuggestedFriends;
 
 	let dateToday = new Date().toLocaleDateString();
 
 	const categoryData = [
-		{ id: 1, name: 'Anime' },
-		{ id: 2, name: 'Family' },
-		{ id: 3, name: 'Sports' },
-		{ id: 4, name: 'Kpop' },
-		{ id: 5, name: 'History' },
-		{ id: 6, name: 'Current situation' },
-		{ id: 7, name: 'Job ' },
-		{ id: 8, name: 'Fashion' },
-		{ id: 9, name: 'News' },
-		{ id: 10, name: 'Entertainment' },
+		{ id: 'a897634d-238d-4402-b4b8-3c7828fe8be2', name: 'Anime' },
+		{ id: '6c052131-d0f0-47b0-9ae7-0263e3f5a589', name: 'Family' },
+		{ id: '288eb2b5-cc57-4635-ada8-79880a2732a2', name: 'Sports' },
+		{ id: 'a6e79e44-4235-41ce-a507-ebdc130199f8', name: 'Kpop' },
+		{ id: 'f479dd6e-bd24-481b-a4fd-49c06261f5e1', name: 'History' },
+		{ id: '5ddcf483-408b-4ba8-b0dd-347931b556da', name: 'Current situation' },
+		{ id: '6ccc78a1-fea9-4938-a92e-173561f20d53', name: 'Job ' },
+		{ id: '9e9296ad-cfa8-463b-b0fa-5349f09b4b05', name: 'Fashion' },
+		{ id: '9e3a8503-9c1f-4d92-b450-43431ecc4951', name: 'News' },
+		{ id: '19b62730-03b1-4613-8fe0-eba5621edf7e', name: 'Entertainment' },
 	];
 
 	var date = new Date();
@@ -275,6 +280,10 @@ export const ContextFunction = ({ children }) => {
 
 					setContent('');
 					toast.success('Posted!');
+					handleClosePost();
+					setCategory((prevState) => {
+						return [];
+					});
 				}
 			}
 		} else {
@@ -720,6 +729,12 @@ export const ContextFunction = ({ children }) => {
 	return (
 		<ContextVariable.Provider
 			value={{
+				category,
+				setCategory,
+				showPost,
+				setShowPost,
+				handleClosePost,
+				handleShowPost,
 				categoryData,
 				openChatBox,
 				notificationsData,

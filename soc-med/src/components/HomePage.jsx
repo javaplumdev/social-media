@@ -11,6 +11,7 @@ import { ContextVariable } from '../context/context-config';
 import { v4 as uuidv4 } from 'uuid';
 import { BsUpload, BsImage, BsSearch } from 'react-icons/bs';
 import SuggestedFriendsComponent from './SuggestedFriendsComponent';
+import TrendingPage from './TrendingPage';
 import PostsComponent from './PostsComponent';
 import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
@@ -30,6 +31,11 @@ const HomePage = () => {
 		setImageData,
 		setSearchVar,
 		categoryData,
+		showPost,
+		handleClosePost,
+		handleShowPost,
+		category,
+		setCategory,
 	} = useContext(ContextVariable);
 
 	const postID = uuidv4();
@@ -38,16 +44,12 @@ const HomePage = () => {
 		return (
 			<div className="bg-white p-3 rounded">
 				<h6>What's trending?</h6>
+				{categoryData?.map((item) => {
+					return <TrendingPage key={item.id} id={item.id} name={item.name} />;
+				})}
 			</div>
 		);
 	};
-
-	const [category, setCategory] = useState([]);
-
-	const [show, setShow] = useState(false);
-
-	const handleClose = () => setShow(false);
-	const handleShow = () => setShow(true);
 
 	const addCategory = (categoryID, categoryName) => {
 		const findCategory =
@@ -97,12 +99,15 @@ const HomePage = () => {
 							</div>
 
 							<div className="d-flex justify-content-between align-items-center my-2">
-								<div className="outline-buttons w-100 p-3" onClick={handleShow}>
+								<div
+									className="outline-buttons w-100 p-3"
+									onClick={handleShowPost}
+								>
 									What do you think?
 								</div>
 								<Modal
-									show={show}
-									onHide={handleClose}
+									show={showPost}
+									onHide={handleClosePost}
 									backdrop="static"
 									keyboard={false}
 								>
@@ -188,7 +193,7 @@ const HomePage = () => {
 										</div>
 									</Modal.Body>
 									<Modal.Footer>
-										<Button variant="light" onClick={handleClose}>
+										<Button variant="light" onClick={handleClosePost}>
 											Close
 										</Button>
 										<button

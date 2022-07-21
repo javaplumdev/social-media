@@ -12,42 +12,40 @@ const SuggestedFriendsComponent = ({
 	const { suggestedFriends, user, follow } = useContext(ContextVariable);
 
 	return (
-		<>
-			<div className="d-flex my-3">
+		<div className="d-flex my-1">
+			<Link
+				to={`/profile/${userID}`}
+				className="text-decoration-none text-dark"
+			>
+				<img
+					src={profilePicture}
+					className="me-3"
+					style={{
+						width: '50px',
+						height: '50px',
+						borderRadius: '50%',
+						objectFit: 'cover',
+					}}
+				/>
+			</Link>
+			<div>
 				<Link
 					to={`/profile/${userID}`}
 					className="text-decoration-none text-dark"
 				>
-					<img
-						src={profilePicture}
-						className="me-3"
-						style={{
-							width: '50px',
-							height: '50px',
-							borderRadius: '50%',
-							objectFit: 'cover',
-						}}
-					/>
+					<small>{name}</small>
 				</Link>
-				<div>
-					<Link
-						to={`/profile/${userID}`}
-						className="text-decoration-none text-dark"
-					>
-						<small>{name}</small>
-					</Link>
-					<br></br>
-					<small>
-						{followers?.length === 0 || followers?.length === 1
-							? `Follower: ${followers?.length}`
-							: `Followers: ${followers?.length}`}
-					</small>
-					<div className=" rounded my-2">
-						<BsPlus className="icons" onClick={() => follow(userID)} /> Follow
-					</div>
+				<br></br>
+				<small>
+					{followers?.length === 0 || followers?.length === 1
+						? `Follower: ${followers?.length}`
+						: `Followers: ${followers?.length}`}
+				</small>
+				<div className=" rounded my-2">
+					<BsPlus className="icons" onClick={() => follow(userID)} /> Follow
 				</div>
 			</div>
-		</>
+		</div>
 	);
 };
 
