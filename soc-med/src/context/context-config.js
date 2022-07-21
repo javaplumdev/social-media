@@ -93,6 +93,7 @@ export const ContextFunction = ({ children }) => {
 		{ id: '9e9296ad-cfa8-463b-b0fa-5349f09b4b05', name: 'Fashion' },
 		{ id: '9e3a8503-9c1f-4d92-b450-43431ecc4951', name: 'News' },
 		{ id: '19b62730-03b1-4613-8fe0-eba5621edf7e', name: 'Entertainment' },
+		{ id: 'b9186251-8e5c-46d1-9bd6-5e2774a86540', name: 'Gaming' },
 	];
 
 	var date = new Date();
@@ -368,6 +369,8 @@ export const ContextFunction = ({ children }) => {
 									},
 									{ merge: true }
 								);
+
+								toast.success('Changed');
 							}
 						}
 					});

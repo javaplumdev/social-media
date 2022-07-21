@@ -13,7 +13,7 @@ import {
 	BsFillPersonFill,
 	BsGearFill,
 	BsBoxArrowLeft,
-	BsFillHouseFill,
+	BsGlobe2,
 	BsSearch,
 	BsFillChatLeftFill,
 	BsFillPeopleFill,
@@ -90,6 +90,10 @@ const NavbarComponent = () => {
 						</Nav.Link>
 						<Nav.Link href="/suggested">
 							<BsFillPeopleFill className="icon" size="25" />
+						</Nav.Link>
+
+						<Nav.Link href="/categories">
+							<BsGlobe2 className="icon" size="25" />
 						</Nav.Link>
 						<NavDropdown title="Profile" id="basic-nav-dropdown">
 							<NavDropdown.Item href={`/profile/${user.uid}`}>

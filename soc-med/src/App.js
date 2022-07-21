@@ -16,6 +16,7 @@ import Notifications from './components/Notifications';
 import PostContent from './components/PostContent';
 import TrendingPage from './components/TrendingPage';
 import TrendingPosts from './components/TrendingPosts';
+import Categories from './components/Categories';
 
 import { Toaster } from 'react-hot-toast';
 import ReactHelmet from './components/ReactHelmet';
@@ -130,6 +131,16 @@ function App() {
 							<ProtectedRoute>
 								<NavbarComponent />
 								<TrendingPosts />
+							</ProtectedRoute>
+						}
+					/>
+
+					<Route
+						path="/categories"
+						element={
+							<ProtectedRoute>
+								<NavbarComponent />
+								<Categories />
 							</ProtectedRoute>
 						}
 					/>

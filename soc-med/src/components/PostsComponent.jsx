@@ -231,6 +231,7 @@ const PostsComponent = ({
 											style={{
 												backgroundColor: '#77b255',
 												padding: '2px 10px',
+												color: '#fff',
 											}}
 										>
 											{item.name}

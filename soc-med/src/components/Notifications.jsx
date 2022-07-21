@@ -17,7 +17,8 @@ const Notifications = () => {
 			{yourNotification?.length === 0 ? (
 				<h6 className="text-center p-5">You don't have notifications</h6>
 			) : (
-				<>
+				<div className="py-3">
+					<h6>Notifications</h6>
 					{yourNotification?.map &&
 						yourNotification.map((item) => {
 							return (
@@ -115,7 +116,7 @@ const Notifications = () => {
 								</div>
 							);
 						})}
-				</>
+				</div>
 			)}
 		</div>
 	);

@@ -43,10 +43,15 @@ const HomePage = () => {
 	const RightCol = () => {
 		return (
 			<div className="bg-white p-3 rounded">
-				<h6>What's trending?</h6>
-				{categoryData?.map((item) => {
+				<h6>Categories</h6>
+				{categoryData?.slice(0, 3).map((item) => {
 					return <TrendingPage key={item.id} id={item.id} name={item.name} />;
 				})}
+				<Link to="/categories" className="text-dark">
+					<p className="text-center ">
+						<b>See all</b>
+					</p>
+				</Link>
 			</div>
 		);
 	};
@@ -64,8 +69,6 @@ const HomePage = () => {
 				setCategory((prevState) => {
 					return [...prevState, { id: categoryID, name: categoryName }];
 				});
-
-				console.log(category);
 			}
 		}
 	};
@@ -103,7 +106,7 @@ const HomePage = () => {
 									className="outline-buttons w-100 p-3"
 									onClick={handleShowPost}
 								>
-									What do you think?
+									<h6>What do you think?</h6>
 								</div>
 								<Modal
 									show={showPost}
@@ -156,9 +159,8 @@ const HomePage = () => {
 														return (
 															<small
 																key={item.id}
-																className="m-1 rounded"
+																className="category-btn-remove m-1 rounded"
 																style={{
-																	backgroundColor: '#edede9',
 																	padding: '2px 10px',
 																}}
 																onClick={() =>
@@ -179,9 +181,8 @@ const HomePage = () => {
 													return (
 														<small
 															key={item.id}
-															className="m-1 rounded"
+															className="category-btn m-1 rounded"
 															style={{
-																backgroundColor: '#edede9',
 																padding: '2px 10px',
 															}}
 															onClick={() => addCategory(item.id, item.name)}

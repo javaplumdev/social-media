@@ -145,3 +145,24 @@ body {
 .dark-mode {
 	background-color: #ffd166;
 }
+
+.category-btn {
+	transition: 0.1s ease-in-out;
+	background-color: #edede9;
+}
+
+.category-btn:hover {
+	background-color: #c1c1bb;
+	cursor: pointer;
+}
+
+.category-btn-remove {
+	transition: 0.1s ease-in-out;
+	background-color: #edede9;
+}
+
+.category-btn-remove:hover {
+	background-color: #ea3535;
+	color: #fff;
+	cursor: pointer;
+}
