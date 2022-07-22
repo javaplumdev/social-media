@@ -179,18 +179,28 @@ body {
 
 .google-hero-buttons {
 	border: none;
-	padding: 1em;
+	padding: 1em 1.5em;
 	border-radius: 2em;
 	color: white;
 	background-color: #77b255;
+	transition: 0.1s ease-in-out;
+}
+
+.google-hero-buttons:hover {
+	background-color: #58843e;
 }
 
 .login-hero-buttons {
 	border: none;
-	padding: 1em;
+	padding: 1em 1.5em;
 	border-radius: 2em;
 	color: white;
 	background-color: #2a9d8f;
+	transition: 0.1s ease-in-out;
+}
+
+.login-hero-buttons:hover {
+	background-color: #1f7369;
 }
 
 span {

@@ -83,6 +83,7 @@ export const ContextFunction = ({ children }) => {
 	let dateToday = new Date().toLocaleDateString();
 
 	const categoryData = [
+		{ id: 'ddb454dd-14ce-4bee-8c12-d45fd54c5ce4', name: 'Ribbit' },
 		{ id: 'a897634d-238d-4402-b4b8-3c7828fe8be2', name: 'Anime' },
 		{ id: '6c052131-d0f0-47b0-9ae7-0263e3f5a589', name: 'Family' },
 		{ id: '288eb2b5-cc57-4635-ada8-79880a2732a2', name: 'Sports' },

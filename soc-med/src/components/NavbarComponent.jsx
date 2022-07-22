@@ -22,6 +22,7 @@ import { ContextVariable } from '../context/context-config';
 import { Link } from 'react-router-dom';
 import sillyfroglogo from '../assets/sillyfroglogo.svg';
 import { IoNotificationsSharp } from 'react-icons/io5';
+import { GrMenu } from 'react-icons/gr';
 
 const NavbarComponent = () => {
 	const {
@@ -56,7 +57,9 @@ const NavbarComponent = () => {
 				<Navbar.Brand href="/home" style={{ color: '#77b255' }}>
 					<img src={sillyfroglogo} />
 				</Navbar.Brand>
-				<Navbar.Toggle aria-controls="basic-navbar-nav" />
+				<Navbar.Toggle aria-controls="basic-navbar-nav">
+					<GrMenu />
+				</Navbar.Toggle>
 
 				<Navbar.Collapse id="basic-navbar-nav">
 					<Nav className="mx-auto">
