@@ -17,6 +17,7 @@ import PostContent from './components/PostContent';
 import TrendingPage from './components/TrendingPage';
 import TrendingPosts from './components/TrendingPosts';
 import Categories from './components/Categories';
+import LandingPage from './components/LandingPage';
 
 import { Toaster } from 'react-hot-toast';
 import ReactHelmet from './components/ReactHelmet';
@@ -30,7 +31,8 @@ function App() {
 				<Toaster />
 				<ReactHelmet />
 				<Routes>
-					<Route path="/" element={<LoginPage />} />
+					<Route path="/" element={<LandingPage />} />
+					<Route path="/login" element={<LoginPage />} />
 					<Route path="/register" element={<RegistrationPage />} />
 					<Route
 						path="/home"

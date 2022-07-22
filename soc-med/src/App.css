@@ -2,6 +2,7 @@
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
+	font-family: 'Poppins', sans-serif;
 }
 
 body {
@@ -165,4 +166,35 @@ body {
 	background-color: #ea3535;
 	color: #fff;
 	cursor: pointer;
+}
+
+.hero-section {
+	background-image: url('./assets/hero-bg.png');
+	background-repeat: no-repeat;
+	background-size: auto;
+	background-size: cover;
+	background-position: center;
+	height: 100vh;
+}
+
+.google-hero-buttons {
+	border: none;
+	padding: 1em;
+	border-radius: 2em;
+	color: white;
+	background-color: #77b255;
+}
+
+.login-hero-buttons {
+	border: none;
+	padding: 1em;
+	border-radius: 2em;
+	color: white;
+	background-color: #2a9d8f;
+}
+
+span {
+	background: -webkit-linear-gradient(#55b2a7, #77b255);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
 }
