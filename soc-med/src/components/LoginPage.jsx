@@ -79,18 +79,21 @@ const LoginPage = () => {
 					</button>
 					<hr></hr>
 
-					<div className="text-center">
+					{/* <div className="text-center">
 						<FcGoogle
 							onClick={handleGoogleSignIn}
 							size="30"
 							className="followLink me-2"
 						/>
-					</div>
+					</div> */}
 
 					<div className="text-center mt-3">
 						<p>
 							Not a member? <Link to="/register">Sign up</Link>
 						</p>
+						<Link to="/">
+							<small>Go back</small>
+						</Link>
 					</div>
 				</form>
 			</div>

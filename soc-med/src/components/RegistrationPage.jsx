@@ -26,8 +26,8 @@ const RegistrationPage = () => {
 		} else {
 			try {
 				await register(email, password, username);
-
-				navigate('/');
+				toast.success('Account created! Please log in');
+				navigate('/login');
 			} catch (error) {
 				setError(error.message);
 			}
@@ -93,7 +93,7 @@ const RegistrationPage = () => {
 					<hr></hr>
 					<div className="text-center mt-3">
 						<p>
-							Already have an account? <Link to="/">Log in</Link>
+							Already have an account? <Link to="/login">Log in</Link>
 						</p>
 					</div>
 				</form>

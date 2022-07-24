@@ -118,6 +118,8 @@ export const ContextFunction = ({ children }) => {
 			setFeedData(
 				querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
 			);
+
+			setIsLoading(false);
 		});
 
 		const queryComments = query(
@@ -129,10 +131,14 @@ export const ContextFunction = ({ children }) => {
 			setCommentData(
 				querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
 			);
+
+			setIsLoading(false);
 		});
 
 		onSnapshot(collection(db, 'users'), (snapshot) => {
 			setUsers(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+
+			setIsLoading(false);
 		});
 
 		const queryMessages = query(
@@ -144,6 +150,8 @@ export const ContextFunction = ({ children }) => {
 			setMessagesData(
 				snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
 			);
+
+			setIsLoading(false);
 		});
 
 		const queryNotification = query(
@@ -155,9 +163,9 @@ export const ContextFunction = ({ children }) => {
 			setNotificationsData(
 				snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
 			);
-		});
 
-		setIsLoading(false);
+			setIsLoading(false);
+		});
 	}, []);
 
 	useEffect(() => {
@@ -218,7 +226,6 @@ export const ContextFunction = ({ children }) => {
 				}
 			});
 
-			toast.success('Account created! Please log in');
 			return createUserWithEmailAndPassword(firebaseAuth, email, password);
 		}
 	};
@@ -520,6 +527,12 @@ export const ContextFunction = ({ children }) => {
 
 		commentUnderPost.forEach((item) => {
 			deleteDoc(doc(db, 'comments', item.commentID));
+		});
+
+		notificationsData.forEach((item) => {
+			if (item.postID === postID) {
+				deleteDoc(doc(db, 'notifications', item.postID));
+			}
 		});
 
 		toast.success('Post deleted');

@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Container, Form, Button } from 'react-bootstrap';
+import { Container, Form, Button, Spinner } from 'react-bootstrap';
 import { ContextVariable } from '../context/context-config';
 import { BsUpload, BsImage } from 'react-icons/bs';
 
@@ -13,6 +13,7 @@ const SettingsComponent = () => {
 		setUserName,
 		users,
 		user,
+		isLoading,
 	} = useContext(ContextVariable);
 
 	useEffect(() => {
@@ -24,7 +25,15 @@ const SettingsComponent = () => {
 	return (
 		<div>
 			<Container>
-				{currentUserData?.map &&
+				{isLoading ? (
+					<div
+						style={{ height: '30vh' }}
+						className="d-flex justify-content-center align-items-center"
+					>
+						<Spinner animation="border" variant="success" />
+					</div>
+				) : (
+					currentUserData?.map &&
 					currentUserData.map((item) => {
 						return (
 							<div className="p-3 bg-white mt-5 rounded" key={item.userID}>
@@ -93,7 +102,8 @@ const SettingsComponent = () => {
 								</Container>
 							</div>
 						);
-					})}
+					})
+				)}
 			</Container>
 		</div>
 	);

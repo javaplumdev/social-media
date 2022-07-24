@@ -1,12 +1,12 @@
 import React, { useContext, useState } from 'react';
-import { Container } from 'react-bootstrap';
+import { Container, Spinner } from 'react-bootstrap';
 import { BsFillPlusCircleFill } from 'react-icons/bs';
 import { ContextVariable } from '../context/context-config';
 import PickToMessageModal from './PickToMessageModal';
 import { Link } from 'react-router-dom';
 
 const Messages = () => {
-	const { addMessages, messagesData, users, user, openChatBox } =
+	const { addMessages, messagesData, users, user, openChatBox, isLoading } =
 		useContext(ContextVariable);
 
 	const userMessages =
@@ -30,7 +30,14 @@ const Messages = () => {
 				</div>
 
 				<div className="mt-2">
-					{userMessages?.length === 0 ? (
+					{isLoading ? (
+						<div
+							style={{ height: 'auto' }}
+							className="d-flex justify-content-center align-items-center"
+						>
+							<Spinner animation="border" variant="success" />
+						</div>
+					) : userMessages?.length === 0 ? (
 						<p>You don't have messages</p>
 					) : (
 						userMessages?.map &&

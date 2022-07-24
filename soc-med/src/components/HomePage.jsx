@@ -6,6 +6,7 @@ import {
 	FloatingLabel,
 	Form,
 	InputGroup,
+	Spinner,
 } from 'react-bootstrap';
 import { ContextVariable } from '../context/context-config';
 import { v4 as uuidv4 } from 'uuid';
@@ -35,6 +36,7 @@ const HomePage = () => {
 		handleClosePost,
 		handleShowPost,
 		category,
+		isLoading,
 		setCategory,
 	} = useContext(ContextVariable);
 
@@ -44,14 +46,27 @@ const HomePage = () => {
 		return (
 			<div className="bg-white p-3 rounded">
 				<h6>Categories</h6>
-				{categoryData?.slice(0, 3).map((item) => {
-					return <TrendingPage key={item.id} id={item.id} name={item.name} />;
-				})}
-				<Link to="/categories" className="text-dark">
-					<p className="text-center ">
-						<b>See all</b>
-					</p>
-				</Link>
+				{isLoading ? (
+					<div
+						style={{ height: 'auto' }}
+						className="d-flex justify-content-center align-items-center"
+					>
+						<Spinner animation="border" variant="success" />
+					</div>
+				) : (
+					<div>
+						{categoryData?.slice(0, 3).map((item) => {
+							return (
+								<TrendingPage key={item.id} id={item.id} name={item.name} />
+							);
+						})}
+						<Link to="/categories" className="text-dark">
+							<p className="text-center ">
+								<b>See all</b>
+							</p>
+						</Link>
+					</div>
+				)}
 			</div>
 		);
 	};
@@ -211,7 +226,15 @@ const HomePage = () => {
 							<b>What's happening today?</b>
 							<br></br>
 							<small>All posts are public.</small>
-							{feedData?.map &&
+							{isLoading ? (
+								<div
+									style={{ height: '30vh' }}
+									className="d-flex justify-content-center align-items-center"
+								>
+									<Spinner animation="border" variant="success" />
+								</div>
+							) : (
+								feedData?.map &&
 								feedData.map((item) => {
 									return (
 										<PostsComponent
@@ -228,7 +251,9 @@ const HomePage = () => {
 											category={item.category}
 										/>
 									);
-								})}
+								})
+							)}
+
 							<hr></hr>
 							<p className="text-center">End of feed</p>
 						</div>
@@ -239,24 +264,36 @@ const HomePage = () => {
 							{suggestedFriends?.length === 0 && (
 								<p>You've followed everyone</p>
 							)}
-							{suggestedFriends?.map &&
-								suggestedFriends.slice(0, 3).map((item) => {
-									return (
-										<SuggestedFriendsComponent
-											key={item.userID}
-											name={item.name}
-											userID={item.userID}
-											profilePicture={item.profilePicture}
-											followers={item.followers}
-										/>
-									);
-								})}
-							<hr></hr>
-							<Link to="/suggested" className="text-dark">
-								<p className="text-center">
-									<b>See all</b>
-								</p>
-							</Link>
+							{isLoading ? (
+								<div
+									style={{ height: '30vh' }}
+									className="d-flex justify-content-center align-items-center"
+								>
+									<Spinner animation="border" variant="success" />
+								</div>
+							) : (
+								<div>
+									{suggestedFriends?.map &&
+										suggestedFriends.slice(0, 3).map((item) => {
+											return (
+												<SuggestedFriendsComponent
+													key={item.userID}
+													name={item.name}
+													userID={item.userID}
+													profilePicture={item.profilePicture}
+													followers={item.followers}
+												/>
+											);
+										})}
+
+									<hr></hr>
+									<Link to="/suggested" className="text-dark">
+										<p className="text-center">
+											<b>See all</b>
+										</p>
+									</Link>
+								</div>
+							)}
 						</div>
 					</Col>
 				</Row>

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { ContextVariable } from '../context/context-config';
-import { Container } from 'react-bootstrap';
+import { Container, Spinner } from 'react-bootstrap';
 import { BsPersonFill } from 'react-icons/bs';
 import { BsFillChatLeftFill, BsFillHeartFill } from 'react-icons/bs';
 import PostsComponent from './PostsComponent';
@@ -9,8 +9,14 @@ import FollowersModal from './FollowersModal';
 import { useParams } from 'react-router-dom';
 
 const ProfilePage = () => {
-	const { feedData, checkFollowing, checkFollowers, users, setTabName } =
-		useContext(ContextVariable);
+	const {
+		feedData,
+		checkFollowing,
+		checkFollowers,
+		users,
+		setTabName,
+		isLoading,
+	} = useContext(ContextVariable);
 
 	const { id } = useParams();
 
@@ -24,7 +30,15 @@ const ProfilePage = () => {
 	return (
 		<div className="grey pt-3 ">
 			<Container>
-				{profileData?.map &&
+				{isLoading ? (
+					<div
+						style={{ height: '30vh' }}
+						className="d-flex justify-content-center align-items-center"
+					>
+						<Spinner animation="border" variant="success" />
+					</div>
+				) : (
+					profileData?.map &&
 					profileData.map((item) => {
 						return (
 							<div
@@ -76,10 +90,19 @@ const ProfilePage = () => {
 								</div>
 							</div>
 						);
-					})}
+					})
+				)}
 
 				<div className="my-3" style={{ maxWidth: '720px' }}>
-					{feedData?.map &&
+					{isLoading ? (
+						<div
+							style={{ height: '30vh' }}
+							className="d-flex justify-content-center align-items-center"
+						>
+							<Spinner animation="border" variant="success" />
+						</div>
+					) : (
+						feedData?.map &&
 						feedData.map((item) => {
 							if (item.userID === id) {
 								return (
@@ -97,7 +120,8 @@ const ProfilePage = () => {
 									/>
 								);
 							}
-						})}
+						})
+					)}
 				</div>
 			</Container>
 		</div>

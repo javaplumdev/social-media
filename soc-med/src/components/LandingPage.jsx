@@ -97,13 +97,13 @@ const LandingPage = () => {
 						<span>Jump</span> to the topic <br></br>and make - meet friends.
 					</h1>
 					<div className="my-3">
-						<button
+						{/* <button
 							className="google-hero-buttons m-2"
 							onClick={handleGoogleSignIn}
 						>
 							<FcGoogle className="bg-white rounded me-1" size="20" />
 							Sign in with google
-						</button>
+						</button> */}
 
 						<Link to="/login">
 							<button
