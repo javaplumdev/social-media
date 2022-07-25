@@ -52,13 +52,20 @@ const NavbarComponent = () => {
 		yourNotification.filter((item) => item.isViewed === false);
 
 	return (
-		<Navbar bg="light" expand="lg" className="sticky-top">
+		<Navbar bg="white" expand="lg" className="sticky-top">
 			<Container>
 				<Navbar.Brand href="/home" style={{ color: '#77b255' }}>
 					<img src={sillyfroglogo} />
 				</Navbar.Brand>
 				<Navbar.Toggle aria-controls="basic-navbar-nav">
 					<GrMenu />
+					{unread?.length === 0 ? (
+						''
+					) : (
+						<Badge pill bg="danger">
+							{unread?.length}
+						</Badge>
+					)}
 				</Navbar.Toggle>
 
 				<Navbar.Collapse id="basic-navbar-nav">
@@ -82,7 +89,7 @@ const NavbarComponent = () => {
 							{unread?.length === 0 ? (
 								''
 							) : (
-								<Badge pill bg="danger" size="5">
+								<Badge pill bg="danger">
 									{unread?.length}
 								</Badge>
 							)}

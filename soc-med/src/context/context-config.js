@@ -26,7 +26,7 @@ import {
 import { firebaseAuth, db, storage, auth } from '../firebase/firebase-config';
 import { ref, uploadBytes, listAll, getDownloadURL } from 'firebase/storage';
 
-import { createContext, useEffect, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { uuidv4 } from '@firebase/util';
 import { useNavigate } from 'react-router-dom';
@@ -75,6 +75,8 @@ export const ContextFunction = ({ children }) => {
 	const handleShowPost = () => setShowPost(true);
 
 	let navigate = useNavigate();
+
+	let contentRef = React.createRef();
 
 	let currentUserData;
 	let logInType;
@@ -319,7 +321,7 @@ export const ContextFunction = ({ children }) => {
 						});
 					});
 				});
-
+				handleClosePost();
 				toast.success('Posted!');
 			});
 		}
@@ -743,9 +745,19 @@ export const ContextFunction = ({ children }) => {
 		navigate(`/chat/${id}`);
 	};
 
+	function handleKeyUp(event) {
+		//key code for enter
+		if (event.keyCode === 13) {
+			event.preventDefault();
+			event.target.blur();
+		}
+	}
+
 	return (
 		<ContextVariable.Provider
 			value={{
+				contentRef,
+				handleKeyUp,
 				category,
 				setCategory,
 				showPost,

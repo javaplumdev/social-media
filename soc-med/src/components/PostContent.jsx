@@ -59,6 +59,8 @@ const PostContent = () => {
 	filter.addWords('tite', 'puke', 'kantutan', 'otin');
 	filter.removeWords('fuck', 'sex');
 
+	console.log(filteredComments);
+
 	return (
 		<Container className="bg-white mt-3 py-3" style={{ maxWidth: '560px' }}>
 			{userPost?.map &&
@@ -222,8 +224,7 @@ const PostContent = () => {
 																			</Dropdown>
 																		</div>
 																		<small className="overflowWrap mt-3">
-																			{data.comment &&
-																				filter.clean(data.comment)}
+																			{data.comment}
 																		</small>
 																	</div>
 																) : (
@@ -267,8 +268,7 @@ const PostContent = () => {
 																			</Dropdown>
 																		</div>
 																		<small className="overflowWrap">
-																			{data.comment &&
-																				filter.clean(data.comment)}
+																			{data.comment}
 																		</small>
 																	</div>
 																)}

@@ -38,6 +38,8 @@ const HomePage = () => {
 		category,
 		isLoading,
 		setCategory,
+		handleKeyUp,
+		contentRef,
 	} = useContext(ContextVariable);
 
 	const postID = uuidv4();
@@ -142,6 +144,8 @@ const HomePage = () => {
 													style={{ height: '75px' }}
 													value={content}
 													onChange={(e) => setContent(e.target.value)}
+													onKeyUp={handleKeyUp}
+													ref={contentRef}
 												/>
 												<small
 													className={
