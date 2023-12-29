@@ -1,9 +1,7 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { Navbar, Container, Nav } from 'react-bootstrap';
-import heroBg from '../assets/hero-bg.png';
 import ribbitSample from '../assets/ribbit-sample.PNG';
 import sillyfroglogo from '../assets/sillyfroglogo.svg';
-import { FcGoogle } from 'react-icons/fc';
 import { Link, useNavigate } from 'react-router-dom';
 import { ContextVariable } from '../context/context-config';
 import { GrMenu } from 'react-icons/gr';

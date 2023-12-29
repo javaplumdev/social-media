@@ -3,6 +3,10 @@ import { Container, Spinner } from 'react-bootstrap';
 import { ContextVariable } from '../context/context-config';
 import TrendingPage from './TrendingPage';
 
+console.log('this is a sample log');
+
+console.log('this is a ssample log');
+
 const Categories = () => {
 	const { categoryData, isLoading } = useContext(ContextVariable);
 
